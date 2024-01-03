@@ -8,7 +8,8 @@
     "dev": "remix dev --manual -c \"npm run start\"",
     "lint": "eslint --ignore-path .gitignore --cache --cache-location ./node_modules/.cache/eslint .",
     "start": "wrangler pages dev --compatibility-date=2023-06-21 ./public",
-    "typecheck": "tsc"
+    "typecheck": "tsc",
+    "pages:deploy": "npm run build && wrangler pages deploy ./public"
   },
   "dependencies": {
     "@remix-run/cloudflare": "^2.4.1",
