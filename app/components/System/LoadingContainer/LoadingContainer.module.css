@@ -1,0 +1,25 @@
+.root {
+  position: fixed;
+  right: 16px;
+  bottom: 16px;
+  display: flex;
+  opacity: 0.5;
+  background: rgba(128, 128, 128, 0.2);
+  border-radius: 100%;
+  padding: 4px;
+}
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+.root svg {
+  height: 64px;
+  width: 64px;
+  animation: rotate 1s linear infinite;
+}
+
+/*# sourceMappingURL=LoadingContainer.module.css.map */

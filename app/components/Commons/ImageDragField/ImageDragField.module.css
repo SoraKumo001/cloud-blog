@@ -1,0 +1,20 @@
+.root {
+  @apply relative;
+}
+.root.field {
+  @apply min-h-[64px] p-4;
+}
+.root.drag {
+  @apply border-gray-700;
+}
+.root .image {
+  @apply m-auto;
+}
+.root .close {
+  @apply absolute right-0 top-0;
+}
+.root .placeholder {
+  @apply bg-white px-2;
+}
+
+/*# sourceMappingURL=ImageDragField.module.css.map */

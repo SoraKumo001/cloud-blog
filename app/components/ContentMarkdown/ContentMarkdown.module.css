@@ -1,0 +1,125 @@
+.root h2 {
+  margin-left: 0px;
+}
+.root h3 {
+  margin-left: 12px;
+}
+.root h4 {
+  margin-left: 24px;
+}
+.root h5 {
+  margin-left: 36px;
+}
+.root h6 {
+  margin-left: 48px;
+}
+.root h7 {
+  margin-left: 60px;
+}
+.root h1 ~ ul,
+.root h1 ~ p,
+.root h1 ~ table,
+.root h1 ~ pre,
+.root h1 ~ div {
+  margin-left: 0px;
+}
+.root h2 ~ ul,
+.root h2 ~ p,
+.root h2 ~ table,
+.root h2 ~ pre,
+.root h2 ~ div {
+  margin-left: 12px;
+}
+.root h3 ~ ul,
+.root h3 ~ p,
+.root h3 ~ table,
+.root h3 ~ pre,
+.root h3 ~ div {
+  margin-left: 24px;
+}
+.root h4 ~ ul,
+.root h4 ~ p,
+.root h4 ~ table,
+.root h4 ~ pre,
+.root h4 ~ div {
+  margin-left: 36px;
+}
+.root h5 ~ ul,
+.root h5 ~ p,
+.root h5 ~ table,
+.root h5 ~ pre,
+.root h5 ~ div {
+  margin-left: 48px;
+}
+.root h6 ~ ul,
+.root h6 ~ p,
+.root h6 ~ table,
+.root h6 ~ pre,
+.root h6 ~ div {
+  margin-left: 60px;
+}
+.root h7 ~ ul,
+.root h7 ~ p,
+.root h7 ~ table,
+.root h7 ~ pre,
+.root h7 ~ div {
+  margin-left: 72px;
+}
+.root h1.title {
+  text-align: center;
+  border-bottom: #dddddd 1px solid;
+  padding-bottom: 16px;
+  margin-bottom: 32px;
+}
+.root h2:nth-of-type(n + 2) {
+  @apply mt-8;
+}
+.root h2 {
+  @apply border-b-2 pb-1 text-2xl;
+}
+.root h3 {
+  @apply text-xl;
+}
+.root h4 {
+  @apply text-base;
+}
+.root img {
+  margin: 4px 0;
+  border: #dddddd solid 1px;
+  max-width: 80%;
+  height: auto;
+  padding: 2px;
+  border-radius: 2px;
+}
+.root iframe {
+  width: 100%;
+  height: 720px;
+  border: #dddddd;
+  background: #f0f0f0;
+}
+.root .plain {
+  display: inline-block;
+  font-weight: 500;
+  background: #dceef0;
+  border-radius: 2px;
+  padding: 0 4px;
+  margin: 0 1px;
+}
+.root p {
+  @apply min-h-[1em];
+}
+.root em {
+  @apply italic;
+}
+.root li {
+  @apply ml-[1em] list-disc;
+}
+.root a {
+  @apply text-blue-700 underline;
+}
+.root td,
+.root th {
+  @apply border px-2;
+}
+
+/*# sourceMappingURL=ContentMarkdown.module.css.map */

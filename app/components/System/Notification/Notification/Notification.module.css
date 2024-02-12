@@ -1,0 +1,43 @@
+.root {
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  bottom: 32px;
+  width: 100vw;
+  z-index: 10;
+}
+@keyframes slideIn {
+  0% {
+    transform: translateY(64px);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  30% {
+    transform: translateY(0);
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+.root .message {
+  display: flex;
+  align-items: center;
+  min-height: 1em;
+  min-width: 640px;
+  padding: 8px 16px;
+  border-radius: 8px;
+  background: rgba(0, 0, 0, 0.5);
+  color: white;
+  border: #dddddd 1px solid;
+  animation: slideIn 3s 1 forwards;
+}
+.root .message svg {
+  margin-right: 8px;
+}
+
+/*# sourceMappingURL=Notification.module.css.map */

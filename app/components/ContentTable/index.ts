@@ -1,0 +1,1 @@
+export { ContentTable } from "./ContentTable";

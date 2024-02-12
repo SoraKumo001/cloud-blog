@@ -1,0 +1,5 @@
+.root {
+  @apply flex h-full w-full flex-col gap-16 overflow-auto p-8;
+}
+
+/*# sourceMappingURL=Categories.module.css.map */

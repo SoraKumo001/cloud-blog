@@ -1,0 +1,900 @@
+scalar Upload
+
+"""
+The `BigInt` scalar type represents non-fractional signed whole numeric values.
+"""
+scalar BigInt
+
+"""The `Byte` scalar type represents byte value as a Buffer"""
+scalar Bytes
+
+"""
+A date-time string at UTC, such as 2007-12-03T10:15:30Z, compliant with the `date-time` format outlined in section 5.6 of the RFC 3339 profile of the ISO 8601 standard for representation of dates and times using the Gregorian calendar.
+"""
+scalar DateTime
+
+"""
+The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
+"""
+scalar Json
+
+"""
+A field whose value is a hexadecimal: https://en.wikipedia.org/wiki/Hexadecimal.
+"""
+scalar Decimal
+
+enum OrderBy {
+  Asc
+  Desc
+}
+
+input PostFilter {
+  id: StringFilter
+  published: BooleanFilter
+  title: StringFilter
+  content: StringFilter
+  author: UserFilter
+  authorId: StringFilter
+  cardId: StringFilter
+  card: FireStoreFilter
+  categories: CategoryListFilter
+  postFiles: FireStoreListFilter
+  createdAt: DateTimeFilter
+  updatedAt: DateTimeFilter
+  publishedAt: DateTimeFilter
+}
+
+input StringFilter {
+  equals: String
+  in: [String!]
+  notIn: [String!]
+  not: StringFilter
+  is: String
+  isNot: String
+  contains: String
+  startsWith: String
+  endsWith: String
+  lt: String
+  lte: String
+  gt: String
+  gte: String
+}
+
+input BooleanFilter {
+  equals: Boolean
+  in: [Boolean!]
+  notIn: [Boolean!]
+  not: BooleanFilter
+  is: Boolean
+  isNot: Boolean
+}
+
+input UserFilter {
+  id: StringFilter
+  email: StringFilter
+  name: StringFilter
+  post: PostListFilter
+  createdAt: DateTimeFilter
+  updatedAt: DateTimeFilter
+}
+
+input PostListFilter {
+  every: PostFilter
+  some: PostFilter
+  none: PostFilter
+}
+
+input DateTimeFilter {
+  equals: DateTime
+  in: [DateTime!]
+  notIn: [DateTime!]
+  not: DateTimeFilter
+  is: DateTime
+  isNot: DateTime
+  lt: DateTime
+  lte: DateTime
+  gt: DateTime
+  gte: DateTime
+}
+
+input FireStoreFilter {
+  id: StringFilter
+  name: StringFilter
+  mimeType: StringFilter
+  systemIcons: SystemListFilter
+  systemCards: SystemListFilter
+  postCards: PostListFilter
+  posts: PostListFilter
+  createdAt: DateTimeFilter
+  updatedAt: DateTimeFilter
+}
+
+input SystemFilter {
+  id: StringFilter
+  title: StringFilter
+  description: StringFilter
+  iconId: StringFilter
+  icon: FireStoreFilter
+  cardId: StringFilter
+  card: FireStoreFilter
+  createdAt: DateTimeFilter
+  updatedAt: DateTimeFilter
+}
+
+input SystemListFilter {
+  every: SystemFilter
+  some: SystemFilter
+  none: SystemFilter
+}
+
+input CategoryFilter {
+  id: StringFilter
+  name: StringFilter
+  posts: PostListFilter
+  createdAt: DateTimeFilter
+  updatedAt: DateTimeFilter
+}
+
+input CategoryListFilter {
+  every: CategoryFilter
+  some: CategoryFilter
+  none: CategoryFilter
+}
+
+input FireStoreListFilter {
+  every: FireStoreFilter
+  some: FireStoreFilter
+  none: FireStoreFilter
+}
+
+input PostOrderBy {
+  id: OrderBy
+  published: OrderBy
+  title: OrderBy
+  content: OrderBy
+  author: UserOrderBy
+  authorId: OrderBy
+  cardId: OrderBy
+  card: FireStoreOrderBy
+  categories: CategoryOrderBy
+  postFiles: FireStoreOrderBy
+  createdAt: OrderBy
+  updatedAt: OrderBy
+  publishedAt: OrderBy
+}
+
+input UserOrderBy {
+  id: OrderBy
+  email: OrderBy
+  name: OrderBy
+  post: PostOrderBy
+  createdAt: OrderBy
+  updatedAt: OrderBy
+}
+
+input FireStoreOrderBy {
+  id: OrderBy
+  name: OrderBy
+  mimeType: OrderBy
+  systemIcons: SystemOrderBy
+  systemCards: SystemOrderBy
+  postCards: PostOrderBy
+  posts: PostOrderBy
+  createdAt: OrderBy
+  updatedAt: OrderBy
+}
+
+input SystemOrderBy {
+  id: OrderBy
+  title: OrderBy
+  description: OrderBy
+  iconId: OrderBy
+  icon: FireStoreOrderBy
+  cardId: OrderBy
+  card: FireStoreOrderBy
+  createdAt: OrderBy
+  updatedAt: OrderBy
+}
+
+input CategoryOrderBy {
+  id: OrderBy
+  name: OrderBy
+  posts: PostOrderBy
+  createdAt: OrderBy
+  updatedAt: OrderBy
+}
+
+input UserUniqueFilter {
+  id: String
+  email: String
+}
+
+input PostUniqueFilter {
+  id: String
+}
+
+input CategoryUniqueFilter {
+  id: String
+}
+
+input SystemUniqueFilter {
+  id: String
+}
+
+input FireStoreUniqueFilter {
+  id: String
+}
+
+input UserCreateInput {
+  id: String
+  email: String!
+  name: String
+  post: UserCreatePostRelationInput
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
+input UserCreatePostRelationInput {
+  create: [PostCreateInput!]
+  connect: [PostUniqueFilter!]
+}
+
+input PostCreateInput {
+  id: String
+  published: Boolean
+  title: String
+  content: String
+  card: PostCreateCardRelationInput
+  categories: PostCreateCategoriesRelationInput
+  postFiles: PostCreatePostFilesRelationInput
+  createdAt: DateTime
+  updatedAt: DateTime
+  publishedAt: DateTime
+}
+
+input PostCreateCardRelationInput {
+  create: FireStoreCreateInput
+  connect: FireStoreUniqueFilter
+}
+
+input FireStoreCreateInput {
+  id: String!
+  name: String!
+  mimeType: String!
+  systemIcons: FireStoreCreateSystemIconsRelationInput
+  systemCards: FireStoreCreateSystemCardsRelationInput
+  posts: FireStoreCreatePostsRelationInput
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
+input FireStoreCreateSystemIconsRelationInput {
+  create: [SystemCreateInput!]
+  connect: [SystemUniqueFilter!]
+}
+
+input SystemCreateInput {
+  id: String!
+  title: String!
+  description: String!
+  card: SystemCreateCardRelationInput
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
+input SystemCreateCardRelationInput {
+  create: FireStoreCreateInput
+  connect: FireStoreUniqueFilter
+}
+
+input FireStoreCreateSystemCardsRelationInput {
+  create: [SystemCreateInput!]
+  connect: [SystemUniqueFilter!]
+}
+
+input FireStoreCreatePostsRelationInput {
+  create: [PostCreateInput!]
+  connect: [PostUniqueFilter!]
+}
+
+input PostCreateCategoriesRelationInput {
+  create: [CategoryCreateInput!]
+  connect: [CategoryUniqueFilter!]
+}
+
+input CategoryCreateInput {
+  id: String
+  name: String!
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
+input PostCreatePostFilesRelationInput {
+  create: [FireStoreCreateInput!]
+  connect: [FireStoreUniqueFilter!]
+}
+
+input UserUpdateInput {
+  id: String
+  email: String
+  name: String
+  post: UserUpdatePostRelationInput
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
+input UserUpdatePostRelationInput {
+  create: [PostCreateInput!]
+  set: [PostUniqueFilter!]
+  disconnect: [PostUniqueFilter!]
+  delete: [PostUniqueFilter!]
+  connect: [PostUniqueFilter!]
+  update: [UserUpdatePostRelationInputUpdate!]
+  updateMany: [UserUpdatePostRelationInputUpdateMany!]
+  deleteMany: [PostWithoutAuthorFilter!]
+}
+
+input PostUpdateWithoutAuthorWithoutAuthorInput {
+  id: String
+  published: Boolean
+  title: String
+  content: String
+  card: PostUpdateCardRelationInput
+  categories: PostUpdateCategoriesRelationInput
+  postFiles: PostUpdatePostFilesRelationInput
+  createdAt: DateTime
+  updatedAt: DateTime
+  publishedAt: DateTime
+}
+
+input PostUpdateCardRelationInput {
+  create: FireStoreCreateInput
+  update: FireStoreUpdateWithoutPostCardsInput
+  connect: FireStoreUniqueFilter
+  disconnect: Boolean
+  delete: Boolean
+}
+
+input FireStoreUpdateWithoutPostCardsInput {
+  id: String
+  name: String
+  mimeType: String
+  systemIcons: FireStoreUpdateSystemIconsRelationInput
+  systemCards: FireStoreUpdateSystemCardsRelationInput
+  posts: FireStoreUpdatePostsRelationInput
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
+input FireStoreUpdateSystemIconsRelationInput {
+  create: [SystemCreateInput!]
+  set: [SystemUniqueFilter!]
+  disconnect: [SystemUniqueFilter!]
+  delete: [SystemUniqueFilter!]
+  connect: [SystemUniqueFilter!]
+  update: [FireStoreUpdateSystemIconsRelationInputUpdate!]
+  updateMany: [FireStoreUpdateSystemIconsRelationInputUpdateMany!]
+  deleteMany: [SystemWithoutIconFilter!]
+}
+
+input SystemUpdateWithoutIconInput {
+  id: String
+  title: String
+  description: String
+  card: SystemUpdateCardRelationInput
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
+input SystemUpdateCardRelationInput {
+  create: FireStoreCreateInput
+  update: FireStoreUpdateWithoutSystemCardsInput
+  connect: FireStoreUniqueFilter
+  disconnect: Boolean
+  delete: Boolean
+}
+
+input FireStoreUpdateWithoutSystemCardsInput {
+  id: String
+  name: String
+  mimeType: String
+  systemIcons: FireStoreUpdateSystemIconsRelationInput
+  postCards: FireStoreUpdatePostCardsRelationInput
+  posts: FireStoreUpdatePostsRelationInput
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
+input FireStoreUpdatePostCardsRelationInput {
+  create: [PostCreateInput!]
+  set: [PostUniqueFilter!]
+  disconnect: [PostUniqueFilter!]
+  delete: [PostUniqueFilter!]
+  connect: [PostUniqueFilter!]
+  update: [FireStoreUpdatePostCardsRelationInputUpdate!]
+  updateMany: [FireStoreUpdatePostCardsRelationInputUpdateMany!]
+  deleteMany: [PostWithoutCardFilter!]
+}
+
+input PostUpdateWithoutAuthorWithoutCardInput {
+  id: String
+  published: Boolean
+  title: String
+  content: String
+  categories: PostUpdateCategoriesRelationInput
+  postFiles: PostUpdatePostFilesRelationInput
+  createdAt: DateTime
+  updatedAt: DateTime
+  publishedAt: DateTime
+}
+
+input PostUpdateCategoriesRelationInput {
+  create: [CategoryCreateInput!]
+  set: [CategoryUniqueFilter!]
+  disconnect: [CategoryUniqueFilter!]
+  delete: [CategoryUniqueFilter!]
+  connect: [CategoryUniqueFilter!]
+  update: [PostUpdateCategoriesRelationInputUpdate!]
+  updateMany: [PostUpdateCategoriesRelationInputUpdateMany!]
+  deleteMany: [CategoryWithoutPostsFilter!]
+}
+
+input CategoryUpdateWithoutPostsInput {
+  id: String
+  name: String
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
+input CategoryWithoutPostsFilter {
+  id: StringFilter
+  name: StringFilter
+  createdAt: DateTimeFilter
+  updatedAt: DateTimeFilter
+}
+
+input PostUpdateCategoriesRelationInputUpdate {
+  where: CategoryUniqueFilter
+  data: CategoryUpdateWithoutPostsInput
+}
+
+input PostUpdateCategoriesRelationInputUpdateMany {
+  where: CategoryWithoutPostsFilter
+  data: CategoryUpdateWithoutPostsInput
+}
+
+input PostUpdatePostFilesRelationInput {
+  create: [FireStoreCreateInput!]
+  set: [FireStoreUniqueFilter!]
+  disconnect: [FireStoreUniqueFilter!]
+  delete: [FireStoreUniqueFilter!]
+  connect: [FireStoreUniqueFilter!]
+  update: [PostUpdatePostFilesRelationInputUpdate!]
+  updateMany: [PostUpdatePostFilesRelationInputUpdateMany!]
+  deleteMany: [FireStoreWithoutPostsFilter!]
+}
+
+input FireStoreUpdateWithoutPostsInput {
+  id: String
+  name: String
+  mimeType: String
+  systemIcons: FireStoreUpdateSystemIconsRelationInput
+  systemCards: FireStoreUpdateSystemCardsRelationInput
+  postCards: FireStoreUpdatePostCardsRelationInput
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
+input FireStoreUpdateSystemCardsRelationInput {
+  create: [SystemCreateInput!]
+  set: [SystemUniqueFilter!]
+  disconnect: [SystemUniqueFilter!]
+  delete: [SystemUniqueFilter!]
+  connect: [SystemUniqueFilter!]
+  update: [FireStoreUpdateSystemCardsRelationInputUpdate!]
+  updateMany: [FireStoreUpdateSystemCardsRelationInputUpdateMany!]
+  deleteMany: [SystemWithoutCardFilter!]
+}
+
+input SystemUpdateWithoutCardInput {
+  id: String
+  title: String
+  description: String
+  icon: SystemUpdateIconRelationInput
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
+input SystemUpdateIconRelationInput {
+  create: FireStoreCreateInput
+  update: FireStoreUpdateWithoutSystemIconsInput
+  connect: FireStoreUniqueFilter
+  disconnect: Boolean
+  delete: Boolean
+}
+
+input FireStoreUpdateWithoutSystemIconsInput {
+  id: String
+  name: String
+  mimeType: String
+  systemCards: FireStoreUpdateSystemCardsRelationInput
+  postCards: FireStoreUpdatePostCardsRelationInput
+  posts: FireStoreUpdatePostsRelationInput
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
+input FireStoreUpdatePostsRelationInput {
+  create: [PostCreateInput!]
+  set: [PostUniqueFilter!]
+  disconnect: [PostUniqueFilter!]
+  delete: [PostUniqueFilter!]
+  connect: [PostUniqueFilter!]
+  update: [FireStoreUpdatePostsRelationInputUpdate!]
+  updateMany: [FireStoreUpdatePostsRelationInputUpdateMany!]
+  deleteMany: [PostWithoutPostFilesFilter!]
+}
+
+input PostUpdateWithoutAuthorWithoutPostFilesInput {
+  id: String
+  published: Boolean
+  title: String
+  content: String
+  card: PostUpdateCardRelationInput
+  categories: PostUpdateCategoriesRelationInput
+  createdAt: DateTime
+  updatedAt: DateTime
+  publishedAt: DateTime
+}
+
+input PostWithoutPostFilesFilter {
+  id: StringFilter
+  published: BooleanFilter
+  title: StringFilter
+  content: StringFilter
+  author: UserFilter
+  authorId: StringFilter
+  cardId: StringFilter
+  card: FireStoreFilter
+  categories: CategoryListFilter
+  createdAt: DateTimeFilter
+  updatedAt: DateTimeFilter
+  publishedAt: DateTimeFilter
+}
+
+input FireStoreUpdatePostsRelationInputUpdate {
+  where: PostUniqueFilter
+  data: PostUpdateWithoutAuthorWithoutPostFilesInput
+}
+
+input FireStoreUpdatePostsRelationInputUpdateMany {
+  where: PostWithoutPostFilesFilter
+  data: PostUpdateWithoutAuthorWithoutPostFilesInput
+}
+
+input SystemWithoutCardFilter {
+  id: StringFilter
+  title: StringFilter
+  description: StringFilter
+  iconId: StringFilter
+  icon: FireStoreFilter
+  createdAt: DateTimeFilter
+  updatedAt: DateTimeFilter
+}
+
+input FireStoreUpdateSystemCardsRelationInputUpdate {
+  where: SystemUniqueFilter
+  data: SystemUpdateWithoutCardInput
+}
+
+input FireStoreUpdateSystemCardsRelationInputUpdateMany {
+  where: SystemWithoutCardFilter
+  data: SystemUpdateWithoutCardInput
+}
+
+input FireStoreWithoutPostsFilter {
+  id: StringFilter
+  name: StringFilter
+  mimeType: StringFilter
+  systemIcons: SystemListFilter
+  systemCards: SystemListFilter
+  postCards: PostListFilter
+  createdAt: DateTimeFilter
+  updatedAt: DateTimeFilter
+}
+
+input PostUpdatePostFilesRelationInputUpdate {
+  where: FireStoreUniqueFilter
+  data: FireStoreUpdateWithoutPostsInput
+}
+
+input PostUpdatePostFilesRelationInputUpdateMany {
+  where: FireStoreWithoutPostsFilter
+  data: FireStoreUpdateWithoutPostsInput
+}
+
+input PostWithoutCardFilter {
+  id: StringFilter
+  published: BooleanFilter
+  title: StringFilter
+  content: StringFilter
+  author: UserFilter
+  authorId: StringFilter
+  categories: CategoryListFilter
+  postFiles: FireStoreListFilter
+  createdAt: DateTimeFilter
+  updatedAt: DateTimeFilter
+  publishedAt: DateTimeFilter
+}
+
+input FireStoreUpdatePostCardsRelationInputUpdate {
+  where: PostUniqueFilter
+  data: PostUpdateWithoutAuthorWithoutCardInput
+}
+
+input FireStoreUpdatePostCardsRelationInputUpdateMany {
+  where: PostWithoutCardFilter
+  data: PostUpdateWithoutAuthorWithoutCardInput
+}
+
+input SystemWithoutIconFilter {
+  id: StringFilter
+  title: StringFilter
+  description: StringFilter
+  cardId: StringFilter
+  card: FireStoreFilter
+  createdAt: DateTimeFilter
+  updatedAt: DateTimeFilter
+}
+
+input FireStoreUpdateSystemIconsRelationInputUpdate {
+  where: SystemUniqueFilter
+  data: SystemUpdateWithoutIconInput
+}
+
+input FireStoreUpdateSystemIconsRelationInputUpdateMany {
+  where: SystemWithoutIconFilter
+  data: SystemUpdateWithoutIconInput
+}
+
+input PostWithoutAuthorFilter {
+  id: StringFilter
+  published: BooleanFilter
+  title: StringFilter
+  content: StringFilter
+  cardId: StringFilter
+  card: FireStoreFilter
+  categories: CategoryListFilter
+  postFiles: FireStoreListFilter
+  createdAt: DateTimeFilter
+  updatedAt: DateTimeFilter
+  publishedAt: DateTimeFilter
+}
+
+input UserUpdatePostRelationInputUpdate {
+  where: PostUniqueFilter
+  data: PostUpdateWithoutAuthorWithoutAuthorInput
+}
+
+input UserUpdatePostRelationInputUpdateMany {
+  where: PostWithoutAuthorFilter
+  data: PostUpdateWithoutAuthorWithoutAuthorInput
+}
+
+input PostUpdateWithoutAuthorInput {
+  id: String
+  published: Boolean
+  title: String
+  content: String
+  card: PostUpdateCardRelationInput
+  categories: PostUpdateCategoriesRelationInput
+  postFiles: PostUpdatePostFilesRelationInput
+  createdAt: DateTime
+  updatedAt: DateTime
+  publishedAt: DateTime
+}
+
+input CategoryUpdateInput {
+  id: String
+  name: String
+  posts: CategoryUpdatePostsRelationInput
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
+input CategoryUpdatePostsRelationInput {
+  create: [PostCreateInput!]
+  set: [PostUniqueFilter!]
+  disconnect: [PostUniqueFilter!]
+  delete: [PostUniqueFilter!]
+  connect: [PostUniqueFilter!]
+  update: [CategoryUpdatePostsRelationInputUpdate!]
+  updateMany: [CategoryUpdatePostsRelationInputUpdateMany!]
+  deleteMany: [PostWithoutCategoriesFilter!]
+}
+
+input PostUpdateWithoutAuthorWithoutCategoriesInput {
+  id: String
+  published: Boolean
+  title: String
+  content: String
+  card: PostUpdateCardRelationInput
+  postFiles: PostUpdatePostFilesRelationInput
+  createdAt: DateTime
+  updatedAt: DateTime
+  publishedAt: DateTime
+}
+
+input PostWithoutCategoriesFilter {
+  id: StringFilter
+  published: BooleanFilter
+  title: StringFilter
+  content: StringFilter
+  author: UserFilter
+  authorId: StringFilter
+  cardId: StringFilter
+  card: FireStoreFilter
+  postFiles: FireStoreListFilter
+  createdAt: DateTimeFilter
+  updatedAt: DateTimeFilter
+  publishedAt: DateTimeFilter
+}
+
+input CategoryUpdatePostsRelationInputUpdate {
+  where: PostUniqueFilter
+  data: PostUpdateWithoutAuthorWithoutCategoriesInput
+}
+
+input CategoryUpdatePostsRelationInputUpdateMany {
+  where: PostWithoutCategoriesFilter
+  data: PostUpdateWithoutAuthorWithoutCategoriesInput
+}
+
+input SystemUpdateInput {
+  id: String
+  title: String
+  description: String
+  icon: SystemUpdateIconRelationInput
+  card: SystemUpdateCardRelationInput
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
+input FireStoreUpdateInput {
+  id: String
+  name: String
+  mimeType: String
+  systemIcons: FireStoreUpdateSystemIconsRelationInput
+  systemCards: FireStoreUpdateSystemCardsRelationInput
+  postCards: FireStoreUpdatePostCardsRelationInput
+  posts: FireStoreUpdatePostsRelationInput
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
+type User {
+  id: ID!
+  email: String!
+  name: String!
+  post(filter: PostFilter, orderBy: [PostOrderBy!], limit: Int, offset: Int): [Post!]!
+  postCount(filter: PostFilter): Int!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+type Post {
+  id: ID!
+  published: Boolean!
+  title: String!
+  content: String!
+  author: User!
+  authorId: String!
+  cardId: String
+  card: FireStore
+  categories(filter: CategoryFilter, orderBy: [CategoryOrderBy!], limit: Int, offset: Int): [Category!]!
+  categoriesCount(filter: CategoryFilter): Int!
+  postFiles(filter: FireStoreFilter, orderBy: [FireStoreOrderBy!], limit: Int, offset: Int): [FireStore!]!
+  postFilesCount(filter: FireStoreFilter): Int!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  publishedAt: DateTime!
+}
+
+type Category {
+  id: ID!
+  name: String!
+  posts(filter: PostFilter, orderBy: [PostOrderBy!], limit: Int, offset: Int): [Post!]!
+  postsCount(filter: PostFilter): Int!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+type System {
+  id: ID!
+  title: String!
+  description: String!
+  iconId: String
+  icon: FireStore
+  cardId: String
+  card: FireStore
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+type FireStore {
+  id: ID!
+  name: String!
+  mimeType: String!
+  systemIcons(filter: SystemFilter, orderBy: [SystemOrderBy!], limit: Int, offset: Int): [System!]!
+  systemIconsCount(filter: SystemFilter): Int!
+  systemCards(filter: SystemFilter, orderBy: [SystemOrderBy!], limit: Int, offset: Int): [System!]!
+  systemCardsCount(filter: SystemFilter): Int!
+  postCards(filter: PostFilter, orderBy: [PostOrderBy!], limit: Int, offset: Int): [Post!]!
+  postCardsCount(filter: PostFilter): Int!
+  posts(filter: PostFilter, orderBy: [PostOrderBy!], limit: Int, offset: Int): [Post!]!
+  postsCount(filter: PostFilter): Int!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+type Mutation {
+  signIn(token: String): User
+  uploadSystemIcon(file: Upload!): FireStore!
+  uploadPostIcon(postId: String!, file: Upload): FireStore!
+  uploadPostImage(postId: String!, file: Upload!): FireStore!
+  normalizationPostFiles(postId: String!, removeAll: Boolean): Boolean!
+  restore(file: Upload!): Boolean!
+  createOneUser(input: UserCreateInput!): User!
+  createOnePost(input: PostCreateInput!): Post!
+  createOneCategory(input: CategoryCreateInput!): Category!
+  createOneSystem(input: SystemCreateInput!): System!
+  createOneFireStore(input: FireStoreCreateInput!): FireStore!
+  createManyUser(input: [UserCreateInput!]!): Int!
+  createManyPost(input: [PostCreateInput!]!): Int!
+  createManyCategory(input: [CategoryCreateInput!]!): Int!
+  createManySystem(input: [SystemCreateInput!]!): Int!
+  createManyFireStore(input: [FireStoreCreateInput!]!): Int!
+  updateOneUser(where: UserUniqueFilter!, data: UserUpdateInput!): User!
+  updateOnePost(where: PostUniqueFilter!, data: PostUpdateWithoutAuthorInput!): Post!
+  updateOneCategory(where: CategoryUniqueFilter!, data: CategoryUpdateInput!): Category!
+  updateOneSystem(where: SystemUniqueFilter!, data: SystemUpdateInput!): System!
+  updateOneFireStore(where: FireStoreUniqueFilter!, data: FireStoreUpdateInput!): FireStore!
+  updateManyUser(where: UserFilter!, data: UserUpdateInput!): Int!
+  updateManyPost(where: PostFilter!, data: PostUpdateWithoutAuthorWithoutAuthorInput!): Int!
+  updateManyCategory(where: CategoryFilter!, data: CategoryUpdateInput!): Int!
+  updateManySystem(where: SystemFilter!, data: SystemUpdateInput!): Int!
+  updateManyFireStore(where: FireStoreFilter!, data: FireStoreUpdateInput!): Int!
+  deleteOneUser(where: UserUniqueFilter!): User!
+  deleteOnePost(where: PostUniqueFilter!): Post!
+  deleteOneCategory(where: CategoryUniqueFilter!): Category!
+  deleteOneSystem(where: SystemUniqueFilter!): System!
+  deleteOneFireStore(where: FireStoreUniqueFilter!): FireStore!
+  deleteManyUser(where: UserFilter!): Int!
+  deleteManyPost(where: PostFilter!): Int!
+  deleteManyCategory(where: CategoryFilter!): Int!
+  deleteManySystem(where: SystemFilter!): Int!
+  deleteManyFireStore(where: FireStoreFilter!): Int!
+}
+
+type Query {
+  countUser(filter: UserFilter): Int!
+  countPost(filter: PostFilter): Int!
+  countCategory(filter: CategoryFilter): Int!
+  countSystem(filter: SystemFilter): Int!
+  countFireStore(filter: FireStoreFilter): Int!
+  findUniqueUser(filter: UserUniqueFilter!): User!
+  findUniquePost(filter: PostUniqueFilter!): Post!
+  findUniqueCategory(filter: CategoryUniqueFilter!): Category!
+  findUniqueSystem(filter: SystemUniqueFilter!): System!
+  findUniqueFireStore(filter: FireStoreUniqueFilter!): FireStore!
+  findFirstUser(filter: UserFilter, orderBy: [UserOrderBy!]): User
+  findFirstPost(filter: PostFilter, orderBy: [PostOrderBy!]): Post
+  findFirstCategory(filter: CategoryFilter, orderBy: [CategoryOrderBy!]): Category
+  findFirstSystem(filter: SystemFilter, orderBy: [SystemOrderBy!]): System
+  findFirstFireStore(filter: FireStoreFilter, orderBy: [FireStoreOrderBy!]): FireStore
+  findManyUser(filter: UserFilter, orderBy: [UserOrderBy!], limit: Int, offset: Int): [User!]!
+  findManyPost(filter: PostFilter, orderBy: [PostOrderBy!], limit: Int, offset: Int): [Post!]!
+  findManyCategory(filter: CategoryFilter, orderBy: [CategoryOrderBy!], limit: Int, offset: Int): [Category!]!
+  findManySystem(filter: SystemFilter, orderBy: [SystemOrderBy!], limit: Int, offset: Int): [System!]!
+  findManyFireStore(filter: FireStoreFilter, orderBy: [FireStoreOrderBy!], limit: Int, offset: Int): [FireStore!]!
+}

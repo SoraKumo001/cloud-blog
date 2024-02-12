@@ -1,0 +1,17 @@
+.root {
+  @apply mb-1 shadow;
+}
+.root .row {
+  @apply flex flex-wrap gap-2 p-2 items-center;
+}
+.root .categories {
+  @apply w-40;
+}
+.root .categories :global(.MuiOutlinedInput-notchedOutline) {
+  @apply hidden;
+}
+.root .invisible {
+  @apply hidden;
+}
+
+/*# sourceMappingURL=ToolBar.module.css.map */

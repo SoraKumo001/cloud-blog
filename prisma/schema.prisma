@@ -1,0 +1,80 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_DATABASE_URL")
+}
+
+generator pothos {
+  provider = "prisma-pothos-types"
+  output   = "../app/generated/pothos-types.ts"
+}
+
+/// @pothos-generator executable {include:["mutation"],authority:["USER"]}
+model User {
+  id        String   @id @default(uuid())
+  email     String   @unique
+  name      String   @default("User")
+  post      Post[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+/// @pothos-generator where {include:["query"],where:{},authority:["USER"]}
+/// @pothos-generator where {include:["query"],where:{published:true}}
+/// @pothos-generator executable {include:["mutation"],authority:["USER"]}
+/// @pothos-generator input-data {data:{authorId:"%%USER%%"}}
+/// @pothos-generator input-field {include:["mutation"],fields:{exclude:["author"]}}
+model Post {
+  id          String      @id @default(uuid())
+  published   Boolean     @default(false)
+  title       String      @default("New Post")
+  content     String      @default("")
+  author      User        @relation(fields: [authorId], references: [id])
+  authorId    String
+  cardId      String?
+  card        FireStore?  @relation("postCards", fields: [cardId], references: [id])
+  categories  Category[]
+  postFiles   FireStore[]
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+  publishedAt DateTime    @default(now())
+}
+
+/// @pothos-generator executable {include:["mutation"],authority:["USER"]}
+model Category {
+  id        String   @id @default(uuid())
+  name      String
+  posts     Post[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+/// @pothos-generator executable {include:["mutation"],authority:["USER"]}
+model System {
+  id          String     @id
+  title       String
+  description String
+  iconId      String?
+  icon        FireStore? @relation("systemIcons", fields: [iconId], references: [id])
+  cardId      String?
+  card        FireStore? @relation("systemCards", fields: [cardId], references: [id])
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+}
+
+/// @pothos-generator executable {include:["mutation"],authority:["USER"]}
+model FireStore {
+  id          String   @id
+  name        String
+  mimeType    String
+  systemIcons System[] @relation("systemIcons")
+  systemCards System[] @relation("systemCards")
+  postCards   Post[]   @relation("postCards")
+  posts       Post[]
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}

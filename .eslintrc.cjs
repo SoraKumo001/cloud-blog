@@ -22,7 +22,7 @@ module.exports = {
 
   // Base config
   extends: ["eslint:recommended"],
-
+  ignorePatterns: ["app/generated/*"],
   overrides: [
     // React
     {
@@ -32,7 +32,6 @@ module.exports = {
         "plugin:react/recommended",
         "plugin:react/jsx-runtime",
         "plugin:react-hooks/recommended",
-        "plugin:jsx-a11y/recommended",
       ],
       settings: {
         react: {
@@ -67,6 +66,37 @@ module.exports = {
         "plugin:import/recommended",
         "plugin:import/typescript",
       ],
+      rules: {
+        "import/order": [
+          "warn",
+          {
+            groups: [
+              "builtin",
+              "external",
+              "internal",
+              ["parent", "sibling"],
+              "object",
+              "type",
+              "index",
+            ],
+            pathGroupsExcludedImportTypes: ["builtin"],
+            alphabetize: {
+              order: "asc",
+              caseInsensitive: true,
+            },
+          },
+        ],
+        "import/no-named-as-default": 0,
+        "import/no-unresolved": 0,
+        "import/namespace": 0,
+        "import/no-duplicates": 0,
+        "import/default": 0,
+        "import/no-named-as-default-member": 0,
+        "react/jsx-no-target-blank": 0,
+        "no-empty": 0,
+        "no-empty-pattern": 0,
+        "no-unsafe-optional-chaining": 0,
+      },
     },
 
     // Node
@@ -77,4 +107,5 @@ module.exports = {
       },
     },
   ],
+  rules: {},
 };

@@ -1,0 +1,14 @@
+.root {
+  @apply h-full overflow-auto;
+}
+.root h1 {
+  @apply mb-8 border-b text-xl;
+}
+.root .items {
+  @apply grid gap-4;
+}
+.root .link {
+  @apply block rounded border p-4;
+}
+
+/*# sourceMappingURL=Backup.module.css.map */

@@ -1,0 +1,11 @@
+.root {
+  @apply flex h-full flex-col;
+}
+.root .body {
+  @apply flex h-full flex-1 overflow-hidden;
+}
+.root .body > * {
+  @apply flex-1;
+}
+
+/*# sourceMappingURL=Editor.module.css.map */

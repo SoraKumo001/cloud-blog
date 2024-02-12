@@ -1,0 +1,11 @@
+{
+  "schema": "codegen/schema.graphql",
+  "overwrite": true,
+  "documents": "codegen/*.graphql",
+  "generates": {
+    "app/generated/graphql.ts": {
+      "plugins": ["typescript", "typescript-operations", "typescript-urql"],
+      "config": { "scalars": { "DateTime": "string" } }
+    }
+  }
+}

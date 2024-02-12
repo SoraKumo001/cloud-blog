@@ -1,0 +1,11 @@
+.root {
+  @apply h-full overflow-y-auto;
+}
+.root h1 {
+  @apply mb-4 border-b text-xl;
+}
+.root .favicon {
+  @apply h-16 rounded border p-4;
+}
+
+/*# sourceMappingURL=SiteSetting.module.css.map */

@@ -1,0 +1,11 @@
+.root {
+  @apply flex h-full w-full border;
+}
+.root .separator {
+  @apply flex h-full w-3 cursor-ew-resize flex-col items-center gap-y-2 overflow-hidden bg-slate-300 pt-4;
+}
+.root .client {
+  @apply h-full overflow-hidden;
+}
+
+/*# sourceMappingURL=Separator.module.css.map */

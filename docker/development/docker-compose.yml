@@ -1,0 +1,15 @@
+version: '3.7'
+services:
+  postgres:
+    container_name: mdblog-postgres
+    image: postgres:alpine
+    environment:
+      POSTGRES_DB: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+    volumes:
+      - mdblog-vol:/var/lib/postgresql/data
+    ports:
+      - '15432:5432'
+volumes:
+  mdblog-vol:
