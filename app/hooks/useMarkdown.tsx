@@ -14,8 +14,13 @@ import {
 const FirebaseImage = ({
   src,
   alt,
+  edit,
   ...props
-}: { src: string; alt?: string } & React.HTMLAttributes<HTMLElement> &
+}: {
+  src: string;
+  alt?: string;
+  edit?: boolean;
+} & React.HTMLAttributes<HTMLElement> &
   React.Attributes) => {
   const getFirebaseUrl = useFirebaseUrl();
   const url = src.match(/https?:/) ? src : getFirebaseUrl(src);
@@ -23,7 +28,14 @@ const FirebaseImage = ({
   try {
     const styleString = alt?.match(/^{.*}$/);
     const style = styleString ? JSON.parse(alt ?? "") : {};
-    return (
+    return edit ? (
+      <img
+        src={url}
+        width={style.width && parseInt(style.width)}
+        height={style.height && parseInt(style.height)}
+        alt={alt}
+      />
+    ) : (
       <Image
         src={url}
         width={style.width && parseInt(style.width)}
@@ -35,7 +47,7 @@ const FirebaseImage = ({
   return <img {...props} src={src} alt={alt} />;
 };
 
-const components: MarkdownComponents = {
+const components = (edit?: boolean): MarkdownComponents => ({
   heading: ({ node, children, property, props }) => {
     const Tag: ElementType = ("h" + (node.depth + 1)) as "h1";
     const index = (property as { headerCount?: number }).headerCount ?? 0;
@@ -76,6 +88,7 @@ const components: MarkdownComponents = {
         key={props.key}
         src={node.url}
         alt={node.alt ?? ""}
+        edit={edit}
       />
     );
   },
@@ -99,10 +112,10 @@ const components: MarkdownComponents = {
       </div>
     );
   },
-};
+});
 
-export const useMarkdown = (value?: string) => {
-  const processor = useMemo(() => createProcessor(components), []);
+export const useMarkdown = (value?: string, edit?: boolean) => {
+  const processor = useMemo(() => createProcessor(components(edit)), [edit]);
   return useMemo(() => {
     if (value === undefined) return [];
     return processor(value) as unknown as [ReactNode, VNode];

@@ -8,10 +8,10 @@
   @apply border-gray-700;
 }
 .root .image {
-  @apply m-auto;
+  @apply m-auto max-w-64 max-h-64;
 }
 .root .close {
-  @apply absolute right-0 top-0;
+  @apply absolute right-6 top-6 bg-opacity-50 bg-white p-2 border-gray-400;
 }
 .root .placeholder {
   @apply bg-white px-2;

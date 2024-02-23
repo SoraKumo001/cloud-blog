@@ -1,11 +1,19 @@
 import { getStorage } from "firebase-storage";
 
-export const storage = () => {
-  const projectId = process.env.GOOGLE_PROJECT_ID!;
+export const storage = ({
+  projectId,
+  privateKey,
+  clientEmail,
+}: {
+  projectId: string;
+  privateKey: string;
+  clientEmail: string;
+}) => {
   const bucket = `${projectId}.appspot.com`;
   return getStorage({
-    privateKey: process.env.GOOGLE_PRIVATE_KEY!,
-    clientEmail: process.env.GOOGLE_CLIENT_EMAIL!,
+    privateKey: privateKey.replace(/\\n/g, "\n"),
+    clientEmail,
     bucket,
+    parallels: 1,
   });
 };

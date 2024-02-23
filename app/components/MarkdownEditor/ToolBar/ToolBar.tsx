@@ -21,7 +21,7 @@ import {
 import { useFirebaseUrl } from "@/hooks/useFirebaseUrl";
 import { useLoading } from "@/hooks/useLoading";
 import { classNames } from "@/libs/client/classNames";
-import { convertWebp } from "@/libs/client/webp";
+import { convertImage } from "@/libs/client/convertImage";
 import styled from "./ToolBar.module.css";
 import type { FormInput } from "../Editor/Editor";
 interface Props {
@@ -180,7 +180,7 @@ export const ToolBar: FC<Props> = ({ post, control, onCard }) => {
           placeholder="Eye catch"
           onChange={(blob) => {
             if (blob)
-              convertWebp(blob).then((b) =>
+              convertImage(blob, 256, 256).then((b) =>
                 onCard(b && b.size < blob.size ? b : blob)
               );
             else onCard(null);

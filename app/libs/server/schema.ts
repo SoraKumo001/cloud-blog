@@ -62,7 +62,12 @@ export const schema = () => {
             },
             resolve: async (_query, _root, { file }, { prisma, user }) => {
               if (!user) throw new Error("Unauthorized");
-              const firestore = await uploadFile(file);
+              const firestore = await uploadFile({
+                projectId: env.GOOGLE_PROJECT_ID ?? "",
+                clientEmail: env.GOOGLE_CLIENT_EMAIL ?? "",
+                privateKey: env.GOOGLE_PRIVATE_KEY ?? "",
+                binary: file,
+              });
               const system = await prisma.system.update({
                 select: { icon: true },
                 data: {
@@ -70,7 +75,11 @@ export const schema = () => {
                 },
                 where: { id: "system" },
               });
-              await isolatedFiles();
+              await isolatedFiles({
+                projectId: env.GOOGLE_PROJECT_ID ?? "",
+                clientEmail: env.GOOGLE_CLIENT_EMAIL ?? "",
+                privateKey: env.GOOGLE_PRIVATE_KEY ?? "",
+              });
               if (!system.icon) throw new Error("icon is not found");
               return system.icon;
             },
@@ -101,7 +110,12 @@ export const schema = () => {
                 });
                 return firestore;
               }
-              const firestore = await uploadFile(file);
+              const firestore = await uploadFile({
+                projectId: env.GOOGLE_PROJECT_ID ?? "",
+                clientEmail: env.GOOGLE_CLIENT_EMAIL ?? "",
+                privateKey: env.GOOGLE_PRIVATE_KEY ?? "",
+                binary: file,
+              });
               const post = await prisma.post.update({
                 select: { card: true },
                 data: {
@@ -109,7 +123,11 @@ export const schema = () => {
                 },
                 where: { id: postId },
               });
-              await isolatedFiles();
+              await isolatedFiles({
+                projectId: env.GOOGLE_PROJECT_ID ?? "",
+                clientEmail: env.GOOGLE_CLIENT_EMAIL ?? "",
+                privateKey: env.GOOGLE_PRIVATE_KEY ?? "",
+              });
               if (!post.card) throw new Error("card is not found");
               return post.card;
             },
@@ -127,7 +145,12 @@ export const schema = () => {
               { prisma, user }
             ) => {
               if (!user) throw new Error("Unauthorized");
-              const firestore = await uploadFile(file);
+              const firestore = await uploadFile({
+                projectId: env.GOOGLE_PROJECT_ID ?? "",
+                clientEmail: env.GOOGLE_CLIENT_EMAIL ?? "",
+                privateKey: env.GOOGLE_PRIVATE_KEY ?? "",
+                binary: file,
+              });
               await prisma.post.update({
                 data: {
                   postFiles: { connect: { id: firestore.id } },
@@ -144,8 +167,16 @@ export const schema = () => {
             },
             resolve: async (_root, { postId, removeAll }, { prisma, user }) => {
               if (!user) throw new Error("Unauthorized");
-              await normalizationPostFiles(prisma, postId, removeAll === true);
-              await isolatedFiles();
+              await normalizationPostFiles(prisma, postId, removeAll === true, {
+                projectId: env.GOOGLE_PROJECT_ID ?? "",
+                clientEmail: env.GOOGLE_CLIENT_EMAIL ?? "",
+                privateKey: env.GOOGLE_PRIVATE_KEY ?? "",
+              });
+              await isolatedFiles({
+                projectId: env.GOOGLE_PROJECT_ID ?? "",
+                clientEmail: env.GOOGLE_CLIENT_EMAIL ?? "",
+                privateKey: env.GOOGLE_PRIVATE_KEY ?? "",
+              });
               return true;
             },
           }),
@@ -155,7 +186,12 @@ export const schema = () => {
             },
             resolve: async (_root, { file }, { user }) => {
               if (!user) throw new Error("Unauthorized");
-              importFile(await file.text());
+              importFile({
+                file: await file.text(),
+                projectId: env.GOOGLE_PROJECT_ID ?? "",
+                clientEmail: env.GOOGLE_CLIENT_EMAIL ?? "",
+                privateKey: env.GOOGLE_PRIVATE_KEY ?? "",
+              });
               return true;
             },
           }),

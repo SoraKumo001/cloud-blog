@@ -1,10 +1,20 @@
 import { prisma } from "./context";
 import { storage } from "./getStorage";
 
-export const uploadFile = async (binary: File) => {
+export const uploadFile = async ({
+  binary,
+  projectId,
+  clientEmail,
+  privateKey,
+}: {
+  projectId: string;
+  clientEmail: string;
+  privateKey: string;
+  binary: File;
+}) => {
   const uuid = await require("pure-uuid");
-  const id = new uuid(4).format();
-  await storage().upload({
+  const id = `${new uuid(4).format()}-[${binary.name}]`;
+  await storage({ projectId, clientEmail, privateKey: privateKey }).upload({
     name: id,
     file: binary,
     published: true,
@@ -15,7 +25,15 @@ export const uploadFile = async (binary: File) => {
   });
 };
 
-export const isolatedFiles = async () => {
+export const isolatedFiles = async ({
+  projectId,
+  clientEmail,
+  privateKey,
+}: {
+  projectId: string;
+  clientEmail: string;
+  privateKey: string;
+}) => {
   const files = await prisma.fireStore.findMany({
     where: {
       posts: { none: {} },
@@ -25,7 +43,11 @@ export const isolatedFiles = async () => {
     },
   });
   for (const { id } of files) {
-    await storage()
+    await storage({
+      projectId,
+      clientEmail,
+      privateKey,
+    })
       .del({ name: id })
       .catch(() => undefined);
     await prisma.fireStore.delete({ where: { id } });

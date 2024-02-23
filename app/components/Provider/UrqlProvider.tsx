@@ -12,10 +12,8 @@ const isServerSide = typeof window === "undefined";
 const endpoint = "/api/graphql";
 
 const options: RetryExchangeOptions = {
-  initialDelayMs: 1,
-  maxDelayMs: 50,
+  maxDelayMs: 3000,
   randomDelay: false,
-  maxNumberAttempts: 4,
 };
 
 export const UrqlProvider = ({

@@ -17,6 +17,7 @@ export default interface PrismaTypes {
             post: {
                 Shape: Post[];
                 Name: "Post";
+                Nullable: false;
             };
         };
     };
@@ -36,18 +37,22 @@ export default interface PrismaTypes {
             author: {
                 Shape: User;
                 Name: "User";
+                Nullable: false;
             };
             card: {
                 Shape: FireStore | null;
                 Name: "FireStore";
+                Nullable: true;
             };
             categories: {
                 Shape: Category[];
                 Name: "Category";
+                Nullable: false;
             };
             postFiles: {
                 Shape: FireStore[];
                 Name: "FireStore";
+                Nullable: false;
             };
         };
     };
@@ -67,6 +72,7 @@ export default interface PrismaTypes {
             posts: {
                 Shape: Post[];
                 Name: "Post";
+                Nullable: false;
             };
         };
     };
@@ -86,10 +92,12 @@ export default interface PrismaTypes {
             icon: {
                 Shape: FireStore | null;
                 Name: "FireStore";
+                Nullable: true;
             };
             card: {
                 Shape: FireStore | null;
                 Name: "FireStore";
+                Nullable: true;
             };
         };
     };
@@ -109,18 +117,22 @@ export default interface PrismaTypes {
             systemIcons: {
                 Shape: System[];
                 Name: "System";
+                Nullable: false;
             };
             systemCards: {
                 Shape: System[];
                 Name: "System";
+                Nullable: false;
             };
             postCards: {
                 Shape: Post[];
                 Name: "Post";
+                Nullable: false;
             };
             posts: {
                 Shape: Post[];
                 Name: "Post";
+                Nullable: false;
             };
         };
     };

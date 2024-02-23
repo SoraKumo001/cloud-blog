@@ -18,7 +18,8 @@ export const Title: FC<Props> = ({ image, children }) => {
   const [{ data }] = useSystemQuery();
   const host = useSelector((state: { host?: string }) => state.host);
   const env = useEnv();
-  const OGP_URL = env["OGP_URL"];
+  const OGP_URL = env["NEXT_PUBLIC_OGP_URL"];
+  const IMAGE_URL = env["NEXT_PUBLIC_IMAGE_URL"];
   const subTitle = useMemo(() => {
     return React.Children.map(children, (c) =>
       typeof c === "object" ? "" : c
@@ -29,10 +30,12 @@ export const Title: FC<Props> = ({ image, children }) => {
   const systemDescription = data.findUniqueSystem.description;
   const title = (subTitle || "") + ` | ${systemTitle}`;
   const ogpUrl = OGP_URL ?? `${host}/api/og`;
+  const cardImage =
+    image && `${IMAGE_URL}/?type=png&url=${encodeURIComponent(image)}`;
   const imageUrl = [
-    `${ogpUrl}?title=${encodeURI(subTitle || "")}`,
-    `name=${encodeURI(systemTitle)}`,
-    image ? `image=${encodeURI(image)}` : [],
+    `${ogpUrl}?title=${encodeURIComponent(subTitle || "")}`,
+    `name=${encodeURIComponent(systemTitle)}`,
+    cardImage ? `image=${encodeURIComponent(cardImage)}` : [],
   ]
     .flat()
     .join("&");

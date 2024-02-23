@@ -20,10 +20,14 @@
   @apply bg-gray-100;
 }
 .post .image {
-  @apply flex w-20 items-center justify-center rounded text-6xl;
-  .card {
-    @apply w-20 rounded-full;
+  @apply flex w-20 items-center justify-center rounded;
+
+  .alternative {
+    @apply text-6xl;
   }
+}
+.post .image .card {
+  @apply w-20 rounded-full;
 }
 
 .post .postTitle {

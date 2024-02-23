@@ -5,7 +5,6 @@
  */
 
 import { RemixServer } from "@remix-run/react";
-import { isbot } from "isbot";
 import { renderToReadableStream } from "react-dom/server";
 import { getUserFromToken } from "./libs/client/getUserFromToken";
 import { getHost } from "./libs/server/getHost";
@@ -22,7 +21,7 @@ export default async function handleRequest(
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   loadContext: AppLoadContext
 ) {
-  const rootValue = await getInitialProps(request.clone(), loadContext);
+  const rootValue = await getInitialProps(request, loadContext);
   const body = await renderToReadableStream(
     <RootProvider value={rootValue}>
       <RemixServer context={remixContext} url={request.url} />
@@ -37,9 +36,7 @@ export default async function handleRequest(
     }
   );
 
-  if (isbot(request.headers.get("user-agent"))) {
-    await body.allReady;
-  }
+  await body.allReady;
 
   responseHeaders.set("Content-Type", "text/html");
   return new Response(body, {

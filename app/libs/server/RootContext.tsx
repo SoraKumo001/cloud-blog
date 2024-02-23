@@ -15,3 +15,15 @@ export const useRootContext = () => {
 
   return typeof window === "undefined" ? serverValue : clientValue;
 };
+
+export const RootValue = ({ value }: { value: unknown }) => {
+  return (
+    <script
+      id={DATA_NAME}
+      type="application/json"
+      dangerouslySetInnerHTML={{
+        __html: JSON.stringify(value).replace(/</g, "\\u003c"),
+      }}
+    />
+  );
+};

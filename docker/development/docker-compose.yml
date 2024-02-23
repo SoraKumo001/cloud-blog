@@ -1,4 +1,4 @@
-version: '3.7'
+version: "3.7"
 services:
   postgres:
     container_name: mdblog-postgres
@@ -10,6 +10,6 @@ services:
     volumes:
       - mdblog-vol:/var/lib/postgresql/data
     ports:
-      - '15432:5432'
+      - "25432:5432"
 volumes:
   mdblog-vol:

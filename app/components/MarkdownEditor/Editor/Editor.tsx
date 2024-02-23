@@ -22,7 +22,7 @@ import {
 import { useLoading } from "@/hooks/useLoading";
 import { useMarkdown } from "@/hooks/useMarkdown";
 import { useNotification } from "@/hooks/useNotification";
-import { convertWebp, getImageSize } from "@/libs/client/webp";
+import { convertImage, getImageSize } from "@/libs/client/convertImage";
 import styled from "./Editor.module.css";
 import { Separator } from "../../Commons/Separator";
 import { ContentMarkdown } from "../../ContentMarkdown";
@@ -82,11 +82,11 @@ export const Editor: FC<Props> = ({ id }) => {
       }
     });
   };
-  const handleUpload = (file: Blob) => {
+  const handleUpload = (file: File) => {
     const editor = refEditor.current;
     const p = editor?.getPosition();
     if (editor && monaco && p) {
-      convertWebp(file).then((value) => {
+      convertImage(file).then((value) => {
         if (!value) throw "convert error";
         uploadFile({ postId: id, file: value }).then(async (v) => {
           const size = await getImageSize(value);
@@ -119,7 +119,7 @@ export const Editor: FC<Props> = ({ id }) => {
       if (p) {
         const file = event.dataTransfer.files[0];
         if (file.type.startsWith("image/")) {
-          convertWebp(file).then((value) => {
+          convertImage(file).then((value) => {
             if (!value) throw "convert error";
             uploadFile({ postId: id, file: value }).then(async (v) => {
               const size = await getImageSize(value);
@@ -195,7 +195,7 @@ export const Editor: FC<Props> = ({ id }) => {
   const [, update] = useTransition();
   const post = data?.findUniquePost;
   useLoading([fetching, updateFetching, uploadCardFeting, uploadFeting]);
-  const [children] = useMarkdown(content ?? data?.findUniquePost.content);
+  const [children] = useMarkdown(content ?? data?.findUniquePost.content, true);
   if (fetching || !post) return null;
   return (
     <form className={styled.root} onSubmit={handleSubmit(onSubmit)}>

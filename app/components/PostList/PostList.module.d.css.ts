@@ -1,4 +1,5 @@
 declare const styles: {
+  readonly "alternative": string;
   readonly "card": string;
   readonly "date": string;
   readonly "image": string;

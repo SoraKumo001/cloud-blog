@@ -12,7 +12,17 @@ type DataType = {
   files: (FireStore & { binary: string })[];
 };
 
-export const importFile = async (file: string) => {
+export const importFile = async ({
+  file,
+  projectId,
+  clientEmail,
+  privateKey,
+}: {
+  file: string;
+  projectId: string;
+  clientEmail: string;
+  privateKey: string;
+}) => {
   const data: DataType = JSON.parse(file);
   if (data) {
     for (const value of data.users) {
@@ -23,7 +33,11 @@ export const importFile = async (file: string) => {
       });
     }
     const s = semaphore(10);
-
+    const firebaseStorage = storage({
+      projectId,
+      clientEmail,
+      privateKey,
+    });
     data.files.forEach(async (file) => {
       await s.acquire();
       const { binary, ...storeFile } = file;
@@ -31,7 +45,7 @@ export const importFile = async (file: string) => {
       const blob = new Blob([Buffer.from(binary, "base64")], {
         type: file.mimeType,
       });
-      await storage().upload({
+      await firebaseStorage.upload({
         file: blob,
         name: file.id,
         published: true,

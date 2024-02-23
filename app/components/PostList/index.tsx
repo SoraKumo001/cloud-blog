@@ -49,7 +49,7 @@ export const PostList: FC<Props> = ({ id, title, posts, limit }) => {
                   height={80}
                 />
               ) : (
-                `📖`
+                <span className={styled.alternative}>📖</span>
               )}
             </div>
             <div className="flex flex-1 flex-col gap-2 overflow-hidden">

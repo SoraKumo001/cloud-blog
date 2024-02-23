@@ -5,7 +5,16 @@ import type { PrismaClient } from "@prisma/client";
 export const normalizationPostFiles = async (
   prisma: PrismaClient,
   postId: string,
-  allRemove: boolean
+  allRemove: boolean,
+  {
+    projectId,
+    clientEmail,
+    privateKey,
+  }: {
+    projectId: string;
+    clientEmail: string;
+    privateKey: string;
+  }
 ) => {
   const { content } = await prisma.post.findUniqueOrThrow({
     select: { content: true },
@@ -18,6 +27,11 @@ export const normalizationPostFiles = async (
   });
   const adds = images.filter((image) => !files.some(({ id }) => id === image));
   const deletes = files.filter((file) => !images.includes(file.id));
+  const firebaseStorage = storage({
+    projectId,
+    clientEmail,
+    privateKey,
+  });
   return Promise.all([
     ...deletes.map(({ id }) =>
       prisma.fireStore.update({
@@ -32,7 +46,7 @@ export const normalizationPostFiles = async (
       })
     ),
     ...deletes.map(
-      ({ id, posts }) => posts.length === 1 && storage().del({ name: id })
+      ({ id, posts }) => posts.length === 1 && firebaseStorage.del({ name: id })
     ),
   ]);
 };
