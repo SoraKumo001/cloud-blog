@@ -42,14 +42,40 @@ export const isolatedFiles = async ({
       systemCards: { none: {} },
     },
   });
+  const s = storage({
+    projectId,
+    clientEmail,
+    privateKey,
+  });
   for (const { id } of files) {
-    await storage({
-      projectId,
-      clientEmail,
-      privateKey,
-    })
+    await s
       .del({ name: id })
+      .catch(undefined)
       .catch(() => undefined);
     await prisma.fireStore.delete({ where: { id } });
+  }
+};
+
+export const isolatedFirebase = async ({
+  projectId,
+  clientEmail,
+  privateKey,
+}: {
+  projectId: string;
+  clientEmail: string;
+  privateKey: string;
+}) => {
+  const s = storage({
+    projectId,
+    clientEmail,
+    privateKey,
+  });
+  const files = await prisma.fireStore.findMany({});
+  const firebaseFiles = await s.list({});
+  const setFiles = new Set(files.map((v) => v.id));
+  for (const { name } of firebaseFiles) {
+    if (!setFiles.has(name)) {
+      await s.del({ name }).catch((e) => console.error(e));
+    }
   }
 };

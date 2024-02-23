@@ -22,7 +22,7 @@ import {
 import { useLoading } from "@/hooks/useLoading";
 import { useMarkdown } from "@/hooks/useMarkdown";
 import { useNotification } from "@/hooks/useNotification";
-import { convertImage, getImageSize } from "@/libs/client/convertImage";
+import { getImageSize, useConvertImage } from "@/libs/client/convertImage";
 import styled from "./Editor.module.css";
 import { Separator } from "../../Commons/Separator";
 import { ContentMarkdown } from "../../ContentMarkdown";
@@ -57,6 +57,7 @@ export const Editor: FC<Props> = ({ id }) => {
   const [currentLine, setCurrentLine] = useState(1);
   const [card, setCard] = useState<Blob | null | undefined>();
   const { control, handleSubmit } = useForm<FormInput>();
+  const [isConverting, convertImage] = useConvertImage();
 
   const handleEditorDidMount: OnMount = (editor) => {
     refEditor.current = editor;
@@ -194,7 +195,13 @@ export const Editor: FC<Props> = ({ id }) => {
   const [content, setContent] = useState<string>();
   const [, update] = useTransition();
   const post = data?.findUniquePost;
-  useLoading([fetching, updateFetching, uploadCardFeting, uploadFeting]);
+  useLoading([
+    fetching,
+    updateFetching,
+    uploadCardFeting,
+    uploadFeting,
+    isConverting,
+  ]);
   const [children] = useMarkdown(content ?? data?.findUniquePost.content, true);
   if (fetching || !post) return null;
   return (

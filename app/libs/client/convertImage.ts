@@ -1,9 +1,24 @@
 import { encode } from "@node-libraries/wasm-avif-encoder";
 import { encode as encodeHash } from "blurhash";
+import { useCallback, useState } from "react";
 import { arrayBufferToBase64 } from "@/libs/server/buffer";
 import { base83toFileName } from "./blurhash";
 
 const type = "avif";
+
+export const useConvertImage = () => {
+  const [isConverting, setIsConverting] = useState(false);
+  const convert = useCallback(
+    async (blob: Blob | File, width?: number, height?: number) => {
+      setIsConverting(true);
+      const value = await convertImage(blob, width, height);
+      setIsConverting(false);
+      return value;
+    },
+    [setIsConverting]
+  );
+  return [isConverting, convert] as const;
+};
 
 export const convertImage = async (
   blob: Blob,

@@ -21,7 +21,7 @@ import {
 import { useFirebaseUrl } from "@/hooks/useFirebaseUrl";
 import { useLoading } from "@/hooks/useLoading";
 import { classNames } from "@/libs/client/classNames";
-import { convertImage } from "@/libs/client/convertImage";
+import { useConvertImage } from "@/libs/client/convertImage";
 import styled from "./ToolBar.module.css";
 import type { FormInput } from "../Editor/Editor";
 interface Props {
@@ -46,10 +46,11 @@ export const ToolBar: FC<Props> = ({ post, control, onCard }) => {
       a.name < b.name ? -1 : 1
     );
   }, [data]);
+  const [isConverting, convertImage] = useConvertImage();
   const [isExpand, setExpand] = useState(false);
   const getFirebaseUrl = useFirebaseUrl();
   const url = post.cardId && getFirebaseUrl(post.cardId);
-  useLoading([fetching, updateFetching]);
+  useLoading([fetching, updateFetching, isConverting]);
   if (!categoryList) return null;
   const dateOptions = {
     year: "numeric",

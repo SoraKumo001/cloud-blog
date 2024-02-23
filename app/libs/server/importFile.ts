@@ -1,4 +1,5 @@
 import { semaphore } from "@node-libraries/semaphore";
+import { base64ToArrayBuffer } from "./buffer";
 import { prisma } from "./context";
 import { getImages } from "./getImages";
 import { storage } from "./getStorage";
@@ -41,8 +42,7 @@ export const importFile = async ({
     data.files.forEach(async (file) => {
       await s.acquire();
       const { binary, ...storeFile } = file;
-      //Buffer.from(binary, 'base64')をblobに変換
-      const blob = new Blob([Buffer.from(binary, "base64")], {
+      const blob = new Blob([base64ToArrayBuffer(binary)], {
         type: file.mimeType,
       });
       await firebaseStorage.upload({
