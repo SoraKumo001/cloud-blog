@@ -16,10 +16,12 @@
     "type-check": "tsc",
     "build": "remix build",
     "pages:deploy": "npm run build && wrangler pages deploy ./public",
+    "pages:deploy:preview": "npm run build && wrangler pages deploy --branch development ./public",
     "prisma": "npm-run-all -p prisma:*",
     "prisma:migrate": "prisma format && next-exec prisma migrate dev",
     "prisma:generate": "prisma generate --no-engine",
-    "graphql:schema": "tsx ./tools/exportSchema.ts"
+    "graphql:schema": "tsx ./tools/exportSchema.ts",
+    "log": "wrangler pages deployment tail --project cloud-blog"
   },
   "dependencies": {
     "@apollo/explorer": "^3.6.0",
