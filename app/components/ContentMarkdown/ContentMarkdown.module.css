@@ -83,13 +83,11 @@
 .root h4 {
   @apply text-base;
 }
-.root img {
+.root img,
+.root canvas {
   margin: 4px 0;
-  border: #dddddd solid 1px;
   max-width: 80%;
   height: auto;
-  padding: 2px;
-  border-radius: 2px;
 }
 .root iframe {
   width: 100%;
