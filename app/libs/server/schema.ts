@@ -145,7 +145,6 @@ export const schema = () => {
               { prisma, user }
             ) => {
               if (!user) throw new Error("Unauthorized");
-              console.log(env);
               const firestore = await uploadFile({
                 projectId: env.GOOGLE_PROJECT_ID ?? "",
                 clientEmail: env.GOOGLE_CLIENT_EMAIL ?? "",

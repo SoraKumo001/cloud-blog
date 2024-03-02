@@ -29,6 +29,7 @@ const FirebaseImage = ({
     const style = styleString ? JSON.parse(alt ?? "") : {};
     return edit ? (
       <img
+        {...props}
         src={url}
         width={style.width && parseInt(style.width)}
         height={style.height && parseInt(style.height)}
@@ -84,6 +85,7 @@ const components = (edit?: boolean): MarkdownComponents => ({
     return (
       <FirebaseImage
         {...props}
+        data-sourcepos={node.position?.start.line ?? 0}
         key={props.key}
         src={node.url}
         alt={node.alt ?? ""}
@@ -102,7 +104,11 @@ const components = (edit?: boolean): MarkdownComponents => ({
           {({ style, tokens, getLineProps, getTokenProps }) => (
             <pre style={style} className="p-1 rounded">
               {tokens.map((line, i) => (
-                <div key={i} {...getLineProps({ line })}>
+                <div
+                  key={i}
+                  {...getLineProps({ line })}
+                  data-sourcepos={(node.position?.start.line ?? 0) + i + 1}
+                >
                   <span className="select-none w-10 inline-block text-right mr-2 text-gray-300">
                     {i + 1}
                   </span>

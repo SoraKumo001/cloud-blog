@@ -45,7 +45,9 @@ export const convertImage = async (
   width?: number,
   height?: number
 ): Promise<File | Blob | null> => {
-  if (!blob.type.match(/^image\/(png|jpeg|webp|avif)/)) return blob;
+  if (!blob.type.match(/^image\/(png|jpeg|webp|avif|gif)/)) {
+    return blob;
+  }
 
   const src = await blob
     .arrayBuffer()
@@ -71,16 +73,21 @@ export const convertImage = async (
   if (!ctx) return null;
   ctx.drawImage(img, 0, 0, img.width, img.height, 0, 0, outWidth, outHeight);
   const data = ctx.getImageData(0, 0, outWidth, outHeight);
-  const value = await encode({
-    data,
-    worker: `/${type}/worker.js`,
-    quality: 90,
-  });
+  const value =
+    blob.type !== "image/gif"
+      ? await encode({
+          data,
+          worker: `/${type}/worker.js`,
+          quality: 90,
+        })
+      : await blob.arrayBuffer();
   if (!value) return null;
 
   const hash = getBlurHash(ctx);
   const filename = base83toFileName(hash);
-  return new File([value], filename, { type: `image/${type}` });
+  return new File([value], filename, {
+    type: blob.type === "image/gif" ? "image/gif" : `image/${type}`,
+  });
 };
 
 export const getImageSize = async (blob: Blob) => {

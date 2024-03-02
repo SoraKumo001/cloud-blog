@@ -23,8 +23,7 @@ export const useSignIn = () => {
     (token: string) =>
       signIn({ token }).then(
         ({ data }) =>
-          data?.signIn &&
-          dispatch((state) => ({ ...state, user: data.signIn as never }))
+          data?.signIn && dispatch((state) => ({ ...state, user: data.signIn }))
       ),
     [dispatch, signIn]
   );

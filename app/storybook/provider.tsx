@@ -16,7 +16,7 @@ export const MockProvider = ({ children, value }: Props) => {
 
   return (
     <StoreProvider>
-      <Provider value={queryValue as never}>{children}</Provider>
+      <Provider value={queryValue}>{children}</Provider>
     </StoreProvider>
   );
 };

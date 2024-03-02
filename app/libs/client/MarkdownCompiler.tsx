@@ -9,14 +9,14 @@ import React, {
 } from "react";
 import { remark } from "remark";
 import remarkGfm from "remark-gfm";
-import type { Content } from "mdast";
+import type { RootContent } from "mdast";
 import type unist from "unist";
 
-export type VNode = Content & Partial<unist.Parent>;
+export type VNode = RootContent & Partial<unist.Parent>;
 
 export type MarkdownComponents = {
-  [K in Content["type"] | "root"]?: (params: {
-    node: Content & { type: K };
+  [K in RootContent["type"] | "root"]?: (params: {
+    node: RootContent & { type: K };
     props: HTMLAttributes<HTMLElement> & Attributes;
     children: ReactNode;
     property: { [key: string]: unknown };

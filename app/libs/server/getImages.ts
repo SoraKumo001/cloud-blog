@@ -17,5 +17,5 @@ export const getImages = async (content: string) => {
     });
   };
 
-  return Array.from(new Set(getImage(tree.children as never)));
+  return Array.from(new Set(getImage(tree.children)));
 };

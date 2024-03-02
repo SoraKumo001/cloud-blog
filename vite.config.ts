@@ -9,7 +9,7 @@ import { getLoadContext } from "./load-context";
 export default defineConfig({
   plugins: [
     remixCloudflareDevProxy({
-      getLoadContext: getLoadContext as never,
+      getLoadContext,
     }),
     remix({}),
     tsconfigPaths(),

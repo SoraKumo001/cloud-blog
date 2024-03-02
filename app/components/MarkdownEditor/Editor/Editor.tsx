@@ -245,7 +245,7 @@ export const Editor: FC<Props> = ({ id }) => {
                 dragAndDrop: true,
                 dropIntoEditor: { enabled: true },
                 contextmenu: false,
-                occurrencesHighlight: "off",
+                occurrencesHighlight: false as never,
                 renderLineHighlight: "none",
                 quickSuggestions: false,
                 wordBasedSuggestions: "off",
