@@ -21,10 +21,9 @@
 }
 .post .image {
   @apply flex w-20 items-center justify-center rounded;
-
-  .alternative {
-    @apply text-6xl;
-  }
+}
+.post .image .alternative {
+  @apply text-6xl;
 }
 .post .image .card {
   @apply w-20 rounded-full;

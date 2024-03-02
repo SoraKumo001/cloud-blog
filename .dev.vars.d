@@ -1,10 +1,3 @@
-# Blog system made with Remix + Vite
-
-## environment variable
-
-- .dev.vars
-
-```env
 DATABASE_URL=prisma://localhost:8000/?api_key=a
 
 GOOGLE_PROJECT_ID="xxxx"
@@ -18,5 +11,4 @@ NEXT_PUBLIC_measurementId="G-xxxxx"
 NEXT_PUBLIC_OGP_URL="https://xxxxx"
 NEXT_PUBLIC_IMAGE_URL="https://xxxxx"
 
-SECRET_KEY=xxxxx
-```
+SECRET_KEY=secret

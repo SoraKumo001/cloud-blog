@@ -42,7 +42,7 @@ export const getUserInfo = async (
   const result = await jwtVerify<{ name: string; email: string; exp: number }>(
     token,
     await importX509(publicKey, "RS256")
-  ).catch(() => undefined);
+  ).catch((e) => console.error(e));
   if (result) {
     const { name, email, exp } = result.payload;
     return { name, email, exp };

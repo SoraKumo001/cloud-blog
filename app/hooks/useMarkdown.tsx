@@ -1,7 +1,6 @@
 import { Link } from "@remix-run/react";
-import { ElementType, Fragment, HTMLProps, ReactNode, useMemo } from "react";
-import { PrismAsync } from "react-syntax-highlighter";
-import { darcula } from "react-syntax-highlighter/dist/cjs/styles/prism";
+import { Highlight, themes } from "prism-react-renderer";
+import { ElementType, Fragment, ReactNode, useMemo } from "react";
 import { Image } from "@/components/Commons/Image";
 import { LinkTarget } from "@/components/Commons/LinkTarget";
 import { useFirebaseUrl } from "@/hooks/useFirebaseUrl";
@@ -93,22 +92,28 @@ const components = (edit?: boolean): MarkdownComponents => ({
     );
   },
   code({ node, children, props }) {
-    const pos = node.position;
     return (
-      <div {...props} className="overflow-hidden">
-        <PrismAsync
+      <div {...props} className="overflow-hidden font-mono">
+        <Highlight
+          theme={themes.shadesOfPurple}
+          code={String(children)}
           language={node.lang ?? "txt"}
-          style={{ ...darcula }}
-          wrapLines={true}
-          PreTag="div"
-          lineProps={(number) =>
-            ({
-              "data-sourcepos": number + (pos?.start.line ?? 0),
-            } as HTMLProps<HTMLElement>)
-          }
         >
-          {String(children).replace(/\n$/, "")}
-        </PrismAsync>
+          {({ style, tokens, getLineProps, getTokenProps }) => (
+            <pre style={style} className="p-1 rounded">
+              {tokens.map((line, i) => (
+                <div key={i} {...getLineProps({ line })}>
+                  <span className="select-none w-10 inline-block text-right mr-2 text-gray-300">
+                    {i + 1}
+                  </span>
+                  {line.map((token, key) => (
+                    <span key={key} {...getTokenProps({ token })} />
+                  ))}
+                </div>
+              ))}
+            </pre>
+          )}
+        </Highlight>
       </div>
     );
   },

@@ -1,4 +1,3 @@
-"use client";
 import { ApolloExplorer } from "@apollo/explorer/react";
 import { LoaderFunctionArgs } from "@remix-run/cloudflare";
 import { useLoaderData } from "@remix-run/react";

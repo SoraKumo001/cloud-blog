@@ -1,15 +1,15 @@
 import { useNavigate } from "@remix-run/react";
-import { useEffectOnce } from "react-use";
+import { useEffect } from "react";
 import { useCreateOnePostMutation } from "@/generated/graphql";
 
 const Page = () => {
   const navigate = useNavigate();
   const [, createPost] = useCreateOnePostMutation();
-  useEffectOnce(() => {
+  useEffect(() => {
     createPost({}).then(({ data }) => {
       const id = data?.createOnePost?.id;
       id && navigate(`/edit/${id}`, { replace: true });
     });
-  });
+  }, [createPost, navigate]);
 };
 export default Page;

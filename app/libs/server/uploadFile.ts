@@ -12,7 +12,7 @@ export const uploadFile = async ({
   privateKey: string;
   binary: File;
 }) => {
-  const uuid = await require("pure-uuid");
+  const uuid = (await import("pure-uuid")).default;
   const id = `${new uuid(4).format()}-[${binary.name}]`;
   await storage({ projectId, clientEmail, privateKey: privateKey }).upload({
     name: id,

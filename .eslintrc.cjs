@@ -22,7 +22,7 @@ module.exports = {
 
   // Base config
   extends: ["eslint:recommended"],
-  ignorePatterns: ["app/generated/*"],
+  ignorePatterns: ["app/generated/*", "public/*", "node_modules/*", "dist/*"],
   overrides: [
     // React
     {
@@ -32,6 +32,7 @@ module.exports = {
         "plugin:react/recommended",
         "plugin:react/jsx-runtime",
         "plugin:react-hooks/recommended",
+        // "plugin:jsx-a11y/recommended",
       ],
       settings: {
         react: {
@@ -42,6 +43,9 @@ module.exports = {
           { name: "Link", linkAttribute: "to" },
           { name: "NavLink", linkAttribute: "to" },
         ],
+        "import/resolver": {
+          typescript: {},
+        },
       },
     },
 
@@ -101,11 +105,10 @@ module.exports = {
 
     // Node
     {
-      files: [".eslintrc.js"],
+      files: [".eslintrc.cjs"],
       env: {
         node: true,
       },
     },
   ],
-  rules: {},
 };

@@ -1,11 +1,11 @@
-import { FC, ReactNode, useRef, useState } from "react";
+import { FC, ReactNode, useEffect, useRef, useState } from "react";
 import { Button } from "react-daisyui";
 import {
   MdArrowLeft as LeftIcon,
   MdArrowRight as RightIcon,
   MdFilterCenterFocus as CenterIcon,
 } from "react-icons/md";
-import { useEffectOnce } from "react-use";
+
 import { classNames } from "@/libs/client/classNames";
 import styled from "./Separator.module.css";
 
@@ -23,7 +23,7 @@ export const Separator: FC<Props> = ({ className, children }) => {
   const [rato, setRato] = useState(0.5);
   const refSeparator = useRef<HTMLDivElement>(null);
   const property = useRef({ isDrag: false, x: 0 }).current;
-  useEffectOnce(() => {
+  useEffect(() => {
     const handleMouseUp = () => {
       property.isDrag = false;
     };
@@ -42,7 +42,7 @@ export const Separator: FC<Props> = ({ className, children }) => {
       removeEventListener("mouseup", handleMouseUp);
       removeEventListener("mousemove", handleMouseMove);
     };
-  });
+  }, [property]);
   return (
     <div className={classNames(styled.root, className)}>
       <div className={styled.client} style={{ flex: rato }}>

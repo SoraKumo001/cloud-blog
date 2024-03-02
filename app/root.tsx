@@ -2,13 +2,11 @@ import { NextSSRWait } from "@react-libraries/next-exchange-ssr";
 import { cssBundleHref } from "@remix-run/css-bundle";
 import {
   Links,
-  LiveReload,
   Meta,
   Outlet,
   Scripts,
   ScrollRestoration,
 } from "@remix-run/react";
-import stylesheet from "@/tailwind.css";
 import { GoogleAnalytics } from "./components/Commons/GoogleAnalytics";
 import { HeadProvider, HeadRoot } from "./components/Commons/Head";
 import { EnvProvider } from "./components/Provider/EnvProvider";
@@ -18,6 +16,7 @@ import { LoadingContainer } from "./components/System/LoadingContainer";
 import { NotificationContainer } from "./components/System/Notification/NotificationContainer";
 import { StoreProvider } from "./libs/client/context";
 import { RootValue, useRootContext } from "./libs/server/RootContext";
+import stylesheet from "./tailwind.css?url";
 import type { LinksFunction } from "@remix-run/cloudflare";
 
 export const links: LinksFunction = () => [
@@ -65,7 +64,6 @@ export default function App() {
                 </div>
                 <ScrollRestoration />
                 <Scripts />
-                <LiveReload />
               </body>
             </HeadProvider>
           </UrqlProvider>

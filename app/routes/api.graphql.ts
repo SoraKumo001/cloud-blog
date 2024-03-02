@@ -36,11 +36,11 @@ const yoga = createYoga<
 });
 
 export async function action({ request, context }: ActionFunctionArgs) {
-  const env = context.env as { [key: string]: string };
+  const env = context.cloudflare.env as unknown as { [key: string]: string };
   const responseCookies: string[] = [];
   const response = await yoga.handleRequest(request, {
     request,
-    env,
+    env: env,
     responseCookies,
   });
   responseCookies.forEach((v) => {
@@ -50,7 +50,7 @@ export async function action({ request, context }: ActionFunctionArgs) {
 }
 
 export async function loader({ request, context }: LoaderFunctionArgs) {
-  const env = context.env as { [key: string]: string };
+  const env = context.cloudflare.env as unknown as { [key: string]: string };
   const responseCookies: string[] = [];
   const response = await yoga.handleRequest(request, {
     request,

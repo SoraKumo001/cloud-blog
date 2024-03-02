@@ -1,8 +1,8 @@
 import { LoaderFunctionArgs } from "@remix-run/cloudflare";
-import { Context, getPrisma } from "@/libs/server/context";
+import { getPrisma } from "@/libs/server/context";
 
 export async function loader({ request, context }: LoaderFunctionArgs) {
-  const prisma = getPrisma((context as Context).env.DATABASE_URL);
+  const prisma = getPrisma(context.cloudflare.env.DATABASE_URL);
 
   const host = request.headers.get("host") ?? "";
   let xml = `<?xml version="1.0" encoding="UTF-8"?>`;
