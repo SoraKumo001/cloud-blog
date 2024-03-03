@@ -5,6 +5,8 @@ import { arrayBufferToBase64 } from "@/libs/server/buffer";
 import { getPrisma } from "@/libs/server/context";
 import { storage } from "@/libs/server/getStorage";
 
+export const loader = () => null;
+
 export async function action({ request, context }: ActionFunctionArgs) {
   const env = context.env as { [key: string]: string };
   const prisma = getPrisma(env.DATABASE_URL);

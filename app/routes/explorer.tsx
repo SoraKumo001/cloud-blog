@@ -31,7 +31,7 @@ export const Explorer = () => {
 };
 export default Explorer;
 export const loader = async ({ context }: LoaderFunctionArgs) => {
-  const DATABASE_URL = (context.env as { DATABASE_URL: string }).DATABASE_URL;
+  const DATABASE_URL = context.cloudflare.env.DATABASE_URL;
   const builder = createBuilder(DATABASE_URL);
   return printSchema(builder.toSchema({ sortSchema: false }));
 };

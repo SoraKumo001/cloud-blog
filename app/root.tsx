@@ -1,5 +1,4 @@
 import { NextSSRWait } from "@react-libraries/next-exchange-ssr";
-import { cssBundleHref } from "@remix-run/css-bundle";
 import {
   Links,
   Meta,
@@ -21,7 +20,6 @@ import type { LinksFunction } from "@remix-run/cloudflare";
 
 export const links: LinksFunction = () => [
   { rel: "stylesheet", href: stylesheet },
-  ...(cssBundleHref ? [{ rel: "stylesheet", href: cssBundleHref }] : []),
 ];
 
 export default function App() {
@@ -48,10 +46,10 @@ export default function App() {
                 <Meta />
                 <Links />
                 <GoogleAnalytics />
+                <RootValue value={{ session, env }} />
                 <NextSSRWait>
                   <HeadRoot />
                 </NextSSRWait>
-                <RootValue value={{ session, env }} />
               </head>
               <body>
                 <div className={"flex h-screen flex-col"}>

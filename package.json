@@ -75,7 +75,6 @@
     "@graphql-codegen/typescript-operations": "^4.2.0",
     "@graphql-codegen/typescript-urql": "^4.0.0",
     "@parcel/watcher": "^2.4.1",
-    "@remix-run/css-bundle": "^2.8.0",
     "@remix-run/dev": "^2.8.0",
     "@storybook/react": "^7.6.17",
     "@types/react": "^18.2.61",
