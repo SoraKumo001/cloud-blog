@@ -10,7 +10,7 @@ import { Context } from "./context";
  * Create a new schema builder instance
  */
 
-type BuilderType = {
+export type BuilderType = {
   PrismaTypes: PrismaTypes;
   Scalars: {
     Upload: {

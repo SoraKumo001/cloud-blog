@@ -1,5 +1,3 @@
 .root {
   @apply max-h-[calc(100vh-64px)] min-w-[300px]  overflow-y-auto border;
 }
-
-/*# sourceMappingURL=ContentTable.module.css.map */

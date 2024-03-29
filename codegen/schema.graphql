@@ -838,12 +838,13 @@ type FireStore {
 }
 
 type Mutation {
-  signIn(token: String): User
-  uploadSystemIcon(file: Upload!): FireStore!
-  uploadPostIcon(postId: String!, file: Upload): FireStore!
-  uploadPostImage(postId: String!, file: Upload!): FireStore!
+  backup: String!
   normalizationPostFiles(postId: String!, removeAll: Boolean): Boolean!
   restore(file: Upload!): Boolean!
+  signIn(token: String): User
+  uploadPostIcon(postId: String!, file: Upload): FireStore!
+  uploadPostImage(postId: String!, file: Upload!): FireStore!
+  uploadSystemIcon(file: Upload!): FireStore!
   createOneUser(input: UserCreateInput!): User!
   createOnePost(input: PostCreateInput!): Post!
   createOneCategory(input: CategoryCreateInput!): Category!

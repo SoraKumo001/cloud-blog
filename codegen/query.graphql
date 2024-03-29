@@ -268,3 +268,7 @@ mutation NormalizationPostFiles($postId: String!, $removeAll: Boolean) {
 mutation Restore($file: Upload!) {
   restore(file: $file)
 }
+
+mutation Backup {
+  backup
+}

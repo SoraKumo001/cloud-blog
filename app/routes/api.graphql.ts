@@ -13,7 +13,7 @@ const yoga = createYoga<
   },
   Context
 >({
-  schema: schema(),
+  schema,
   fetchAPI: { Response },
   context: async ({ request: req, env, responseCookies }) => {
     const cookies = parse(req.headers.get("Cookie") || "");

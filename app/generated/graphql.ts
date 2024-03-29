@@ -431,6 +431,7 @@ export type FireStoreWithoutPostsFilter = {
 
 export type Mutation = {
   __typename?: 'Mutation';
+  backup: Scalars['String']['output'];
   createManyCategory: Scalars['Int']['output'];
   createManyFireStore: Scalars['Int']['output'];
   createManyPost: Scalars['Int']['output'];
@@ -1472,6 +1473,11 @@ export type RestoreMutationVariables = Exact<{
 
 export type RestoreMutation = { __typename?: 'Mutation', restore: boolean };
 
+export type BackupMutationVariables = Exact<{ [key: string]: never; }>;
+
+
+export type BackupMutation = { __typename?: 'Mutation', backup: string };
+
 
 export const SignInDocument = gql`
     mutation SignIn($token: String) {
@@ -1825,4 +1831,13 @@ export const RestoreDocument = gql`
 
 export function useRestoreMutation() {
   return Urql.useMutation<RestoreMutation, RestoreMutationVariables>(RestoreDocument);
+};
+export const BackupDocument = gql`
+    mutation Backup {
+  backup
+}
+    `;
+
+export function useBackupMutation() {
+  return Urql.useMutation<BackupMutation, BackupMutationVariables>(BackupDocument);
 };

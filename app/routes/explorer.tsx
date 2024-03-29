@@ -2,9 +2,9 @@ import { ApolloExplorer } from "@apollo/explorer/react";
 import { LoaderFunctionArgs } from "@remix-run/cloudflare";
 import { useLoaderData } from "@remix-run/react";
 import { printSchema } from "graphql";
-import { createBuilder } from "../libs/server/builder";
+import { schema } from "@/libs/server/schema";
 
-export const Explorer = () => {
+const Explorer = () => {
   const schema = useLoaderData<string>();
   return (
     <>
@@ -31,7 +31,6 @@ export const Explorer = () => {
 };
 export default Explorer;
 export const loader = async ({ context }: LoaderFunctionArgs) => {
-  const DATABASE_URL = context.cloudflare.env.DATABASE_URL;
-  const builder = createBuilder(DATABASE_URL);
-  return printSchema(builder.toSchema({ sortSchema: false }));
+  const s = schema({ env: context.cloudflare.env as never });
+  return printSchema(s);
 };

@@ -5,10 +5,8 @@
   @apply mb-8 border-b text-xl;
 }
 .root .items {
-  @apply grid gap-4;
+  @apply grid gap-4 cursor-pointer;
 }
 .root .link {
   @apply block rounded border p-4;
 }
-
-/*# sourceMappingURL=Backup.module.css.map */
