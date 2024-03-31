@@ -294,3 +294,13 @@ query Bucket {
     }
   }
 }
+
+mutation RestoreFiles($files: [Upload!]!) {
+  restoreFiles(files: $files) {
+    id
+    name
+    mimeType
+    createdAt
+    updatedAt
+  }
+}

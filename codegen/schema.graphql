@@ -901,6 +901,7 @@ type Mutation {
   bucket(cors: [CorsInput!]): BucketObject!
   normalizationPostFiles(postId: String!, removeAll: Boolean): Boolean!
   restore(file: Upload!): Boolean!
+  restoreFiles(files: [Upload!]!): [FireStore!]!
   signIn(token: String): User
   uploadPostIcon(postId: String!, file: Upload): FireStore!
   uploadPostImage(postId: String!, file: Upload!): FireStore!

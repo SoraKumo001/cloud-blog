@@ -21,26 +21,6 @@ export const backup = (
           prisma.fireStore.findMany(),
         ]);
 
-      // const firebaseStorage = storage({
-      //   projectId: env.GOOGLE_PROJECT_ID ?? "",
-      //   clientEmail: env.GOOGLE_CLIENT_EMAIL ?? "",
-      //   privateKey: env.GOOGLE_PRIVATE_KEY ?? "",
-      // });
-
-      // const fireStoreFiles = await Promise.all(
-      //   files.map(async (file) => {
-      //     try {
-      //       const storageFile = await firebaseStorage.download({ name: file.id });
-      //       return {
-      //         ...file,
-      //         binary: arrayBufferToBase64(storageFile),
-      //       };
-      //     } catch (e) {
-      //       console.error(e);
-      //       return { ...file, binary: "" };
-      //     }
-      //   })
-      // );
       return JSON.stringify({
         system,
         users,

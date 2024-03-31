@@ -6,3 +6,4 @@ export * from "./uploadPostImage";
 export * from "./uploadSystemIcon";
 export * from "./backup";
 export * from "./bucket";
+export * from "./restoreFiles";

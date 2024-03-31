@@ -493,6 +493,7 @@ export type Mutation = {
   deleteOneUser: User;
   normalizationPostFiles: Scalars['Boolean']['output'];
   restore: Scalars['Boolean']['output'];
+  restoreFiles: Array<FireStore>;
   signIn?: Maybe<User>;
   updateManyCategory: Scalars['Int']['output'];
   updateManyFireStore: Scalars['Int']['output'];
@@ -623,6 +624,11 @@ export type MutationNormalizationPostFilesArgs = {
 
 export type MutationRestoreArgs = {
   file: Scalars['Upload']['input'];
+};
+
+
+export type MutationRestoreFilesArgs = {
+  files: Array<Scalars['Upload']['input']>;
 };
 
 
@@ -1535,6 +1541,13 @@ export type BucketQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type BucketQuery = { __typename?: 'Query', bucket: { __typename?: 'BucketObject', cors?: Array<{ __typename?: 'CorsObject', origin?: Array<string> | null, method?: Array<string> | null, responseHeader?: Array<string> | null, maxAgeSeconds?: number | null }> | null } };
 
+export type RestoreFilesMutationVariables = Exact<{
+  files: Array<Scalars['Upload']['input']> | Scalars['Upload']['input'];
+}>;
+
+
+export type RestoreFilesMutation = { __typename?: 'Mutation', restoreFiles: Array<{ __typename?: 'FireStore', id: string, name: string, mimeType: string, createdAt: string, updatedAt: string }> };
+
 
 export const SignInDocument = gql`
     mutation SignIn($token: String) {
@@ -1929,4 +1942,19 @@ export const BucketDocument = gql`
 
 export function useBucketQuery(options?: Omit<Urql.UseQueryArgs<BucketQueryVariables>, 'query'>) {
   return Urql.useQuery<BucketQuery, BucketQueryVariables>({ query: BucketDocument, ...options });
+};
+export const RestoreFilesDocument = gql`
+    mutation RestoreFiles($files: [Upload!]!) {
+  restoreFiles(files: $files) {
+    id
+    name
+    mimeType
+    createdAt
+    updatedAt
+  }
+}
+    `;
+
+export function useRestoreFilesMutation() {
+  return Urql.useMutation<RestoreFilesMutation, RestoreFilesMutationVariables>(RestoreFilesDocument);
 };
