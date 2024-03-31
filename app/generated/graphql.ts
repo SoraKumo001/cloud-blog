@@ -37,6 +37,24 @@ export type BooleanFilter = {
   notIn?: InputMaybe<Array<Scalars['Boolean']['input']>>;
 };
 
+export type BucketObject = {
+  __typename?: 'BucketObject';
+  cors?: Maybe<Array<CorsObject>>;
+  defaultEventBasedHold?: Maybe<Scalars['Boolean']['output']>;
+  encryption?: Maybe<EncryptionObject>;
+  etag: Scalars['String']['output'];
+  id: Scalars['String']['output'];
+  kind: Scalars['String']['output'];
+  location: Scalars['String']['output'];
+  metageneration: Scalars['String']['output'];
+  name: Scalars['String']['output'];
+  projectNumber: Scalars['String']['output'];
+  selfLink: Scalars['String']['output'];
+  storageClass: Scalars['String']['output'];
+  timeCreated: Scalars['String']['output'];
+  updated: Scalars['String']['output'];
+};
+
 export type Category = {
   __typename?: 'Category';
   createdAt: Scalars['DateTime']['output'];
@@ -136,6 +154,21 @@ export type CategoryWithoutPostsFilter = {
   updatedAt?: InputMaybe<DateTimeFilter>;
 };
 
+export type CorsInput = {
+  maxAgeSeconds?: InputMaybe<Scalars['Int']['input']>;
+  method?: InputMaybe<Array<Scalars['String']['input']>>;
+  origin?: InputMaybe<Array<Scalars['String']['input']>>;
+  responseHeader?: InputMaybe<Array<Scalars['String']['input']>>;
+};
+
+export type CorsObject = {
+  __typename?: 'CorsObject';
+  maxAgeSeconds?: Maybe<Scalars['Int']['output']>;
+  method?: Maybe<Array<Scalars['String']['output']>>;
+  origin?: Maybe<Array<Scalars['String']['output']>>;
+  responseHeader?: Maybe<Array<Scalars['String']['output']>>;
+};
+
 export type DateTimeFilter = {
   equals?: InputMaybe<Scalars['DateTime']['input']>;
   gt?: InputMaybe<Scalars['DateTime']['input']>;
@@ -147,6 +180,11 @@ export type DateTimeFilter = {
   lte?: InputMaybe<Scalars['DateTime']['input']>;
   not?: InputMaybe<DateTimeFilter>;
   notIn?: InputMaybe<Array<Scalars['DateTime']['input']>>;
+};
+
+export type EncryptionObject = {
+  __typename?: 'EncryptionObject';
+  defaultKmsKeyName: Scalars['String']['output'];
 };
 
 export type FireStore = {
@@ -432,6 +470,7 @@ export type FireStoreWithoutPostsFilter = {
 export type Mutation = {
   __typename?: 'Mutation';
   backup: Scalars['String']['output'];
+  bucket: BucketObject;
   createManyCategory: Scalars['Int']['output'];
   createManyFireStore: Scalars['Int']['output'];
   createManyPost: Scalars['Int']['output'];
@@ -468,6 +507,11 @@ export type Mutation = {
   uploadPostIcon: FireStore;
   uploadPostImage: FireStore;
   uploadSystemIcon: FireStore;
+};
+
+
+export type MutationBucketArgs = {
+  cors?: InputMaybe<Array<CorsInput>>;
 };
 
 
@@ -955,6 +999,7 @@ export type PostWithoutPostFilesFilter = {
 
 export type Query = {
   __typename?: 'Query';
+  bucket: BucketObject;
   countCategory: Scalars['Int']['output'];
   countFireStore: Scalars['Int']['output'];
   countPost: Scalars['Int']['output'];
@@ -1478,6 +1523,18 @@ export type BackupMutationVariables = Exact<{ [key: string]: never; }>;
 
 export type BackupMutation = { __typename?: 'Mutation', backup: string };
 
+export type UpdateCorsMutationVariables = Exact<{
+  origin?: InputMaybe<Array<Scalars['String']['input']> | Scalars['String']['input']>;
+}>;
+
+
+export type UpdateCorsMutation = { __typename?: 'Mutation', bucket: { __typename?: 'BucketObject', cors?: Array<{ __typename?: 'CorsObject', origin?: Array<string> | null, method?: Array<string> | null, responseHeader?: Array<string> | null, maxAgeSeconds?: number | null }> | null } };
+
+export type BucketQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type BucketQuery = { __typename?: 'Query', bucket: { __typename?: 'BucketObject', cors?: Array<{ __typename?: 'CorsObject', origin?: Array<string> | null, method?: Array<string> | null, responseHeader?: Array<string> | null, maxAgeSeconds?: number | null }> | null } };
+
 
 export const SignInDocument = gql`
     mutation SignIn($token: String) {
@@ -1840,4 +1897,36 @@ export const BackupDocument = gql`
 
 export function useBackupMutation() {
   return Urql.useMutation<BackupMutation, BackupMutationVariables>(BackupDocument);
+};
+export const UpdateCorsDocument = gql`
+    mutation UpdateCors($origin: [String!]) {
+  bucket(cors: [{origin: $origin, method: ["GET"], maxAgeSeconds: 3600}]) {
+    cors {
+      origin
+      method
+      responseHeader
+      maxAgeSeconds
+    }
+  }
+}
+    `;
+
+export function useUpdateCorsMutation() {
+  return Urql.useMutation<UpdateCorsMutation, UpdateCorsMutationVariables>(UpdateCorsDocument);
+};
+export const BucketDocument = gql`
+    query Bucket {
+  bucket {
+    cors {
+      origin
+      method
+      responseHeader
+      maxAgeSeconds
+    }
+  }
+}
+    `;
+
+export function useBucketQuery(options?: Omit<Urql.UseQueryArgs<BucketQueryVariables>, 'query'>) {
+  return Urql.useQuery<BucketQuery, BucketQueryVariables>({ query: BucketDocument, ...options });
 };

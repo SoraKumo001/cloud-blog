@@ -5,3 +5,4 @@ export * from "./uploadPostIcon";
 export * from "./uploadPostImage";
 export * from "./uploadSystemIcon";
 export * from "./backup";
+export * from "./bucket";

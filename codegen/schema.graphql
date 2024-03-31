@@ -28,6 +28,13 @@ enum OrderBy {
   Desc
 }
 
+input CorsInput {
+  origin: [String!]
+  method: [String!]
+  responseHeader: [String!]
+  maxAgeSeconds: Int
+}
+
 input PostFilter {
   id: StringFilter
   published: BooleanFilter
@@ -772,6 +779,34 @@ input FireStoreUpdateInput {
   updatedAt: DateTime
 }
 
+type EncryptionObject {
+  defaultKmsKeyName: String!
+}
+
+type CorsObject {
+  origin: [String!]
+  method: [String!]
+  responseHeader: [String!]
+  maxAgeSeconds: Int
+}
+
+type BucketObject {
+  kind: String!
+  id: String!
+  selfLink: String!
+  name: String!
+  projectNumber: String!
+  metageneration: String!
+  location: String!
+  storageClass: String!
+  etag: String!
+  defaultEventBasedHold: Boolean
+  timeCreated: String!
+  updated: String!
+  encryption: EncryptionObject
+  cors: [CorsObject!]
+}
+
 type User {
   id: ID!
   email: String!
@@ -837,8 +872,33 @@ type FireStore {
   updatedAt: DateTime!
 }
 
+type Query {
+  bucket: BucketObject!
+  countUser(filter: UserFilter): Int!
+  countPost(filter: PostFilter): Int!
+  countCategory(filter: CategoryFilter): Int!
+  countSystem(filter: SystemFilter): Int!
+  countFireStore(filter: FireStoreFilter): Int!
+  findUniqueUser(filter: UserUniqueFilter!): User!
+  findUniquePost(filter: PostUniqueFilter!): Post!
+  findUniqueCategory(filter: CategoryUniqueFilter!): Category!
+  findUniqueSystem(filter: SystemUniqueFilter!): System!
+  findUniqueFireStore(filter: FireStoreUniqueFilter!): FireStore!
+  findFirstUser(filter: UserFilter, orderBy: [UserOrderBy!]): User
+  findFirstPost(filter: PostFilter, orderBy: [PostOrderBy!]): Post
+  findFirstCategory(filter: CategoryFilter, orderBy: [CategoryOrderBy!]): Category
+  findFirstSystem(filter: SystemFilter, orderBy: [SystemOrderBy!]): System
+  findFirstFireStore(filter: FireStoreFilter, orderBy: [FireStoreOrderBy!]): FireStore
+  findManyUser(filter: UserFilter, orderBy: [UserOrderBy!], limit: Int, offset: Int): [User!]!
+  findManyPost(filter: PostFilter, orderBy: [PostOrderBy!], limit: Int, offset: Int): [Post!]!
+  findManyCategory(filter: CategoryFilter, orderBy: [CategoryOrderBy!], limit: Int, offset: Int): [Category!]!
+  findManySystem(filter: SystemFilter, orderBy: [SystemOrderBy!], limit: Int, offset: Int): [System!]!
+  findManyFireStore(filter: FireStoreFilter, orderBy: [FireStoreOrderBy!], limit: Int, offset: Int): [FireStore!]!
+}
+
 type Mutation {
   backup: String!
+  bucket(cors: [CorsInput!]): BucketObject!
   normalizationPostFiles(postId: String!, removeAll: Boolean): Boolean!
   restore(file: Upload!): Boolean!
   signIn(token: String): User
@@ -875,27 +935,4 @@ type Mutation {
   deleteManyCategory(where: CategoryFilter!): Int!
   deleteManySystem(where: SystemFilter!): Int!
   deleteManyFireStore(where: FireStoreFilter!): Int!
-}
-
-type Query {
-  countUser(filter: UserFilter): Int!
-  countPost(filter: PostFilter): Int!
-  countCategory(filter: CategoryFilter): Int!
-  countSystem(filter: SystemFilter): Int!
-  countFireStore(filter: FireStoreFilter): Int!
-  findUniqueUser(filter: UserUniqueFilter!): User!
-  findUniquePost(filter: PostUniqueFilter!): Post!
-  findUniqueCategory(filter: CategoryUniqueFilter!): Category!
-  findUniqueSystem(filter: SystemUniqueFilter!): System!
-  findUniqueFireStore(filter: FireStoreUniqueFilter!): FireStore!
-  findFirstUser(filter: UserFilter, orderBy: [UserOrderBy!]): User
-  findFirstPost(filter: PostFilter, orderBy: [PostOrderBy!]): Post
-  findFirstCategory(filter: CategoryFilter, orderBy: [CategoryOrderBy!]): Category
-  findFirstSystem(filter: SystemFilter, orderBy: [SystemOrderBy!]): System
-  findFirstFireStore(filter: FireStoreFilter, orderBy: [FireStoreOrderBy!]): FireStore
-  findManyUser(filter: UserFilter, orderBy: [UserOrderBy!], limit: Int, offset: Int): [User!]!
-  findManyPost(filter: PostFilter, orderBy: [PostOrderBy!], limit: Int, offset: Int): [Post!]!
-  findManyCategory(filter: CategoryFilter, orderBy: [CategoryOrderBy!], limit: Int, offset: Int): [Category!]!
-  findManySystem(filter: SystemFilter, orderBy: [SystemOrderBy!], limit: Int, offset: Int): [System!]!
-  findManyFireStore(filter: FireStoreFilter, orderBy: [FireStoreOrderBy!], limit: Int, offset: Int): [FireStore!]!
 }

@@ -272,3 +272,25 @@ mutation Restore($file: Upload!) {
 mutation Backup {
   backup
 }
+
+mutation UpdateCors($origin: [String!]) {
+  bucket(cors: [{ origin: $origin, method: ["GET"], maxAgeSeconds: 3600 }]) {
+    cors {
+      origin
+      method
+      responseHeader
+      maxAgeSeconds
+    }
+  }
+}
+
+query Bucket {
+  bucket {
+    cors {
+      origin
+      method
+      responseHeader
+      maxAgeSeconds
+    }
+  }
+}

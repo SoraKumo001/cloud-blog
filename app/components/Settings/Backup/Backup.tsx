@@ -1,5 +1,12 @@
 import { FC } from "react";
-import { useBackupMutation, useRestoreMutation } from "@/generated/graphql";
+import { Checkbox } from "react-daisyui";
+import { FieldSet } from "@/components/Commons/FieldSet";
+import {
+  useBackupMutation,
+  useBucketQuery,
+  useRestoreMutation,
+  useUpdateCorsMutation,
+} from "@/generated/graphql";
 import { useFirebaseUrl } from "@/hooks/useFirebaseUrl";
 import { useLoading } from "@/hooks/useLoading";
 import { useNotification } from "@/hooks/useNotification";
@@ -17,7 +24,9 @@ export const Backup: FC<Props> = () => {
   const [{ fetching: fetchingBackup }, backup] = useBackupMutation();
   const [{ fetching }, restore] = useRestoreMutation();
   const getFirebaseUrl = useFirebaseUrl();
-
+  const [{ data: bucketData, fetching: bucketFetching }] = useBucketQuery();
+  const [{ fetching: mutationCorsFetching }, updateCors] =
+    useUpdateCorsMutation();
   const notification = useNotification();
   const handleRestore = () => {
     const input = document.createElement("input");
@@ -45,8 +54,8 @@ export const Backup: FC<Props> = () => {
         values.files.map(async (v) => {
           const id = v.id;
           const url = getFirebaseUrl(id);
-          const binary = await fetch(url, { mode: "cors" }).then(async (v) =>
-            arrayBufferToBase64(await v.arrayBuffer())
+          const binary = await fetch(`${url}?`, { cache: "no-cache" }).then(
+            async (v) => arrayBufferToBase64(await v.arrayBuffer())
           );
           return { ...v, binary };
         })
@@ -60,7 +69,9 @@ export const Backup: FC<Props> = () => {
       a.click();
     });
   };
-  useLoading(fetching || fetchingBackup);
+  useLoading(
+    fetching || fetchingBackup || bucketFetching || mutationCorsFetching
+  );
   return (
     <div className={styled.root}>
       <div className="max-w-2xl m-auto pt-8">
@@ -73,6 +84,19 @@ export const Backup: FC<Props> = () => {
             リストア
           </a>
         </div>
+        <div className="border-2 border-solid w-full my-8" />
+        <FieldSet label="CORS" className="p-2 flex gap-4">
+          <Checkbox
+            color="primary"
+            checked={bucketData?.bucket.cors?.[0].origin?.[0] === "*"}
+            onChange={(e) => {
+              e.target.checked
+                ? updateCors({ origin: ["*"] })
+                : updateCors({ origin: [] });
+            }}
+          />
+          Firebase-storageのCORSを許可する
+        </FieldSet>
       </div>
     </div>
   );
