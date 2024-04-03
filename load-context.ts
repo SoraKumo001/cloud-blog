@@ -1,7 +1,7 @@
+import { AppLoadContext } from "@remix-run/cloudflare";
 import { GetLoadContextFunction } from "@remix-run/cloudflare-pages";
 import { type PlatformProxy } from "wrangler";
 import { initFetch } from "./app/init";
-import { AppLoadContext } from "@remix-run/cloudflare";
 
 // When using `wrangler.toml` to configure bindings,
 // `wrangler types` will generate types for those bindings
