@@ -3,8 +3,8 @@ import PrismaPlugin from "@pothos/plugin-prisma";
 import PrismaUtils from "@pothos/plugin-prisma-utils";
 import { PrismaClient } from "@prisma/client/edge";
 import PothosPrismaGeneratorPlugin from "pothos-prisma-generator";
-import PrismaTypes from "@/generated/pothos-types";
 import { Context } from "./context";
+import PrismaTypes from "@/generated/pothos-types";
 
 /**
  * Create a new schema builder instance

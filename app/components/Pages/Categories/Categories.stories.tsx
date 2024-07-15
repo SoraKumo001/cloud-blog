@@ -1,6 +1,6 @@
 import { Meta } from '@storybook/react';
-import { Decorator } from '@/storybook';
 import { Categories } from '.';
+import { Decorator } from '@/storybook';
 
 const meta: Meta<typeof Categories> = {
   component: Categories,

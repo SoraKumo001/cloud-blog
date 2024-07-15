@@ -102,14 +102,14 @@ const components = (edit?: boolean): MarkdownComponents => ({
           language={node.lang ?? "txt"}
         >
           {({ style, tokens, getLineProps, getTokenProps }) => (
-            <pre style={style} className="p-1 rounded">
+            <pre style={style} className="rounded p-1">
               {tokens.map((line, i) => (
                 <div
                   key={i}
                   {...getLineProps({ line })}
                   data-sourcepos={(node.position?.start.line ?? 0) + i + 1}
                 >
-                  <span className="select-none w-10 inline-block text-right mr-2 text-gray-300">
+                  <span className="mr-2 inline-block w-10 select-none text-right text-gray-300">
                     {i + 1}
                   </span>
                   {line.map((token, key) => (

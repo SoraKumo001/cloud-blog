@@ -1,4 +1,4 @@
-/* eslint-disable import/namespace */
+ 
 import { remark } from "remark";
 import type { Root } from "mdast";
 

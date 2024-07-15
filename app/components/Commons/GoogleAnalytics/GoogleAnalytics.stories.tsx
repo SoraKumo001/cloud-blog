@@ -1,5 +1,5 @@
-import { Decorator } from "@/storybook";
 import { GoogleAnalytics } from ".";
+import { Decorator } from "@/storybook";
 
 const StoryInfo = {
   title: "Components/Commons/GoogleAnalytics",

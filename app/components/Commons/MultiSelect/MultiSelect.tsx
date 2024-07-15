@@ -1,7 +1,7 @@
 import { FC, ReactNode, useState } from "react";
 import { MdExpandMore as ExpandIcon } from "react-icons/md";
-import { classNames } from "@/libs/client/classNames";
 import { Popup } from "../Popup";
+import { classNames } from "@/libs/client/classNames";
 
 interface Props {
   className: string;
@@ -19,7 +19,7 @@ export const MultiSelect: FC<Props> = ({ className, children, items }) => {
   return (
     <div className={classNames("border rounded p-2", className)}>
       <div
-        className="mt-1 flex items-center cursor-pointer"
+        className="mt-1 flex cursor-pointer items-center"
         onClick={() => setExpand(true)}
       >
         <div className="flex-1">{children}</div>
@@ -32,10 +32,10 @@ export const MultiSelect: FC<Props> = ({ className, children, items }) => {
           setExpand(false);
         }}
       >
-        <div className="bg-white p-2 shadow rounded gap-0.5">
+        <div className="gap-0.5 rounded bg-white p-2 shadow">
           {items?.map((item, index) => (
             <div
-              className="cursor-pointer hover:text-primary p-1 rounded"
+              className="cursor-pointer rounded p-1 hover:text-primary"
               key={index}
             >
               {item}

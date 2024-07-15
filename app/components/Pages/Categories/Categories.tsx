@@ -1,9 +1,9 @@
 import { FC, useMemo } from "react";
+import styled from "./Categories.module.css";
 import { PostList } from "@/components/PostList";
 import { Title } from "@/components/System/Title";
 import { useCategoryQuery, usePostsQuery } from "@/generated/graphql";
 import { useLoading } from "@/hooks/useLoading";
-import styled from "./Categories.module.css";
 
 interface Props {
   id: string;

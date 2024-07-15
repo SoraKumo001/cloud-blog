@@ -8,6 +8,8 @@ import {
   MdExpandMore as ExpandIcon,
   MdSave as SaveIcon,
 } from "react-icons/md";
+import styled from "./ToolBar.module.css";
+import type { FormInput } from "../Editor/Editor";
 import { MessageDialog } from "@/components/Commons/Dialog/MessageDialog";
 import { FieldSet } from "@/components/Commons/FieldSet";
 import { ImageDragField } from "@/components/Commons/ImageDragField";
@@ -22,8 +24,6 @@ import { useFirebaseUrl } from "@/hooks/useFirebaseUrl";
 import { useLoading } from "@/hooks/useLoading";
 import { classNames } from "@/libs/client/classNames";
 import { useConvertImage } from "@/libs/client/convertImage";
-import styled from "./ToolBar.module.css";
-import type { FormInput } from "../Editor/Editor";
 interface Props {
   post: PostQuery["findUniquePost"];
   control: Control<FormInput>;
@@ -42,7 +42,7 @@ export const ToolBar: FC<Props> = ({ post, control, onCard }) => {
   const [{ data, fetching }] = useCategoriesQuery();
   const categoryList = useMemo(() => {
     if (!data) return undefined;
-    return [...data?.findManyCategory].sort((a, b) =>
+    return [...(data?.findManyCategory ?? [])].sort((a, b) =>
       a.name < b.name ? -1 : 1
     );
   }, [data]);
@@ -102,7 +102,7 @@ export const ToolBar: FC<Props> = ({ post, control, onCard }) => {
                 items={categoryList.map(({ id, name }) => (
                   <label
                     key={id}
-                    className="flex items-center gap-1 cursor-pointer"
+                    className="flex cursor-pointer items-center gap-1"
                   >
                     <Checkbox
                       size="sm"

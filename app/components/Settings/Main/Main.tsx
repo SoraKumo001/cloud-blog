@@ -12,7 +12,7 @@ interface Props {}
 export const Main: FC<Props> = ({}) => {
   return (
     <div className={styled.root}>
-      <div className="max-w-2xl m-auto grid gap-8 pt-8">
+      <div className="m-auto grid max-w-2xl gap-8 pt-8">
         <h1>システム設定</h1>
         <div className={styled.items}>
           <Link className={styled.link} to="/settings/system">

@@ -8,12 +8,12 @@ import {
   MdLogout as LogoutIcon,
   MdSettings as SettingsIcon,
 } from "react-icons/md";
+import styled from "./Header.module.css";
 import { Head } from "@/components/Commons/Head";
 import { useSystemQuery } from "@/generated/graphql";
 import { useUser, useSignOut } from "@/hooks/useAuth";
 import { useFirebaseUrl } from "@/hooks/useFirebaseUrl";
 import { useLoading } from "@/hooks/useLoading";
-import styled from "./Header.module.css";
 
 interface Props {}
 

@@ -1,5 +1,5 @@
-import { Decorator } from "@/storybook";
 import { LoadingContainer } from ".";
+import { Decorator } from "@/storybook";
 
 const StoryInfo = {
   title: "Components/System/LoadingContainer",

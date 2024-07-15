@@ -23,7 +23,7 @@ export const FieldSet: FC<Props> = ({
       className={classNames("border rounded overflow-hidden px-2", className)}
     >
       {label && (
-        <legend className="px-2 text-neutral-500 text-xs leading-none">
+        <legend className="px-2 text-xs leading-none text-neutral-500">
           {label}
         </legend>
       )}

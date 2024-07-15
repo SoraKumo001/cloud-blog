@@ -38,7 +38,7 @@ const Page = () => {
   const handleSignIn = useSignInGoogle();
 
   return (
-    <div className="flex h-full w-full items-center justify-center">
+    <div className="flex size-full items-center justify-center">
       <Button onClick={handleSignIn}>SignIn</Button>
     </div>
   );

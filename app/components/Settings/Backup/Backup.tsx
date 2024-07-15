@@ -1,5 +1,6 @@
 import { FC } from "react";
 import { Checkbox } from "react-daisyui";
+import styled from "./Backup.module.css";
 import { FieldSet } from "@/components/Commons/FieldSet";
 import {
   useBackupMutation,
@@ -12,7 +13,6 @@ import { useFirebaseUrl } from "@/hooks/useFirebaseUrl";
 import { useLoading } from "@/hooks/useLoading";
 import { useNotification } from "@/hooks/useNotification";
 import { arrayBufferToBase64, base64ToArrayBuffer } from "@/libs/server/buffer";
-import styled from "./Backup.module.css";
 
 interface Props {}
 
@@ -67,7 +67,7 @@ export const Backup: FC<Props> = () => {
           [
             JSON.stringify({
               ...values,
-              // eslint-disable-next-line @typescript-eslint/no-unused-vars
+               
               files: values.files.map(({ binary, ...v }) => v),
             }),
           ],
@@ -121,7 +121,7 @@ export const Backup: FC<Props> = () => {
   );
   return (
     <div className={styled.root}>
-      <div className="max-w-2xl m-auto pt-8">
+      <div className="m-auto max-w-2xl pt-8">
         <h1>バックアップ/リストア</h1>
         <div className={styled.items}>
           <a className={styled.link} onClick={handleBackup}>
@@ -131,8 +131,8 @@ export const Backup: FC<Props> = () => {
             リストア
           </a>
         </div>
-        <div className="border-2 border-solid w-full my-8" />
-        <FieldSet label="CORS" className="p-2 flex gap-4">
+        <div className="my-8 w-full border-2 border-solid" />
+        <FieldSet label="CORS" className="flex gap-4 p-2">
           <Checkbox
             color="primary"
             checked={bucketData?.bucket.cors?.[0].origin?.[0] === "*"}

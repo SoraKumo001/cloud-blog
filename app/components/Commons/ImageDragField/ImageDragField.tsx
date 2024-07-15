@@ -1,10 +1,10 @@
 import { FC, ReactNode, useRef, useState } from "react";
 import { Button } from "react-daisyui";
 import { MdClose as CloseIcon } from "react-icons/md";
-import { classNames } from "@/libs/client/classNames";
-import { arrayBufferToBase64 } from "@/libs/server/buffer";
 import styled from "./ImageDragField.module.css";
 import { FieldSet } from "../FieldSet";
+import { classNames } from "@/libs/client/classNames";
+import { arrayBufferToBase64 } from "@/libs/server/buffer";
 
 interface Props {
   className?: string;
@@ -65,7 +65,7 @@ export const ImageDragField: FC<Props> = ({
     >
       <input
         ref={refInput}
-        className="w-0 h-0 absolute"
+        className="absolute size-0"
         autoFocus
         onFocus={() => {
           setActive(true);

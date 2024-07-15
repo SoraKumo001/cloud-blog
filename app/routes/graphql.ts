@@ -1,9 +1,9 @@
 import { ActionFunctionArgs, LoaderFunctionArgs } from "@remix-run/cloudflare";
 import { parse, serialize } from "cookie";
 import { createYoga } from "graphql-yoga";
-import { getUserFromToken } from "@/libs/client/getUserFromToken";
 import { Context, getPrisma } from "../libs/server/context";
 import { schema } from "../libs/server/schema";
+import { getUserFromToken } from "@/libs/client/getUserFromToken";
 
 const yoga = createYoga<
   {

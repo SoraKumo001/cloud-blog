@@ -1,6 +1,6 @@
 import { Meta } from '@storybook/react';
-import { Decorator } from '@/storybook';
 import { Editor } from '.';
+import { Decorator } from '@/storybook';
 
 const meta: Meta<typeof Editor> = {
   component: Editor,

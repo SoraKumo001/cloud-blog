@@ -1,10 +1,10 @@
 import { FC, useCallback, useEffect, useRef } from "react";
+import styled from "./NotificationContainer.module.css";
+import { Notification } from "../Notification";
 import {
   useNotificationsDispatch,
   useNotificationsSelector,
 } from "@/hooks/useNotification";
-import styled from "./NotificationContainer.module.css";
-import { Notification } from "../Notification";
 const fadeTime = 5000;
 const fadeNextTime = 100;
 interface Props {}

@@ -1,10 +1,10 @@
 import { Link } from "@remix-run/react";
 import { FC, useMemo } from "react";
 
-import { classNames } from "@/libs/client/classNames";
-import { VNode } from "@/libs/client/MarkdownCompiler";
 import styled from "./ContentTable.module.css";
 import type { Heading } from "mdast";
+import { classNames } from "@/libs/client/classNames";
+import { VNode } from "@/libs/client/MarkdownCompiler";
 
 export type MarkdownTitles = { text: string; depth: number }[];
 

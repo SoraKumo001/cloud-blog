@@ -6,8 +6,8 @@ import {
   MdFilterCenterFocus as CenterIcon,
 } from "react-icons/md";
 
-import { classNames } from "@/libs/client/classNames";
 import styled from "./Separator.module.css";
+import { classNames } from "@/libs/client/classNames";
 
 interface Props {
   className?: string;

@@ -14,8 +14,8 @@ const meta: Meta<typeof Popup> = {
       const [isOpen, setIsOpen] = useState(true);
       parameters.setIsOpen = setIsOpen;
       return (
-        <div className="w-[640px] h-[640px]">
-          <div className="bg-red-50 absolute w-16 h-16 left-32 top-32">
+        <div className="size-[640px]">
+          <div className="absolute left-32 top-32 size-16 bg-red-50">
             <Story args={{ ...args, isOpen }} />
             ABCD
           </div>

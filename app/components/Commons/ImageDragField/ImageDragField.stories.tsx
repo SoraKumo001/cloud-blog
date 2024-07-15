@@ -1,6 +1,6 @@
 import { Meta, StoryObj } from '@storybook/react';
-import { Decorator } from '@/storybook';
 import { ImageDragField } from '.';
+import { Decorator } from '@/storybook';
 
 const meta: Meta<typeof ImageDragField> = {
   component: ImageDragField,

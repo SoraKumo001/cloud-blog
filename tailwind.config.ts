@@ -10,6 +10,7 @@ export default {
     extend: {},
   },
   daisyui: {
+    logs: false,
     themes: [
       {
         theme: {
