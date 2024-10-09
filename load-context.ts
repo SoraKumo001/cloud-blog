@@ -1,5 +1,4 @@
 import { AppLoadContext } from "@remix-run/cloudflare";
-import { GetLoadContextFunction } from "@remix-run/cloudflare-pages";
 import { type PlatformProxy } from "wrangler";
 import { initFetch } from "./app/init";
 
@@ -8,10 +7,11 @@ import { initFetch } from "./app/init";
 // into the global `Env` interface.
 // Need this empty interface so that typechecking passes
 // even if no `wrangler.toml` exists.
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
+
 interface Env {
   SECRET_KEY: string;
   DATABASE_URL: string;
+  ASSETS: Fetcher;
 }
 
 type Cloudflare = Omit<PlatformProxy<Env>, "dispose">;
@@ -24,20 +24,21 @@ declare module "@remix-run/cloudflare" {
 
 type GetLoadContext = (args: {
   request: Request;
-  context: { cloudflare: Cloudflare };
+  context: {
+    cloudflare: Cloudflare & {
+      next: (input?: Request | string, init?: RequestInit) => Promise<Response>;
+    };
+  };
 }) => AppLoadContext;
 
-export const getLoadContext: GetLoadContext & GetLoadContextFunction<Env> = ({
-  context,
-  request,
-}) => {
+export const getLoadContext: GetLoadContext = (p) => {
+  const { request, context } = p;
   const cloudflare = context.cloudflare;
   const env = cloudflare.env;
-  const next = "next" in cloudflare ? cloudflare.next : undefined;
-  initFetch(env, request, next);
+  initFetch(env as never, request, cloudflare.next);
 
   return {
     ...context,
-    ASSETS: { fetch },
+    ASSETS: { fetch: env.ASSETS },
   };
 };

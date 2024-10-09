@@ -1,6 +1,7 @@
 type Env = {
   prisma: Fetcher;
   DATABASE_URL: string;
+  ENV?: string;
 };
 
 const getHost = (req: Request) => {
@@ -8,13 +9,11 @@ const getHost = (req: Request) => {
 
   const host = headers.get("x-forwarded-host") ?? headers.get("host");
   if (!host) return undefined;
-  const proto =
-    headers.get("x-forwarded-proto")?.toString().split(",")[0] ?? "http";
-  return headers ? `${proto}://${host}` : undefined;
+  return host;
 };
 
 export const initFetch = (
-  env: Env | Record<string, unknown> | unknown,
+  env: Record<string, unknown>,
   request: Request,
   next?: (input?: Request | string, init?: RequestInit) => Promise<Response>
 ) => {
@@ -29,9 +28,6 @@ export const initFetch = (
       url.protocol = "http:";
       return originFetch(url.toString(), init);
     }
-    if (next && url.hostname === host) {
-      return next(input, init);
-    }
     if (
       typeof env === "object" &&
       env &&
@@ -39,9 +35,16 @@ export const initFetch = (
       "prisma" in env
     ) {
       const databaseURL = new URL(env.DATABASE_URL as string);
-      if (url.hostname === databaseURL.hostname && env.prisma) {
+      if (
+        url.hostname === databaseURL.hostname &&
+        env.prisma &&
+        env.ENV !== "local"
+      ) {
         return (env.prisma as Fetcher).fetch(input, init);
       }
+    }
+    if (next && url.hostname === host) {
+      return next(input, init);
     }
     return originFetch(input, init);
   }) as typeof fetch;

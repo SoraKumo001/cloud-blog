@@ -1,8 +1,8 @@
 #:schema node_modules/wrangler/config-schema.json
 name = "cloud-blog2"
-compatibility_date = "2024-10-04"
-main = "./build/worker/index.js"
-assets = { directory = "./build/client" }
+compatibility_date = "2024-09-25"
+main = "./functions/[[path]].ts"
+assets = { directory = "./build/client" ,binding = "ASSETS"}
 
 services = [
   { binding = "prisma", service = "prisma-accelerate-workers" }
