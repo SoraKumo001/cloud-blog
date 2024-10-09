@@ -8,12 +8,6 @@ import { initFetch } from "./app/init";
 // Need this empty interface so that typechecking passes
 // even if no `wrangler.toml` exists.
 
-interface Env {
-  SECRET_KEY: string;
-  DATABASE_URL: string;
-  ASSETS: Fetcher;
-}
-
 type Cloudflare = Omit<PlatformProxy<Env>, "dispose">;
 
 declare module "@remix-run/cloudflare" {
@@ -35,7 +29,7 @@ export const getLoadContext: GetLoadContext = (p) => {
   const { request, context } = p;
   const cloudflare = context.cloudflare;
   const env = cloudflare.env;
-  initFetch(env as never, request, cloudflare.next);
+  initFetch(env, request, cloudflare.next);
 
   return {
     ...context,

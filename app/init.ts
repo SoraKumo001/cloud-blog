@@ -1,9 +1,3 @@
-type Env = {
-  prisma: Fetcher;
-  DATABASE_URL: string;
-  ENV?: string;
-};
-
 const getHost = (req: Request) => {
   const headers = req.headers;
 
@@ -13,7 +7,7 @@ const getHost = (req: Request) => {
 };
 
 export const initFetch = (
-  env: Record<string, unknown>,
+  env: Env,
   request: Request,
   next?: (input?: Request | string, init?: RequestInit) => Promise<Response>
 ) => {

@@ -1,4 +1,10 @@
-import { useRef, useSyncExternalStore, createContext, ReactNode, useContext } from 'react';
+import {
+  useRef,
+  useSyncExternalStore,
+  createContext,
+  ReactNode,
+  useContext,
+} from "react";
 
 export type ContextType<T> = {
   state: T;
@@ -36,7 +42,9 @@ export const StoreProvider = <T,>({
   initState?: () => T;
 }) => {
   const context = useStoreContext(initState);
-  return <StoreContext.Provider value={context}>{children}</StoreContext.Provider>;
+  return (
+    <StoreContext.Provider value={context}>{children}</StoreContext.Provider>
+  );
 };
 
 export const useSelector = <T, R>(getSnapshot: (state: T) => R) => {
