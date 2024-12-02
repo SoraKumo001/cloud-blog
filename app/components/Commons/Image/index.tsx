@@ -61,7 +61,7 @@ export const Image = ({ src, width, height, alt, className }: Props) => {
   const url = new URL(optimizer ?? src);
   if (optimizer) {
     url.searchParams.set("url", encodeURI(src));
-    width && url.searchParams.set("w", String(Math.min(width, 800)));
+    if (width) url.searchParams.set("w", String(Math.min(width, 800)));
     url.searchParams.set("q", "90");
   }
 

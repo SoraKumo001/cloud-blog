@@ -67,7 +67,7 @@ export const Backup: FC<Props> = () => {
           [
             JSON.stringify({
               ...values,
-               
+
               files: values.files.map(({ binary, ...v }) => v),
             }),
           ],
@@ -137,9 +137,7 @@ export const Backup: FC<Props> = () => {
             color="primary"
             checked={bucketData?.bucket.cors?.[0].origin?.[0] === "*"}
             onChange={(e) => {
-              e.target.checked
-                ? updateCors({ origin: ["*"] })
-                : updateCors({ origin: [] });
+              updateCors({ origin: e.target.checked ? ["*"] : [] });
             }}
           />
           Firebase-storageのCORSを許可する

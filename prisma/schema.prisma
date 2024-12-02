@@ -1,5 +1,6 @@
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
+  previewFeatures = ["driverAdapters"]
 }
 
 datasource db {
@@ -9,8 +10,10 @@ datasource db {
 }
 
 generator pothos {
-  provider = "prisma-pothos-types"
-  output   = "../app/generated/pothos-types.ts"
+  provider          = "prisma-pothos-types"
+  output            = "../app/generated/pothos-types.ts"
+  generateDatamodel = true
+  documentation     = true
 }
 
 /// @pothos-generator executable {include:["mutation"],authority:["USER"]}

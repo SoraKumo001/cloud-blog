@@ -1,10 +1,9 @@
 import SchemaBuilder from "@pothos/core";
 import PrismaPlugin from "@pothos/plugin-prisma";
 import PrismaUtils from "@pothos/plugin-prisma-utils";
-import { PrismaClient } from "@prisma/client/edge";
 import PothosPrismaGeneratorPlugin from "pothos-prisma-generator";
-import { Context } from "./context";
-import PrismaTypes from "@/generated/pothos-types";
+import { Context, prisma } from "./context";
+import PrismaTypes, { getDatamodel } from "@/generated/pothos-types";
 
 /**
  * Create a new schema builder instance
@@ -25,9 +24,8 @@ export const createBuilder = (datasourceUrl: string) => {
   const builder = new SchemaBuilder<BuilderType>({
     plugins: [PrismaPlugin, PrismaUtils, PothosPrismaGeneratorPlugin],
     prisma: {
-      client: new PrismaClient({
-        datasourceUrl,
-      }),
+      client: prisma,
+      dmmf: getDatamodel(),
     },
     pothosPrismaGenerator: {
       authority: ({ context }) => (context.user ? ["USER"] : []),

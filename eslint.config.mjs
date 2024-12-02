@@ -36,6 +36,7 @@ export default [
     },
     rules: {
       "@typescript-eslint/no-unused-vars": 0,
+      "@typescript-eslint/no-empty-object-type": 0,
       "no-empty-pattern": 0,
       "no-empty": 0,
       "import/order": [

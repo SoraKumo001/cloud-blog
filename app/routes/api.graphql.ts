@@ -1,7 +1,7 @@
 import { ActionFunctionArgs, LoaderFunctionArgs } from "@remix-run/cloudflare";
 import { parse, serialize } from "cookie";
 import { createYoga } from "graphql-yoga";
-import { Context, getPrisma } from "../libs/server/context";
+import { Context, prisma } from "../libs/server/context";
 import { schema } from "../libs/server/schema";
 import { getUserFromToken } from "@/libs/client/getUserFromToken";
 
@@ -27,11 +27,11 @@ const yoga = createYoga<
     return {
       req,
       env,
-      prisma: getPrisma(env.DATABASE_URL),
+      prisma,
       user,
       cookies,
       setCookie,
-    };
+    } as never;
   },
 });
 

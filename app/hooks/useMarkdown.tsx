@@ -53,7 +53,10 @@ const components = (edit?: boolean): MarkdownComponents => ({
     const index = (property as { headerCount?: number }).headerCount ?? 0;
     property.headerCount = index + 1;
     return (
-      <Fragment {...props}>
+      <Fragment
+        {...props}
+        key={`${node.position?.start.line}-${node.position?.start.column}`}
+      >
         <LinkTarget id={`header-${index}`} />
         <Tag>{children}</Tag>
       </Fragment>
@@ -76,6 +79,7 @@ const components = (edit?: boolean): MarkdownComponents => ({
         {...props}
         to={href ?? ""}
         target={href?.match(/https?:/) ? "_blank" : undefined}
+        key={`${node.position?.start.line}-${node.position?.start.column}`}
       >
         {children}
       </Link>
@@ -95,7 +99,11 @@ const components = (edit?: boolean): MarkdownComponents => ({
   },
   code({ node, children, props }) {
     return (
-      <div {...props} className="overflow-hidden font-mono">
+      <div
+        {...props}
+        className="overflow-hidden font-mono"
+        key={node.position?.start.line ?? 0}
+      >
         <Highlight
           theme={themes.shadesOfPurple}
           code={String(children)}

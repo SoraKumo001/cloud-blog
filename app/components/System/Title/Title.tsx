@@ -30,12 +30,10 @@ export const Title: FC<Props> = ({ image, children }) => {
   const systemDescription = data.findUniqueSystem.description;
   const title = (subTitle || "") + ` | ${systemTitle}`;
   const ogpUrl = OGP_URL ?? `${host}/api/og`;
-  const cardImage =
-    image && `${IMAGE_URL}/?type=png&url=${encodeURIComponent(image)}`;
   const imageUrl = [
     `${ogpUrl}?title=${encodeURIComponent(subTitle || "")}`,
     `name=${encodeURIComponent(systemTitle)}`,
-    cardImage ? `image=${encodeURIComponent(cardImage)}` : [],
+    image ? `image=${encodeURIComponent(image)}` : [],
   ]
     .flat()
     .join("&");

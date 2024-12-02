@@ -8,7 +8,9 @@ const Page = () => {
   useEffect(() => {
     createPost({}).then(({ data }) => {
       const id = data?.createOnePost?.id;
-      id && navigate(`/edit/${id}`, { replace: true });
+      if (id) {
+        navigate(`/edit/${id}`, { replace: true });
+      }
     });
   }, [createPost, navigate]);
 };

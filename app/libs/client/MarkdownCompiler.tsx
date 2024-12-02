@@ -39,10 +39,14 @@ const defaultComponents: MarkdownComponents = {
   list: ({ children, props }) => createElement("ul", props, children),
   listItem: ({ children, props }) => createElement("li", props, children),
   html: ({ node, props }) => (
-    <span {...props} dangerouslySetInnerHTML={{ __html: node.value }} />
+    <span
+      {...props}
+      dangerouslySetInnerHTML={{ __html: node.value }}
+      key={`${node.position?.start.line}-${node.position?.start.column}`}
+    />
   ),
   table: ({ children, node, props }) => (
-    <table {...props}>
+    <table {...props} key={node.position?.start.line}>
       <tbody>
         {Children.toArray(children).map((tr, rows) =>
           isValidElement(tr) && tr.type === "tr" ? (

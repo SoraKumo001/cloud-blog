@@ -37,8 +37,10 @@ export const NotificationContainer: FC<Props> = ({}) => {
         onAnimationEnd();
       }
       if (!notifications?.length) {
-        handle && clearInterval(handle);
-        handle = undefined;
+        if (handle) {
+          clearInterval(handle);
+          handle = undefined;
+        }
       }
     }, 10);
     return () => handle && clearInterval(handle);
@@ -46,7 +48,7 @@ export const NotificationContainer: FC<Props> = ({}) => {
 
   if (!notifications || !notifications.length) return null;
   return (
-    <div className={styled.root}>
+    <div>
       <Notification
         key={String(notifications[0])}
         onAnimationEnd={onAnimationEnd}
