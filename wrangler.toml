@@ -2,7 +2,7 @@
 name = "cloud-blog2"
 compatibility_date = "2024-09-25"
 compatibility_flags = ["nodejs_compat"]
-main = "server.ts"
+main = "./build/server/index.js"
 assets = { directory = "./build/client" ,binding = "ASSETS"}
 
 [observability]

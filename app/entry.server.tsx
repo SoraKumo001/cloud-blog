@@ -1,21 +1,15 @@
-/**
- * By default, Remix will handle generating the HTTP Response for you.
- * You are free to delete this file if you'd like to, but if you ever want it revealed again, you can run `npx remix reveal` ✨
- * For more information, see https://remix.run/file-conventions/entry.server
- */
-
-import { RemixServer } from "@remix-run/react";
 import { renderToReadableStream } from "react-dom/server";
+import { ServerRouter } from "react-router";
 import { getUserFromToken } from "./libs/client/getUserFromToken";
 import { getHost } from "./libs/server/getHost";
 import { RootProvider } from "./libs/server/RootContext";
-import type { AppLoadContext, EntryContext } from "@remix-run/cloudflare";
+import type { AppLoadContext, EntryContext } from "react-router";
 
 export default async function handleRequest(
   request: Request,
   responseStatusCode: number,
   responseHeaders: Headers,
-  remixContext: EntryContext,
+  routerContext: EntryContext,
   // This is ignored so we can keep it in the template for visibility.  Feel
   // free to delete this parameter in your app if you're not using it!
 
@@ -24,7 +18,7 @@ export default async function handleRequest(
   const rootValue = await getInitialProps(request, loadContext);
   const body = await renderToReadableStream(
     <RootProvider value={rootValue}>
-      <RemixServer context={remixContext} url={request.url} />
+      <ServerRouter context={routerContext} url={request.url} />
     </RootProvider>,
     {
       signal: request.signal,
@@ -49,7 +43,8 @@ const getInitialProps = async (
   request: Request,
   loadContext: AppLoadContext
 ) => {
-  const env = loadContext.cloudflare.env;
+  const env = (loadContext as { cloudflare: { env: Record<string, string> } })
+    .cloudflare.env;
   const cookie = request.headers.get("cookie");
   const cookies = Object.fromEntries(
     cookie?.split(";").map((v) => v.trim().split("=")) ?? []

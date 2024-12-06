@@ -1,7 +1,7 @@
-import { Link, useNavigate } from "@remix-run/react";
 import { FC, useEffect, useMemo } from "react";
 import { Button } from "react-daisyui";
 import { MdEditNote as EditIcon } from "react-icons/md";
+import { Link, useNavigate } from "react-router";
 import styled from "./Contents.module.css";
 import { Head } from "../Commons/Head";
 import { ContentMarkdown } from "../ContentMarkdown";

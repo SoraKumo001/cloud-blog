@@ -1,4 +1,4 @@
-import { useParams } from "@remix-run/react";
+import { useParams } from "react-router";
 import { Contents } from "@/components/Contents";
 
 const Page = () => {

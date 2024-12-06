@@ -1,20 +1,28 @@
 import adapter from "@hono/vite-dev-server/cloudflare";
-import { vitePlugin as remix } from "@remix-run/dev";
+import { reactRouter } from "@react-router/dev/vite";
+import autoprefixer from "autoprefixer";
 import serverAdapter from "hono-remix-adapter/vite";
+import tailwindcss from "tailwindcss";
 import { defineConfig } from "vite";
 import tsconfigPaths from "vite-tsconfig-paths";
 
-export default defineConfig({
+export default defineConfig(({ isSsrBuild }) => ({
+  build: {
+    rollupOptions: isSsrBuild
+      ? {
+          input: "./server.ts",
+        }
+      : undefined,
+    minify: true,
+  },
+  css: {
+    postcss: {
+      plugins: [tailwindcss, autoprefixer],
+    },
+  },
+
   plugins: [
-    remix({
-      future: {
-        v3_fetcherPersist: true,
-        v3_relativeSplatPath: true,
-        v3_throwAbortReason: true,
-        v3_singleFetch: true,
-        v3_lazyRouteDiscovery: true,
-      },
-    }),
+    reactRouter(),
     serverAdapter({
       adapter,
       entry: "server.ts",
@@ -30,10 +38,7 @@ export default defineConfig({
   resolve: {
     mainFields: ["browser", "module", "main"],
   },
-  build: {
-    minify: true,
-  },
   worker: {
     format: "es",
   },
-});
+}));

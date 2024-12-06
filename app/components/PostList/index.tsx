@@ -1,4 +1,4 @@
-import { Link } from "@remix-run/react";
+import { Link } from "react-router";
 import { FC, useMemo } from "react";
 import styled from "./PostList.module.css";
 import { Image } from "@/components/Commons/Image";

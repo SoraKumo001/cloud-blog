@@ -1,7 +1,7 @@
-import { createRequestHandler } from "@remix-run/cloudflare";
 import { Hono } from "hono";
 import { contextStorage, getContext } from "hono/context-storage";
 import { getLoadContext } from "load-context";
+import { createRequestHandler } from "react-router";
 
 const app = new Hono();
 app.use(contextStorage());
@@ -22,17 +22,14 @@ app.use(async (_c, next) => {
 });
 
 app.use(async (c) => {
-  const build =
-    process.env.NODE_ENV !== "development"
-      ? import("./build/server")
-      : // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-expect-error
-        import("virtual:remix/server-build");
-  const handler = createRequestHandler(await build);
+  // @ts-expect-error - virtual module provided by React Router at build time
+  const build = await import("virtual:react-router/server-build");
+  const handler = createRequestHandler(build, import.meta.env.MODE);
+
   const next = (input: Request | string, init?: RequestInit) => {
     return handler(new Request(input, init), {
       cloudflare: { env: c.env },
-    } as never);
+    });
   };
   const context = getLoadContext({
     request: c.req.raw,

@@ -1,4 +1,4 @@
-import { useParams } from "@remix-run/react";
+import { useParams } from "react-router";
 import { Categories } from "@/components/Pages/Categories";
 
 const Page = () => {

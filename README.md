@@ -1,4 +1,6 @@
-# Blog system made with Remix + Vite
+# Blog system made with react-router@7 + Hono + Cloudflare
+
+https://next-blog.croud.jp/
 
 ## environment variable
 

@@ -1,8 +1,7 @@
 /* eslint-disable tailwindcss/no-custom-classname */
 import { ApolloExplorer } from "@apollo/explorer/react";
-import { LoaderFunctionArgs } from "@remix-run/cloudflare";
-import { useLoaderData } from "@remix-run/react";
 import { printSchema } from "graphql";
+import { LoaderFunctionArgs, useLoaderData } from "react-router";
 import { schema } from "@/libs/server/schema";
 
 const Explorer = () => {

@@ -1,4 +1,4 @@
-import { Link } from "@remix-run/react";
+import { Link } from "react-router";
 import { Highlight, themes } from "prism-react-renderer";
 import { ElementType, Fragment, ReactNode, useMemo } from "react";
 import { Image } from "@/components/Commons/Image";
