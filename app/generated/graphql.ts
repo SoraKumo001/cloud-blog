@@ -42,23 +42,23 @@ export type BucketObject = {
   cors?: Maybe<Array<CorsObject>>;
   defaultEventBasedHold?: Maybe<Scalars['Boolean']['output']>;
   encryption?: Maybe<EncryptionObject>;
-  etag: Scalars['String']['output'];
-  id: Scalars['String']['output'];
-  kind: Scalars['String']['output'];
-  location: Scalars['String']['output'];
-  metageneration: Scalars['String']['output'];
-  name: Scalars['String']['output'];
-  projectNumber: Scalars['String']['output'];
-  selfLink: Scalars['String']['output'];
-  storageClass: Scalars['String']['output'];
-  timeCreated: Scalars['String']['output'];
-  updated: Scalars['String']['output'];
+  etag?: Maybe<Scalars['String']['output']>;
+  id?: Maybe<Scalars['String']['output']>;
+  kind?: Maybe<Scalars['String']['output']>;
+  location?: Maybe<Scalars['String']['output']>;
+  metageneration?: Maybe<Scalars['String']['output']>;
+  name?: Maybe<Scalars['String']['output']>;
+  projectNumber?: Maybe<Scalars['String']['output']>;
+  selfLink?: Maybe<Scalars['String']['output']>;
+  storageClass?: Maybe<Scalars['String']['output']>;
+  timeCreated?: Maybe<Scalars['String']['output']>;
+  updated?: Maybe<Scalars['String']['output']>;
 };
 
 export type Category = {
   __typename?: 'Category';
   createdAt: Scalars['DateTime']['output'];
-  id: Scalars['ID']['output'];
+  id?: Maybe<Scalars['ID']['output']>;
   name: Scalars['String']['output'];
   posts: Array<Post>;
   postsCount: Scalars['Int']['output'];
@@ -184,13 +184,13 @@ export type DateTimeFilter = {
 
 export type EncryptionObject = {
   __typename?: 'EncryptionObject';
-  defaultKmsKeyName: Scalars['String']['output'];
+  defaultKmsKeyName?: Maybe<Scalars['String']['output']>;
 };
 
 export type FireStore = {
   __typename?: 'FireStore';
   createdAt: Scalars['DateTime']['output'];
-  id: Scalars['ID']['output'];
+  id?: Maybe<Scalars['ID']['output']>;
   mimeType: Scalars['String']['output'];
   name: Scalars['String']['output'];
   postCards: Array<Post>;
@@ -469,45 +469,45 @@ export type FireStoreWithoutPostsFilter = {
 
 export type Mutation = {
   __typename?: 'Mutation';
-  backup: Scalars['String']['output'];
-  bucket: BucketObject;
-  createManyCategory: Scalars['Int']['output'];
-  createManyFireStore: Scalars['Int']['output'];
-  createManyPost: Scalars['Int']['output'];
-  createManySystem: Scalars['Int']['output'];
-  createManyUser: Scalars['Int']['output'];
-  createOneCategory: Category;
-  createOneFireStore: FireStore;
-  createOnePost: Post;
-  createOneSystem: System;
-  createOneUser: User;
-  deleteManyCategory: Scalars['Int']['output'];
-  deleteManyFireStore: Scalars['Int']['output'];
-  deleteManyPost: Scalars['Int']['output'];
-  deleteManySystem: Scalars['Int']['output'];
-  deleteManyUser: Scalars['Int']['output'];
-  deleteOneCategory: Category;
-  deleteOneFireStore: FireStore;
-  deleteOnePost: Post;
-  deleteOneSystem: System;
-  deleteOneUser: User;
-  normalizationPostFiles: Scalars['Boolean']['output'];
-  restore: Scalars['Boolean']['output'];
-  restoreFiles: Array<FireStore>;
+  backup?: Maybe<Scalars['String']['output']>;
+  bucket?: Maybe<BucketObject>;
+  createManyCategory?: Maybe<Scalars['Int']['output']>;
+  createManyFireStore?: Maybe<Scalars['Int']['output']>;
+  createManyPost?: Maybe<Scalars['Int']['output']>;
+  createManySystem?: Maybe<Scalars['Int']['output']>;
+  createManyUser?: Maybe<Scalars['Int']['output']>;
+  createOneCategory?: Maybe<Category>;
+  createOneFireStore?: Maybe<FireStore>;
+  createOnePost?: Maybe<Post>;
+  createOneSystem?: Maybe<System>;
+  createOneUser?: Maybe<User>;
+  deleteManyCategory?: Maybe<Scalars['Int']['output']>;
+  deleteManyFireStore?: Maybe<Scalars['Int']['output']>;
+  deleteManyPost?: Maybe<Scalars['Int']['output']>;
+  deleteManySystem?: Maybe<Scalars['Int']['output']>;
+  deleteManyUser?: Maybe<Scalars['Int']['output']>;
+  deleteOneCategory?: Maybe<Category>;
+  deleteOneFireStore?: Maybe<FireStore>;
+  deleteOnePost?: Maybe<Post>;
+  deleteOneSystem?: Maybe<System>;
+  deleteOneUser?: Maybe<User>;
+  normalizationPostFiles?: Maybe<Scalars['Boolean']['output']>;
+  restore?: Maybe<Scalars['Boolean']['output']>;
+  restoreFiles?: Maybe<Array<FireStore>>;
   signIn?: Maybe<User>;
-  updateManyCategory: Scalars['Int']['output'];
-  updateManyFireStore: Scalars['Int']['output'];
-  updateManyPost: Scalars['Int']['output'];
-  updateManySystem: Scalars['Int']['output'];
-  updateManyUser: Scalars['Int']['output'];
-  updateOneCategory: Category;
-  updateOneFireStore: FireStore;
-  updateOnePost: Post;
-  updateOneSystem: System;
-  updateOneUser: User;
-  uploadPostIcon: FireStore;
-  uploadPostImage: FireStore;
-  uploadSystemIcon: FireStore;
+  updateManyCategory?: Maybe<Scalars['Int']['output']>;
+  updateManyFireStore?: Maybe<Scalars['Int']['output']>;
+  updateManyPost?: Maybe<Scalars['Int']['output']>;
+  updateManySystem?: Maybe<Scalars['Int']['output']>;
+  updateManyUser?: Maybe<Scalars['Int']['output']>;
+  updateOneCategory?: Maybe<Category>;
+  updateOneFireStore?: Maybe<FireStore>;
+  updateOnePost?: Maybe<Post>;
+  updateOneSystem?: Maybe<System>;
+  updateOneUser?: Maybe<User>;
+  uploadPostIcon?: Maybe<FireStore>;
+  uploadPostImage?: Maybe<FireStore>;
+  uploadSystemIcon?: Maybe<FireStore>;
 };
 
 
@@ -728,7 +728,7 @@ export type Post = {
   categoriesCount: Scalars['Int']['output'];
   content: Scalars['String']['output'];
   createdAt: Scalars['DateTime']['output'];
-  id: Scalars['ID']['output'];
+  id?: Maybe<Scalars['ID']['output']>;
   postFiles: Array<FireStore>;
   postFilesCount: Scalars['Int']['output'];
   published: Scalars['Boolean']['output'];
@@ -1005,27 +1005,27 @@ export type PostWithoutPostFilesFilter = {
 
 export type Query = {
   __typename?: 'Query';
-  bucket: BucketObject;
-  countCategory: Scalars['Int']['output'];
-  countFireStore: Scalars['Int']['output'];
-  countPost: Scalars['Int']['output'];
-  countSystem: Scalars['Int']['output'];
-  countUser: Scalars['Int']['output'];
+  bucket?: Maybe<BucketObject>;
+  countCategory?: Maybe<Scalars['Int']['output']>;
+  countFireStore?: Maybe<Scalars['Int']['output']>;
+  countPost?: Maybe<Scalars['Int']['output']>;
+  countSystem?: Maybe<Scalars['Int']['output']>;
+  countUser?: Maybe<Scalars['Int']['output']>;
   findFirstCategory?: Maybe<Category>;
   findFirstFireStore?: Maybe<FireStore>;
   findFirstPost?: Maybe<Post>;
   findFirstSystem?: Maybe<System>;
   findFirstUser?: Maybe<User>;
-  findManyCategory: Array<Category>;
-  findManyFireStore: Array<FireStore>;
-  findManyPost: Array<Post>;
-  findManySystem: Array<System>;
-  findManyUser: Array<User>;
-  findUniqueCategory: Category;
-  findUniqueFireStore: FireStore;
-  findUniquePost: Post;
-  findUniqueSystem: System;
-  findUniqueUser: User;
+  findManyCategory?: Maybe<Array<Category>>;
+  findManyFireStore?: Maybe<Array<FireStore>>;
+  findManyPost?: Maybe<Array<Post>>;
+  findManySystem?: Maybe<Array<System>>;
+  findManyUser?: Maybe<Array<User>>;
+  findUniqueCategory?: Maybe<Category>;
+  findUniqueFireStore?: Maybe<FireStore>;
+  findUniquePost?: Maybe<Post>;
+  findUniqueSystem?: Maybe<System>;
+  findUniqueUser?: Maybe<User>;
 };
 
 
@@ -1172,7 +1172,7 @@ export type System = {
   description: Scalars['String']['output'];
   icon?: Maybe<FireStore>;
   iconId?: Maybe<Scalars['String']['output']>;
-  id: Scalars['ID']['output'];
+  id?: Maybe<Scalars['ID']['output']>;
   title: Scalars['String']['output'];
   updatedAt: Scalars['DateTime']['output'];
 };
@@ -1293,7 +1293,7 @@ export type User = {
   __typename?: 'User';
   createdAt: Scalars['DateTime']['output'];
   email: Scalars['String']['output'];
-  id: Scalars['ID']['output'];
+  id?: Maybe<Scalars['ID']['output']>;
   name: Scalars['String']['output'];
   post: Array<Post>;
   postCount: Scalars['Int']['output'];
@@ -1385,31 +1385,31 @@ export type SignInMutationVariables = Exact<{
 }>;
 
 
-export type SignInMutation = { __typename?: 'Mutation', signIn?: { __typename?: 'User', id: string, name: string, email: string, createdAt: string, updatedAt: string } | null };
+export type SignInMutation = { __typename?: 'Mutation', signIn?: { __typename?: 'User', id?: string | null, name: string, email: string, createdAt: string, updatedAt: string } | null };
 
 export type PostQueryVariables = Exact<{
   postId: Scalars['String']['input'];
 }>;
 
 
-export type PostQuery = { __typename?: 'Query', findUniquePost: { __typename?: 'Post', id: string, published: boolean, title: string, content: string, authorId: string, cardId?: string | null, createdAt: string, updatedAt: string, publishedAt: string, categories: Array<{ __typename?: 'Category', id: string, name: string, createdAt: string, updatedAt: string }> } };
+export type PostQuery = { __typename?: 'Query', findUniquePost?: { __typename?: 'Post', id?: string | null, published: boolean, title: string, content: string, authorId: string, cardId?: string | null, createdAt: string, updatedAt: string, publishedAt: string, categories: Array<{ __typename?: 'Category', id?: string | null, name: string, createdAt: string, updatedAt: string }> } | null };
 
 export type PostsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type PostsQuery = { __typename?: 'Query', findManyPost: Array<{ __typename?: 'Post', id: string, published: boolean, title: string, authorId: string, cardId?: string | null, createdAt: string, updatedAt: string, publishedAt: string, categories: Array<{ __typename?: 'Category', id: string, name: string, createdAt: string, updatedAt: string }> }> };
+export type PostsQuery = { __typename?: 'Query', findManyPost?: Array<{ __typename?: 'Post', id?: string | null, published: boolean, title: string, authorId: string, cardId?: string | null, createdAt: string, updatedAt: string, publishedAt: string, categories: Array<{ __typename?: 'Category', id?: string | null, name: string, createdAt: string, updatedAt: string }> }> | null };
 
 export type CreateOnePostMutationVariables = Exact<{ [key: string]: never; }>;
 
 
-export type CreateOnePostMutation = { __typename?: 'Mutation', createOnePost: { __typename?: 'Post', id: string, published: boolean, title: string, authorId: string, cardId?: string | null, createdAt: string, updatedAt: string, publishedAt: string, categories: Array<{ __typename?: 'Category', id: string, name: string, createdAt: string, updatedAt: string }> } };
+export type CreateOnePostMutation = { __typename?: 'Mutation', createOnePost?: { __typename?: 'Post', id?: string | null, published: boolean, title: string, authorId: string, cardId?: string | null, createdAt: string, updatedAt: string, publishedAt: string, categories: Array<{ __typename?: 'Category', id?: string | null, name: string, createdAt: string, updatedAt: string }> } | null };
 
 export type DeleteOnePostMutationVariables = Exact<{
   id: Scalars['String']['input'];
 }>;
 
 
-export type DeleteOnePostMutation = { __typename?: 'Mutation', deleteOnePost: { __typename?: 'Post', id: string, published: boolean, title: string, authorId: string, cardId?: string | null, createdAt: string, updatedAt: string, publishedAt: string, categories: Array<{ __typename?: 'Category', id: string, name: string, createdAt: string, updatedAt: string }> } };
+export type DeleteOnePostMutation = { __typename?: 'Mutation', deleteOnePost?: { __typename?: 'Post', id?: string | null, published: boolean, title: string, authorId: string, cardId?: string | null, createdAt: string, updatedAt: string, publishedAt: string, categories: Array<{ __typename?: 'Category', id?: string | null, name: string, createdAt: string, updatedAt: string }> } | null };
 
 export type UpdateOnePostMutationVariables = Exact<{
   categories?: InputMaybe<Array<CategoryUniqueFilter> | CategoryUniqueFilter>;
@@ -1417,7 +1417,7 @@ export type UpdateOnePostMutationVariables = Exact<{
 }>;
 
 
-export type UpdateOnePostMutation = { __typename?: 'Mutation', updateOnePost: { __typename?: 'Post', id: string } };
+export type UpdateOnePostMutation = { __typename?: 'Mutation', updateOnePost?: { __typename?: 'Post', id?: string | null } | null };
 
 export type UpdatePostMutationVariables = Exact<{
   postId: Scalars['String']['input'];
@@ -1429,7 +1429,7 @@ export type UpdatePostMutationVariables = Exact<{
 }>;
 
 
-export type UpdatePostMutation = { __typename?: 'Mutation', normalizationPostFiles: boolean, updateOnePost: { __typename?: 'Post', id: string, published: boolean, title: string, content: string, authorId: string, createdAt: string, updatedAt: string, publishedAt: string, cardId?: string | null, categories: Array<{ __typename?: 'Category', id: string, name: string, createdAt: string, updatedAt: string }> } };
+export type UpdatePostMutation = { __typename?: 'Mutation', normalizationPostFiles?: boolean | null, updateOnePost?: { __typename?: 'Post', id?: string | null, published: boolean, title: string, content: string, authorId: string, createdAt: string, updatedAt: string, publishedAt: string, cardId?: string | null, categories: Array<{ __typename?: 'Category', id?: string | null, name: string, createdAt: string, updatedAt: string }> } | null };
 
 export type UploadPostImageMutationVariables = Exact<{
   postId: Scalars['String']['input'];
@@ -1437,19 +1437,19 @@ export type UploadPostImageMutationVariables = Exact<{
 }>;
 
 
-export type UploadPostImageMutation = { __typename?: 'Mutation', uploadPostImage: { __typename?: 'FireStore', id: string, createdAt: string, updatedAt: string, name: string, mimeType: string } };
+export type UploadPostImageMutation = { __typename?: 'Mutation', uploadPostImage?: { __typename?: 'FireStore', id?: string | null, createdAt: string, updatedAt: string, name: string, mimeType: string } | null };
 
 export type SystemQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type SystemQuery = { __typename?: 'Query', findUniqueSystem: { __typename?: 'System', id: string, title: string, description: string, iconId?: string | null, cardId?: string | null, createdAt: string, updatedAt: string, icon?: { __typename?: 'FireStore', id: string, name: string, mimeType: string, createdAt: string, updatedAt: string } | null } };
+export type SystemQuery = { __typename?: 'Query', findUniqueSystem?: { __typename?: 'System', id?: string | null, title: string, description: string, iconId?: string | null, cardId?: string | null, createdAt: string, updatedAt: string, icon?: { __typename?: 'FireStore', id?: string | null, name: string, mimeType: string, createdAt: string, updatedAt: string } | null } | null };
 
 export type CreateSystemMutationVariables = Exact<{
   input: SystemCreateInput;
 }>;
 
 
-export type CreateSystemMutation = { __typename?: 'Mutation', createOneSystem: { __typename?: 'System', id: string, title: string, description: string, iconId?: string | null, cardId?: string | null, createdAt: string, updatedAt: string } };
+export type CreateSystemMutation = { __typename?: 'Mutation', createOneSystem?: { __typename?: 'System', id?: string | null, title: string, description: string, iconId?: string | null, cardId?: string | null, createdAt: string, updatedAt: string } | null };
 
 export type UpdateSystemMutationVariables = Exact<{
   title?: InputMaybe<Scalars['String']['input']>;
@@ -1458,26 +1458,26 @@ export type UpdateSystemMutationVariables = Exact<{
 }>;
 
 
-export type UpdateSystemMutation = { __typename?: 'Mutation', updateOneSystem: { __typename?: 'System', id: string, title: string, description: string, iconId?: string | null, cardId?: string | null, createdAt: string, updatedAt: string, icon?: { __typename?: 'FireStore', id: string, name: string, mimeType: string, createdAt: string, updatedAt: string } | null } };
+export type UpdateSystemMutation = { __typename?: 'Mutation', updateOneSystem?: { __typename?: 'System', id?: string | null, title: string, description: string, iconId?: string | null, cardId?: string | null, createdAt: string, updatedAt: string, icon?: { __typename?: 'FireStore', id?: string | null, name: string, mimeType: string, createdAt: string, updatedAt: string } | null } | null };
 
 export type CategoryQueryVariables = Exact<{
   id: Scalars['String']['input'];
 }>;
 
 
-export type CategoryQuery = { __typename?: 'Query', findUniqueCategory: { __typename?: 'Category', id: string, name: string, createdAt: string, updatedAt: string } };
+export type CategoryQuery = { __typename?: 'Query', findUniqueCategory?: { __typename?: 'Category', id?: string | null, name: string, createdAt: string, updatedAt: string } | null };
 
 export type CategoriesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type CategoriesQuery = { __typename?: 'Query', findManyCategory: Array<{ __typename?: 'Category', id: string, name: string, createdAt: string, updatedAt: string }> };
+export type CategoriesQuery = { __typename?: 'Query', findManyCategory?: Array<{ __typename?: 'Category', id?: string | null, name: string, createdAt: string, updatedAt: string }> | null };
 
 export type CreateCategoryMutationVariables = Exact<{
   name: Scalars['String']['input'];
 }>;
 
 
-export type CreateCategoryMutation = { __typename?: 'Mutation', createOneCategory: { __typename?: 'Category', id: string, name: string, createdAt: string, updatedAt: string } };
+export type CreateCategoryMutation = { __typename?: 'Mutation', createOneCategory?: { __typename?: 'Category', id?: string | null, name: string, createdAt: string, updatedAt: string } | null };
 
 export type UpdateCategoryMutationVariables = Exact<{
   id: Scalars['String']['input'];
@@ -1485,21 +1485,21 @@ export type UpdateCategoryMutationVariables = Exact<{
 }>;
 
 
-export type UpdateCategoryMutation = { __typename?: 'Mutation', updateOneCategory: { __typename?: 'Category', id: string, name: string, createdAt: string, updatedAt: string } };
+export type UpdateCategoryMutation = { __typename?: 'Mutation', updateOneCategory?: { __typename?: 'Category', id?: string | null, name: string, createdAt: string, updatedAt: string } | null };
 
 export type DeleteOneCategoryMutationVariables = Exact<{
   id: Scalars['String']['input'];
 }>;
 
 
-export type DeleteOneCategoryMutation = { __typename?: 'Mutation', deleteOneCategory: { __typename?: 'Category', id: string, name: string, createdAt: string, updatedAt: string } };
+export type DeleteOneCategoryMutation = { __typename?: 'Mutation', deleteOneCategory?: { __typename?: 'Category', id?: string | null, name: string, createdAt: string, updatedAt: string } | null };
 
 export type UploadSystemIconMutationVariables = Exact<{
   file: Scalars['Upload']['input'];
 }>;
 
 
-export type UploadSystemIconMutation = { __typename?: 'Mutation', uploadSystemIcon: { __typename?: 'FireStore', id: string, name: string, mimeType: string, createdAt: string, updatedAt: string } };
+export type UploadSystemIconMutation = { __typename?: 'Mutation', uploadSystemIcon?: { __typename?: 'FireStore', id?: string | null, name: string, mimeType: string, createdAt: string, updatedAt: string } | null };
 
 export type UploadPostIconMutationVariables = Exact<{
   postId: Scalars['String']['input'];
@@ -1507,7 +1507,7 @@ export type UploadPostIconMutationVariables = Exact<{
 }>;
 
 
-export type UploadPostIconMutation = { __typename?: 'Mutation', uploadPostIcon: { __typename?: 'FireStore', id: string, name: string, mimeType: string, createdAt: string, updatedAt: string } };
+export type UploadPostIconMutation = { __typename?: 'Mutation', uploadPostIcon?: { __typename?: 'FireStore', id?: string | null, name: string, mimeType: string, createdAt: string, updatedAt: string } | null };
 
 export type NormalizationPostFilesMutationVariables = Exact<{
   postId: Scalars['String']['input'];
@@ -1515,38 +1515,38 @@ export type NormalizationPostFilesMutationVariables = Exact<{
 }>;
 
 
-export type NormalizationPostFilesMutation = { __typename?: 'Mutation', normalizationPostFiles: boolean };
+export type NormalizationPostFilesMutation = { __typename?: 'Mutation', normalizationPostFiles?: boolean | null };
 
 export type RestoreMutationVariables = Exact<{
   file: Scalars['Upload']['input'];
 }>;
 
 
-export type RestoreMutation = { __typename?: 'Mutation', restore: boolean };
+export type RestoreMutation = { __typename?: 'Mutation', restore?: boolean | null };
 
 export type BackupMutationVariables = Exact<{ [key: string]: never; }>;
 
 
-export type BackupMutation = { __typename?: 'Mutation', backup: string };
+export type BackupMutation = { __typename?: 'Mutation', backup?: string | null };
 
 export type UpdateCorsMutationVariables = Exact<{
   origin?: InputMaybe<Array<Scalars['String']['input']> | Scalars['String']['input']>;
 }>;
 
 
-export type UpdateCorsMutation = { __typename?: 'Mutation', bucket: { __typename?: 'BucketObject', cors?: Array<{ __typename?: 'CorsObject', origin?: Array<string> | null, method?: Array<string> | null, responseHeader?: Array<string> | null, maxAgeSeconds?: number | null }> | null } };
+export type UpdateCorsMutation = { __typename?: 'Mutation', bucket?: { __typename?: 'BucketObject', cors?: Array<{ __typename?: 'CorsObject', origin?: Array<string> | null, method?: Array<string> | null, responseHeader?: Array<string> | null, maxAgeSeconds?: number | null }> | null } | null };
 
 export type BucketQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type BucketQuery = { __typename?: 'Query', bucket: { __typename?: 'BucketObject', cors?: Array<{ __typename?: 'CorsObject', origin?: Array<string> | null, method?: Array<string> | null, responseHeader?: Array<string> | null, maxAgeSeconds?: number | null }> | null } };
+export type BucketQuery = { __typename?: 'Query', bucket?: { __typename?: 'BucketObject', cors?: Array<{ __typename?: 'CorsObject', origin?: Array<string> | null, method?: Array<string> | null, responseHeader?: Array<string> | null, maxAgeSeconds?: number | null }> | null } | null };
 
 export type RestoreFilesMutationVariables = Exact<{
   files: Array<Scalars['Upload']['input']> | Scalars['Upload']['input'];
 }>;
 
 
-export type RestoreFilesMutation = { __typename?: 'Mutation', restoreFiles: Array<{ __typename?: 'FireStore', id: string, name: string, mimeType: string, createdAt: string, updatedAt: string }> };
+export type RestoreFilesMutation = { __typename?: 'Mutation', restoreFiles?: Array<{ __typename?: 'FireStore', id?: string | null, name: string, mimeType: string, createdAt: string, updatedAt: string }> | null };
 
 
 export const SignInDocument = gql`

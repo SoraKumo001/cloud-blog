@@ -10,6 +10,7 @@ datasource db {
 }
 
 generator pothos {
+  clientOutput      = "@prisma/client"
   provider          = "prisma-pothos-types"
   output            = "../app/generated/pothos-types.ts"
   generateDatamodel = true

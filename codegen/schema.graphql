@@ -35,20 +35,13 @@ input CorsInput {
   maxAgeSeconds: Int
 }
 
-input PostFilter {
+input UserFilter {
   id: StringFilter
-  published: BooleanFilter
-  title: StringFilter
-  content: StringFilter
-  author: UserFilter
-  authorId: StringFilter
-  cardId: StringFilter
-  card: FireStoreFilter
-  categories: CategoryListFilter
-  postFiles: FireStoreListFilter
+  email: StringFilter
+  name: StringFilter
+  post: PostListFilter
   createdAt: DateTimeFilter
   updatedAt: DateTimeFilter
-  publishedAt: DateTimeFilter
 }
 
 input StringFilter {
@@ -67,6 +60,22 @@ input StringFilter {
   gte: String
 }
 
+input PostFilter {
+  id: StringFilter
+  published: BooleanFilter
+  title: StringFilter
+  content: StringFilter
+  author: UserFilter
+  authorId: StringFilter
+  cardId: StringFilter
+  card: FireStoreFilter
+  categories: CategoryListFilter
+  postFiles: FireStoreListFilter
+  createdAt: DateTimeFilter
+  updatedAt: DateTimeFilter
+  publishedAt: DateTimeFilter
+}
+
 input BooleanFilter {
   equals: Boolean
   in: [Boolean!]
@@ -74,34 +83,6 @@ input BooleanFilter {
   not: BooleanFilter
   is: Boolean
   isNot: Boolean
-}
-
-input UserFilter {
-  id: StringFilter
-  email: StringFilter
-  name: StringFilter
-  post: PostListFilter
-  createdAt: DateTimeFilter
-  updatedAt: DateTimeFilter
-}
-
-input PostListFilter {
-  every: PostFilter
-  some: PostFilter
-  none: PostFilter
-}
-
-input DateTimeFilter {
-  equals: DateTime
-  in: [DateTime!]
-  notIn: [DateTime!]
-  not: DateTimeFilter
-  is: DateTime
-  isNot: DateTime
-  lt: DateTime
-  lte: DateTime
-  gt: DateTime
-  gte: DateTime
 }
 
 input FireStoreFilter {
@@ -128,10 +109,29 @@ input SystemFilter {
   updatedAt: DateTimeFilter
 }
 
+input DateTimeFilter {
+  equals: DateTime
+  in: [DateTime!]
+  notIn: [DateTime!]
+  not: DateTimeFilter
+  is: DateTime
+  isNot: DateTime
+  lt: DateTime
+  lte: DateTime
+  gt: DateTime
+  gte: DateTime
+}
+
 input SystemListFilter {
   every: SystemFilter
   some: SystemFilter
   none: SystemFilter
+}
+
+input PostListFilter {
+  every: PostFilter
+  some: PostFilter
+  none: PostFilter
 }
 
 input CategoryFilter {
@@ -154,6 +154,36 @@ input FireStoreListFilter {
   none: FireStoreFilter
 }
 
+input UserUniqueFilter {
+  id: String
+  email: String
+}
+
+input PostUniqueFilter {
+  id: String
+}
+
+input CategoryUniqueFilter {
+  id: String
+}
+
+input SystemUniqueFilter {
+  id: String
+}
+
+input FireStoreUniqueFilter {
+  id: String
+}
+
+input UserOrderBy {
+  id: OrderBy
+  email: OrderBy
+  name: OrderBy
+  post: PostOrderBy
+  createdAt: OrderBy
+  updatedAt: OrderBy
+}
+
 input PostOrderBy {
   id: OrderBy
   published: OrderBy
@@ -168,15 +198,6 @@ input PostOrderBy {
   createdAt: OrderBy
   updatedAt: OrderBy
   publishedAt: OrderBy
-}
-
-input UserOrderBy {
-  id: OrderBy
-  email: OrderBy
-  name: OrderBy
-  post: PostOrderBy
-  createdAt: OrderBy
-  updatedAt: OrderBy
 }
 
 input FireStoreOrderBy {
@@ -209,27 +230,6 @@ input CategoryOrderBy {
   posts: PostOrderBy
   createdAt: OrderBy
   updatedAt: OrderBy
-}
-
-input UserUniqueFilter {
-  id: String
-  email: String
-}
-
-input PostUniqueFilter {
-  id: String
-}
-
-input CategoryUniqueFilter {
-  id: String
-}
-
-input SystemUniqueFilter {
-  id: String
-}
-
-input FireStoreUniqueFilter {
-  id: String
 }
 
 input UserCreateInput {
@@ -780,7 +780,7 @@ input FireStoreUpdateInput {
 }
 
 type EncryptionObject {
-  defaultKmsKeyName: String!
+  defaultKmsKeyName: String
 }
 
 type CorsObject {
@@ -791,24 +791,24 @@ type CorsObject {
 }
 
 type BucketObject {
-  kind: String!
-  id: String!
-  selfLink: String!
-  name: String!
-  projectNumber: String!
-  metageneration: String!
-  location: String!
-  storageClass: String!
-  etag: String!
+  kind: String
+  id: String
+  selfLink: String
+  name: String
+  projectNumber: String
+  metageneration: String
+  location: String
+  storageClass: String
+  etag: String
   defaultEventBasedHold: Boolean
-  timeCreated: String!
-  updated: String!
+  timeCreated: String
+  updated: String
   encryption: EncryptionObject
   cors: [CorsObject!]
 }
 
 type User {
-  id: ID!
+  id: ID
   email: String!
   name: String!
   post(filter: PostFilter, orderBy: [PostOrderBy!], limit: Int, offset: Int): [Post!]!
@@ -818,7 +818,7 @@ type User {
 }
 
 type Post {
-  id: ID!
+  id: ID
   published: Boolean!
   title: String!
   content: String!
@@ -836,7 +836,7 @@ type Post {
 }
 
 type Category {
-  id: ID!
+  id: ID
   name: String!
   posts(filter: PostFilter, orderBy: [PostOrderBy!], limit: Int, offset: Int): [Post!]!
   postsCount(filter: PostFilter): Int!
@@ -845,7 +845,7 @@ type Category {
 }
 
 type System {
-  id: ID!
+  id: ID
   title: String!
   description: String!
   iconId: String
@@ -857,7 +857,7 @@ type System {
 }
 
 type FireStore {
-  id: ID!
+  id: ID
   name: String!
   mimeType: String!
   systemIcons(filter: SystemFilter, orderBy: [SystemOrderBy!], limit: Int, offset: Int): [System!]!
@@ -873,67 +873,67 @@ type FireStore {
 }
 
 type Query {
-  bucket: BucketObject!
-  countUser(filter: UserFilter): Int!
-  countPost(filter: PostFilter): Int!
-  countCategory(filter: CategoryFilter): Int!
-  countSystem(filter: SystemFilter): Int!
-  countFireStore(filter: FireStoreFilter): Int!
-  findUniqueUser(filter: UserUniqueFilter!): User!
-  findUniquePost(filter: PostUniqueFilter!): Post!
-  findUniqueCategory(filter: CategoryUniqueFilter!): Category!
-  findUniqueSystem(filter: SystemUniqueFilter!): System!
-  findUniqueFireStore(filter: FireStoreUniqueFilter!): FireStore!
+  bucket: BucketObject
+  countUser(filter: UserFilter): Int
+  countPost(filter: PostFilter): Int
+  countCategory(filter: CategoryFilter): Int
+  countSystem(filter: SystemFilter): Int
+  countFireStore(filter: FireStoreFilter): Int
+  findUniqueUser(filter: UserUniqueFilter!): User
+  findUniquePost(filter: PostUniqueFilter!): Post
+  findUniqueCategory(filter: CategoryUniqueFilter!): Category
+  findUniqueSystem(filter: SystemUniqueFilter!): System
+  findUniqueFireStore(filter: FireStoreUniqueFilter!): FireStore
   findFirstUser(filter: UserFilter, orderBy: [UserOrderBy!]): User
   findFirstPost(filter: PostFilter, orderBy: [PostOrderBy!]): Post
   findFirstCategory(filter: CategoryFilter, orderBy: [CategoryOrderBy!]): Category
   findFirstSystem(filter: SystemFilter, orderBy: [SystemOrderBy!]): System
   findFirstFireStore(filter: FireStoreFilter, orderBy: [FireStoreOrderBy!]): FireStore
-  findManyUser(filter: UserFilter, orderBy: [UserOrderBy!], limit: Int, offset: Int): [User!]!
-  findManyPost(filter: PostFilter, orderBy: [PostOrderBy!], limit: Int, offset: Int): [Post!]!
-  findManyCategory(filter: CategoryFilter, orderBy: [CategoryOrderBy!], limit: Int, offset: Int): [Category!]!
-  findManySystem(filter: SystemFilter, orderBy: [SystemOrderBy!], limit: Int, offset: Int): [System!]!
-  findManyFireStore(filter: FireStoreFilter, orderBy: [FireStoreOrderBy!], limit: Int, offset: Int): [FireStore!]!
+  findManyUser(filter: UserFilter, orderBy: [UserOrderBy!], limit: Int, offset: Int): [User!]
+  findManyPost(filter: PostFilter, orderBy: [PostOrderBy!], limit: Int, offset: Int): [Post!]
+  findManyCategory(filter: CategoryFilter, orderBy: [CategoryOrderBy!], limit: Int, offset: Int): [Category!]
+  findManySystem(filter: SystemFilter, orderBy: [SystemOrderBy!], limit: Int, offset: Int): [System!]
+  findManyFireStore(filter: FireStoreFilter, orderBy: [FireStoreOrderBy!], limit: Int, offset: Int): [FireStore!]
 }
 
 type Mutation {
-  backup: String!
-  bucket(cors: [CorsInput!]): BucketObject!
-  normalizationPostFiles(postId: String!, removeAll: Boolean): Boolean!
-  restore(file: Upload!): Boolean!
-  restoreFiles(files: [Upload!]!): [FireStore!]!
+  backup: String
+  bucket(cors: [CorsInput!]): BucketObject
+  normalizationPostFiles(postId: String!, removeAll: Boolean): Boolean
+  restore(file: Upload!): Boolean
+  restoreFiles(files: [Upload!]!): [FireStore!]
   signIn(token: String): User
-  uploadPostIcon(postId: String!, file: Upload): FireStore!
-  uploadPostImage(postId: String!, file: Upload!): FireStore!
-  uploadSystemIcon(file: Upload!): FireStore!
-  createOneUser(input: UserCreateInput!): User!
-  createOnePost(input: PostCreateInput!): Post!
-  createOneCategory(input: CategoryCreateInput!): Category!
-  createOneSystem(input: SystemCreateInput!): System!
-  createOneFireStore(input: FireStoreCreateInput!): FireStore!
-  createManyUser(input: [UserCreateInput!]!): Int!
-  createManyPost(input: [PostCreateInput!]!): Int!
-  createManyCategory(input: [CategoryCreateInput!]!): Int!
-  createManySystem(input: [SystemCreateInput!]!): Int!
-  createManyFireStore(input: [FireStoreCreateInput!]!): Int!
-  updateOneUser(where: UserUniqueFilter!, data: UserUpdateInput!): User!
-  updateOnePost(where: PostUniqueFilter!, data: PostUpdateWithoutAuthorInput!): Post!
-  updateOneCategory(where: CategoryUniqueFilter!, data: CategoryUpdateInput!): Category!
-  updateOneSystem(where: SystemUniqueFilter!, data: SystemUpdateInput!): System!
-  updateOneFireStore(where: FireStoreUniqueFilter!, data: FireStoreUpdateInput!): FireStore!
-  updateManyUser(where: UserFilter!, data: UserUpdateInput!): Int!
-  updateManyPost(where: PostFilter!, data: PostUpdateWithoutAuthorWithoutAuthorInput!): Int!
-  updateManyCategory(where: CategoryFilter!, data: CategoryUpdateInput!): Int!
-  updateManySystem(where: SystemFilter!, data: SystemUpdateInput!): Int!
-  updateManyFireStore(where: FireStoreFilter!, data: FireStoreUpdateInput!): Int!
-  deleteOneUser(where: UserUniqueFilter!): User!
-  deleteOnePost(where: PostUniqueFilter!): Post!
-  deleteOneCategory(where: CategoryUniqueFilter!): Category!
-  deleteOneSystem(where: SystemUniqueFilter!): System!
-  deleteOneFireStore(where: FireStoreUniqueFilter!): FireStore!
-  deleteManyUser(where: UserFilter!): Int!
-  deleteManyPost(where: PostFilter!): Int!
-  deleteManyCategory(where: CategoryFilter!): Int!
-  deleteManySystem(where: SystemFilter!): Int!
-  deleteManyFireStore(where: FireStoreFilter!): Int!
+  uploadPostIcon(postId: String!, file: Upload): FireStore
+  uploadPostImage(postId: String!, file: Upload!): FireStore
+  uploadSystemIcon(file: Upload!): FireStore
+  createOneUser(input: UserCreateInput!): User
+  createOnePost(input: PostCreateInput!): Post
+  createOneCategory(input: CategoryCreateInput!): Category
+  createOneSystem(input: SystemCreateInput!): System
+  createOneFireStore(input: FireStoreCreateInput!): FireStore
+  createManyUser(input: [UserCreateInput!]!): Int
+  createManyPost(input: [PostCreateInput!]!): Int
+  createManyCategory(input: [CategoryCreateInput!]!): Int
+  createManySystem(input: [SystemCreateInput!]!): Int
+  createManyFireStore(input: [FireStoreCreateInput!]!): Int
+  updateOneUser(where: UserUniqueFilter!, data: UserUpdateInput!): User
+  updateOnePost(where: PostUniqueFilter!, data: PostUpdateWithoutAuthorInput!): Post
+  updateOneCategory(where: CategoryUniqueFilter!, data: CategoryUpdateInput!): Category
+  updateOneSystem(where: SystemUniqueFilter!, data: SystemUpdateInput!): System
+  updateOneFireStore(where: FireStoreUniqueFilter!, data: FireStoreUpdateInput!): FireStore
+  updateManyUser(where: UserFilter!, data: UserUpdateInput!): Int
+  updateManyPost(where: PostFilter!, data: PostUpdateWithoutAuthorWithoutAuthorInput!): Int
+  updateManyCategory(where: CategoryFilter!, data: CategoryUpdateInput!): Int
+  updateManySystem(where: SystemFilter!, data: SystemUpdateInput!): Int
+  updateManyFireStore(where: FireStoreFilter!, data: FireStoreUpdateInput!): Int
+  deleteOneUser(where: UserUniqueFilter!): User
+  deleteOnePost(where: PostUniqueFilter!): Post
+  deleteOneCategory(where: CategoryUniqueFilter!): Category
+  deleteOneSystem(where: SystemUniqueFilter!): System
+  deleteOneFireStore(where: FireStoreUniqueFilter!): FireStore
+  deleteManyUser(where: UserFilter!): Int
+  deleteManyPost(where: PostFilter!): Int
+  deleteManyCategory(where: CategoryFilter!): Int
+  deleteManySystem(where: SystemFilter!): Int
+  deleteManyFireStore(where: FireStoreFilter!): Int
 }

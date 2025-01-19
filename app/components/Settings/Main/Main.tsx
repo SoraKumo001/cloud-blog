@@ -1,5 +1,5 @@
-import { Link } from "react-router";
 import { FC } from "react";
+import { Link } from "react-router";
 import styled from "./Main.module.css";
 
 interface Props {}

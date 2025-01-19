@@ -12,6 +12,7 @@ const createSchema = () => {
   return ({ env }: { env: { [key: string]: string | undefined } }) => {
     if (!schema) {
       const builder = createBuilder(env.DATABASE_URL ?? "");
+      
       Object.values(objects).forEach((value) => {
         if (!(value instanceof ObjectRef)) {
           value(builder);

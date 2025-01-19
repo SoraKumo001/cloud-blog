@@ -1,5 +1,5 @@
 /* eslint-disable */
-import type { Prisma, User, Post, Category, System, FireStore } from "C:\\prog\\apps\\cloud-blog\\node_modules\\.pnpm\\@prisma+client@6.0.1_prisma@6.0.1\\node_modules\\@prisma\\client";
+import type { Prisma, User, Post, Category, System, FireStore } from "@prisma/client";
 import type { PothosPrismaDatamodel } from "@pothos/plugin-prisma";
 export default interface PrismaTypes {
     User: {

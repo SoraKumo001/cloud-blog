@@ -21,7 +21,10 @@ type Env = {
 };
 
 const getAdapter = (datasourceUrl: string) => {
-  if (process.env.NODE_ENV !== "development") {
+  if (
+    process.env.NODE_ENV !== "development" &&
+    !datasourceUrl.startsWith("prisma:")
+  ) {
     const url = new URL(datasourceUrl);
     const schema = url.searchParams.get("schema") ?? undefined;
     const pool = new Pool({
@@ -41,14 +44,9 @@ export const prisma: PrismaClient = new Proxy<PrismaClient>({} as never, {
       const adapter = getAdapter(datasourceUrl);
       const prisma = new PrismaClient({
         adapter,
-        log: [
-          {
-            emit: "stdout",
-            level: "query",
-          },
-        ],
-      } as never);
-      context.set("prisma", prisma);
+        log: ["error"],
+      });
+      context.set("prisma", prisma as never);
     }
     return context.get("prisma")[props];
   },

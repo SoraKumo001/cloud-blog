@@ -32,6 +32,5 @@ export const createBuilder = (datasourceUrl: string) => {
       replace: { "%%USER%%": ({ context }) => context.user?.id },
     },
   });
-
   return builder;
 };
