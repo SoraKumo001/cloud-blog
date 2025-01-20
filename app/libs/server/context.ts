@@ -1,9 +1,9 @@
 import { PrismaPg } from "@prisma/adapter-pg-worker";
-import { User } from "@prisma/client";
 import { PrismaClient } from "@prisma/client";
 import { Pool } from "@prisma/pg-worker";
-import { serialize } from "cookie";
 import { getContext } from "hono/context-storage";
+import type { User } from "@prisma/client";
+import type { serialize } from "cookie";
 
 export type Context = {
   req: Request;

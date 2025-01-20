@@ -35,6 +35,7 @@ export default [
       import: importPlugin,
     },
     rules: {
+      "@typescript-eslint/no-import-type-side-effects": 1,
       "@typescript-eslint/no-unused-vars": 0,
       "@typescript-eslint/no-empty-object-type": 0,
       "no-empty-pattern": 0,

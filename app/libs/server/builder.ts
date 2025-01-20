@@ -2,8 +2,9 @@ import SchemaBuilder from "@pothos/core";
 import PrismaPlugin from "@pothos/plugin-prisma";
 import PrismaUtils from "@pothos/plugin-prisma-utils";
 import PothosPrismaGeneratorPlugin from "pothos-prisma-generator";
-import { Context, prisma } from "./context";
-import PrismaTypes, { getDatamodel } from "@/generated/pothos-types";
+import { type Context, prisma } from "./context";
+import type PrismaTypes from "@/generated/pothos-types";
+import { getDatamodel } from "@/generated/pothos-types";
 
 /**
  * Create a new schema builder instance

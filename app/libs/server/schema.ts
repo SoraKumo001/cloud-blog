@@ -1,6 +1,5 @@
 import { InputObjectRef, ObjectRef } from "@pothos/core";
-import { GraphQLScalarType, GraphQLSchema } from "graphql";
-
+import { GraphQLScalarType, type GraphQLSchema } from "graphql";
 import { createBuilder } from "./builder";
 import * as inputs from "./inputs";
 import * as mutations from "./mutations";
@@ -12,17 +11,17 @@ const createSchema = () => {
   return ({ env }: { env: { [key: string]: string | undefined } }) => {
     if (!schema) {
       const builder = createBuilder(env.DATABASE_URL ?? "");
-      
-      Object.values(objects).forEach((value) => {
+
+      for (const value of Object.values(objects)) {
         if (!(value instanceof ObjectRef)) {
           value(builder);
         }
-      });
-      Object.values(inputs).forEach((value) => {
+      }
+      for (const value of Object.values(inputs)) {
         if (!(value instanceof InputObjectRef)) {
           value(builder);
         }
-      });
+      }
 
       builder.queryType({
         fields: (t) =>

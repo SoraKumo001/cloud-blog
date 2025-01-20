@@ -1,12 +1,13 @@
 import { InputObjectRef } from "@pothos/core";
-import { BucketObject } from "firebase-storage";
-import { BuilderType } from "../builder";
+import type { BuilderType } from "../builder";
+import type { BucketObject } from "firebase-storage";
 
 type NullablePartial<T> = {
   [P in keyof T]?: T[P] | null;
 };
 
 export const CorsInput = new InputObjectRef<
+  PothosSchemaTypes.ExtendDefaultTypes<BuilderType>,
   NullablePartial<BucketObject["cors"][0]>
 >("CorsInput");
 

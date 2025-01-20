@@ -1,6 +1,6 @@
-import { BuilderType } from "../builder";
 import { normalizationPostFiles as _normalizationPostFiles } from "../normalizationPostFiles";
 import { isolatedFiles } from "../uploadFile";
+import type { BuilderType } from "../builder";
 
 export const normalizationPostFiles = (
   t: PothosSchemaTypes.MutationFieldBuilder<

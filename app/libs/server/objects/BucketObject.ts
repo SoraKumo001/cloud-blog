@@ -1,14 +1,23 @@
-import { ObjectFieldBuilder, ObjectRef } from "@pothos/core";
-import { BucketObject } from "firebase-storage";
-import { BuilderType } from "../builder";
+import {
+  type ObjectFieldBuilder,
+  ObjectRef,
+  type SchemaTypes,
+} from "@pothos/core";
+import type { BuilderType } from "../builder";
+import type { BucketObject } from "firebase-storage";
 
-export const EncryptionObjectType = new ObjectRef<BucketObject["encryption"]>(
-  "EncryptionObject"
-);
-export const CorsObjectType = new ObjectRef<BucketObject["cors"][0]>(
-  "CorsObject"
-);
-export const BucketObjectType = new ObjectRef<BucketObject>("BucketObject");
+export const EncryptionObjectType = new ObjectRef<
+  PothosSchemaTypes.ExtendDefaultTypes<BuilderType>,
+  BucketObject["encryption"]
+>("EncryptionObject");
+export const CorsObjectType = new ObjectRef<
+  PothosSchemaTypes.ExtendDefaultTypes<BuilderType>,
+  BucketObject["cors"][0]
+>("CorsObject");
+export const BucketObjectType = new ObjectRef<
+  PothosSchemaTypes.ExtendDefaultTypes<BuilderType>,
+  BucketObject
+>("BucketObject");
 
 export const createBucketObject = (
   builder: PothosSchemaTypes.SchemaBuilder<

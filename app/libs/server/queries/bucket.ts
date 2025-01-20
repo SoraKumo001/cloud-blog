@@ -1,6 +1,6 @@
-import { BuilderType } from "../builder";
 import { storage } from "../getStorage";
 import { BucketObjectType } from "../objects";
+import type { BuilderType } from "../builder";
 
 export const bucket = (
   t: PothosSchemaTypes.QueryFieldBuilder<
