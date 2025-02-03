@@ -136,7 +136,7 @@ export const Image = ({ src, width, height, alt, className }: Props) => {
   return (
     <div
       className="relative"
-      style={{ width: `${width}px`, height: `${height}px` }}
+      style={{ width: "fit-content", height: "fit-content" }}
     >
       <img
         className={classNames(isBlur ? className : "hidden", "absolute")}

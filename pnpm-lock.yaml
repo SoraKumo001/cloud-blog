@@ -74,18 +74,9 @@ importers:
       hono:
         specifier: ^4.6.20
         version: 4.6.20
-      hono-remix-adapter:
-        specifier: ^0.5.4
-        version: 0.5.4(@cloudflare/workers-types@4.20250129.0)(hono@4.6.20)(miniflare@3.20250129.0)(typescript@5.7.3)(wrangler@3.107.2(@cloudflare/workers-types@4.20250129.0))
-      isbot:
-        specifier: ^5.1.22
-        version: 5.1.22
       jose:
         specifier: ^5.9.6
         version: 5.9.6
-      miniflare:
-        specifier: ^3.20250129.0
-        version: 3.20250129.0
       monaco-editor:
         specifier: ^0.52.2
         version: 0.52.2
@@ -101,12 +92,9 @@ importers:
       react:
         specifier: ^19.0.0
         version: 19.0.0
-      react-blurhash:
-        specifier: 0.3.0
-        version: 0.3.0(blurhash@2.0.5)(react@19.0.0)
       react-daisyui:
         specifier: ^5.0.5
-        version: 5.0.5(daisyui@5.0.0-beta.4)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(tailwindcss@4.0.3)
+        version: 5.0.5(daisyui@5.0.0-beta.6)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(tailwindcss@4.0.3)
       react-dom:
         specifier: ^19.0.0
         version: 19.0.0(react@19.0.0)
@@ -190,8 +178,8 @@ importers:
         specifier: ^7.0.6
         version: 7.0.6
       daisyui:
-        specifier: 5.0.0-beta.4
-        version: 5.0.0-beta.4
+        specifier: 5.0.0-beta.6
+        version: 5.0.0-beta.6
       dotenv:
         specifier: ^16.4.7
         version: 16.4.7
@@ -219,6 +207,9 @@ importers:
       graphql-tag:
         specifier: ^2.12.6
         version: 2.12.6(graphql@16.10.0)
+      hono-react-router-adapter:
+        specifier: 0.6.2
+        version: 0.6.2(hono@4.6.20)(miniflare@3.20250129.0)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(typescript@5.7.3)(wrangler@3.107.2(@cloudflare/workers-types@4.20250129.0))
       lightningcss:
         specifier: 1.29.1
         version: 1.29.1
@@ -589,9 +580,6 @@ packages:
   '@babel/types@7.26.7':
     resolution: {integrity: sha512-t8kDRGrKXyp6+tjUh7hw2RLyclsW4TRoRvRHtSyAX9Bb5ldlFh+90YAYY6awRXrlB4G5G2izNeGySpATlFzmOg==}
     engines: {node: '>=6.9.0'}
-
-  '@cloudflare/kv-asset-handler@0.1.3':
-    resolution: {integrity: sha512-FNcunDuTmEfQTLRLtA6zz+buIXUHj1soPvSWzzQFBC+n2lsy+CGf/NIrR3SEPCmsVNQj70/Jx2lViCpq+09YpQ==}
 
   '@cloudflare/kv-asset-handler@0.3.4':
     resolution: {integrity: sha512-YLPHc8yASwjNkmcDMQMY35yiWjoKAKnhUbPRszBRS0YgH+IXtsMp61j+yTcnCE3oO2DgP0U3iejLC8FTtKDC8Q==}
@@ -1440,19 +1428,6 @@ packages:
     peerDependencies:
       hono: ^4
 
-  '@hono/vite-dev-server@0.17.0':
-    resolution: {integrity: sha512-EvGOIj1MoY9uV94onXXz88yWaTxzUK+Mv8LiIEsR/9eSFoVUnHVR0B7l7iNIsxfHYRN7tbPDMWBSnD2RQun3yw==}
-    engines: {node: '>=18.14.1'}
-    peerDependencies:
-      hono: '*'
-      miniflare: '*'
-      wrangler: '*'
-    peerDependenciesMeta:
-      miniflare:
-        optional: true
-      wrangler:
-        optional: true
-
   '@hono/vite-dev-server@0.18.1':
     resolution: {integrity: sha512-Hud6Vsm+5jZDYGuchOVrc/Cr+CqydLH9yBc7VY8ChI1PH0WKSxG12t/qtQs4otuPDuUhowtemCLrk3TpMONYjQ==}
     engines: {node: '>=18.14.1'}
@@ -1758,54 +1733,6 @@ packages:
     peerDependenciesMeta:
       typescript:
         optional: true
-
-  '@remix-run/cloudflare@2.15.3':
-    resolution: {integrity: sha512-L5O+ejspTcAffp979BwE2tDR1KkMblYiCjV87hfjYu1ktjWCLXcizeiOl65msljOE8yrMcF+cGzl75QQGw753w==}
-    engines: {node: '>=18.0.0'}
-    peerDependencies:
-      '@cloudflare/workers-types': ^4.0.0
-      typescript: ^5.1.0
-    peerDependenciesMeta:
-      typescript:
-        optional: true
-
-  '@remix-run/node@2.15.3':
-    resolution: {integrity: sha512-TYfS6BPhbABBpSRZ6WBA4qIWSwWvJhRVQGXCHUtgOwkuW863rcFmjh9g2Xj/IHyTmbOYPdcjHsIgZ9el4CHOKQ==}
-    engines: {node: '>=18.0.0'}
-    peerDependencies:
-      typescript: ^5.1.0
-    peerDependenciesMeta:
-      typescript:
-        optional: true
-
-  '@remix-run/router@1.22.0':
-    resolution: {integrity: sha512-MBOl8MeOzpK0HQQQshKB7pABXbmyHizdTpqnrIseTbsv0nAepwC2ENZa1aaBExNQcpLoXmWthhak8SABLzvGPw==}
-    engines: {node: '>=14.0.0'}
-
-  '@remix-run/server-runtime@2.15.3':
-    resolution: {integrity: sha512-taHBe1DEqxZNjjj6OfkSYbup+sZPjbTgUhykaI+nHqrC2NDQuTiisBXhLwtx60GctONR/x0lWhF7R9ZGC5WsHw==}
-    engines: {node: '>=18.0.0'}
-    peerDependencies:
-      typescript: ^5.1.0
-    peerDependenciesMeta:
-      typescript:
-        optional: true
-
-  '@remix-run/web-blob@3.1.0':
-    resolution: {integrity: sha512-owGzFLbqPH9PlKb8KvpNJ0NO74HWE2euAn61eEiyCXX/oteoVzTVSN8mpLgDjaxBf2btj5/nUllSUgpyd6IH6g==}
-
-  '@remix-run/web-fetch@4.4.2':
-    resolution: {integrity: sha512-jgKfzA713/4kAW/oZ4bC3MoLWyjModOVDjFPNseVqcJKSafgIscrYL9G50SurEYLswPuoU3HzSbO0jQCMYWHhA==}
-    engines: {node: ^10.17 || >=12.3}
-
-  '@remix-run/web-file@3.1.0':
-    resolution: {integrity: sha512-dW2MNGwoiEYhlspOAXFBasmLeYshyAyhIdrlXBi06Duex5tDr3ut2LFKVj7tyHLmn8nnNwFf1BjNbkQpygC2aQ==}
-
-  '@remix-run/web-form-data@3.1.0':
-    resolution: {integrity: sha512-NdeohLMdrb+pHxMQ/Geuzdp0eqPbea+Ieo8M8Jx2lGC6TBHsgHzYcBvr0LyPdPVycNRDEpWpiDdCOdCryo3f9A==}
-
-  '@remix-run/web-stream@1.1.0':
-    resolution: {integrity: sha512-KRJtwrjRV5Bb+pM7zxcTJkhIqWWSy+MYsIxHK+0m5atcznsf15YwUBWHWulZerV2+vvHH1Lp1DD7pw6qKW8SgA==}
 
   '@repeaterjs/repeater@3.0.6':
     resolution: {integrity: sha512-Javneu5lsuhwNCryN+pXH93VPQ8g0dBX7wItHFgYiwQmzE1sVdg5tWHiOgHywzL2W21XQopa7IwIEnNbmeUJYA==}
@@ -2156,9 +2083,6 @@ packages:
     peerDependencies:
       '@urql/core': ^5.0.0
 
-  '@web3-storage/multipart-parser@1.0.0':
-    resolution: {integrity: sha512-BEO6al7BYqcnfX15W2cnGR+Q566ACXAT9UQykORCWW80lmkpWsnEob6zJS1ZVBKsSJC8+7vJkHwlp+lXG1UCdw==}
-
   '@whatwg-node/disposablestack@0.0.5':
     resolution: {integrity: sha512-9lXugdknoIequO4OYvIjhygvfSEgnO8oASLqLelnDhkRjgBZhc39shC3QSlZuyDO9bgYSIVa2cHAiN+St3ty4w==}
     engines: {node: '>=18.0.0'}
@@ -2178,13 +2102,6 @@ packages:
   '@whatwg-node/server@0.9.65':
     resolution: {integrity: sha512-CnYTFEUJkbbAcuBXnXirVIgKBfs2YA6sSGjxeq07AUiyXuoQ0fbvTIQoteMglmn09QeGzcH/l0B7nIml83xvVw==}
     engines: {node: '>=18.0.0'}
-
-  '@zxing/text-encoding@0.9.0':
-    resolution: {integrity: sha512-U/4aVJ2mxI0aDNI8Uq0wEhMgY+u4CNtEb0om3+y3+niDAsoTCOB33UF0sxpzqzdqXLqmvc+vZyAt4O8pPdfkwA==}
-
-  abort-controller@3.0.0:
-    resolution: {integrity: sha512-h8lQ8tacZYnR3vNQTgibj+tODHI5/+l06Au2Pcriv/Gmet0eaj4TwWH41sO9wnHDiQsEj19q0drzdWdeAHtweg==}
-    engines: {node: '>=6.5'}
 
   acorn-jsx@5.3.2:
     resolution: {integrity: sha512-rq9s+JNhf0IChjtDXxllJ7g41oZk5SlXtp0LHwyA5cejwn7vKmKp4pPri6YEePv2PU65sAsegbXtIinmDFDXgQ==}
@@ -2518,14 +2435,6 @@ packages:
   convert-source-map@2.0.0:
     resolution: {integrity: sha512-Kvp459HrV2FEJ1CAsi1Ku+MY3kasH19TFykTz2xWmMeq6bk2NU3XXvfJ+Q61m0xktWwt+1HSYf3JZsTms3aRJg==}
 
-  cookie-signature@1.2.2:
-    resolution: {integrity: sha512-D76uU73ulSXrD1UXF4KE2TMxVVwhsnCgfAyTg9k8P6KGZjlXKrOLe4dJQKI3Bxi5wjesZoFXJWElNWBjPZMbhg==}
-    engines: {node: '>=6.6.0'}
-
-  cookie@0.6.0:
-    resolution: {integrity: sha512-U71cyTamuh1CRNCfpGY6to28lxvNwPG4Guz/EVjgf3Jmzv0vlDp1atT9eS5dDjMYHucpHbWns6Lwf3BKz6svdw==}
-    engines: {node: '>= 0.6'}
-
   cookie@0.7.2:
     resolution: {integrity: sha512-yki5XnKuf750l50uGTllt6kKILY4nQ1eNIQatoXEByZ5dWgnKqbnqmTrBE5B4N7lrMJKQ2ytWMiTO2o0v6Ew/w==}
     engines: {node: '>= 0.6'}
@@ -2569,15 +2478,11 @@ packages:
   csstype@3.1.3:
     resolution: {integrity: sha512-M1uQkMl8rQK/szD0LNhtqxIPLpimGm8sOBwU7lLnCpSbTyY3yeU1Vc7l4KT5zT4s/yOxHH5O7tIuuLOCnLADRw==}
 
-  daisyui@5.0.0-beta.4:
-    resolution: {integrity: sha512-trSoXvZ3UfuewHaCB+tZeAokKHXo5bTtrntn+DpQfSF0jyv2brMNR2avU9DFPv8P0Y0w0O3uJ2nXM7cwMcGy/Q==}
+  daisyui@5.0.0-beta.6:
+    resolution: {integrity: sha512-gwXHv6MApRBrvUayzg83vS6bfZ+y7/1VGLu0a8/cEAMviS4rXLCd4AndEdlVxhq+25wkAp0CZRkNQ7O4wIoFnQ==}
 
   data-uri-to-buffer@2.0.2:
     resolution: {integrity: sha512-ND9qDTLc6diwj+Xe5cdAgVTbLVdXbtxTJRXRhli8Mowuaan+0EJOtdqJ0QCHNSSPyoXGx9HX2/VMnKeC34AChA==}
-
-  data-uri-to-buffer@3.0.1:
-    resolution: {integrity: sha512-WboRycPNsVw3B3TL559F7kuBUM4d8CgMEvk6xEJlOp7OBPjt6G7z8WMWlD2rOFZLk6OYfFIUGsCOWzcQH9K2og==}
-    engines: {node: '>= 6'}
 
   data-uri-to-buffer@4.0.1:
     resolution: {integrity: sha512-0R9ikRb668HB7QDxT1vkpuUBtqc53YyAwMwGeUFKRojY/NWKvdZ+9UYtRfGmhqNbRkTSVpMbmyhXipFFv2cb/A==}
@@ -2920,10 +2825,6 @@ packages:
     resolution: {integrity: sha512-kVscqXk4OCp68SZ0dkgEKVi6/8ij300KBWTJq32P/dYeWTSwK41WyTxalN1eRmA5Z9UU/LX9D7FWSmV9SAYx6g==}
     engines: {node: '>=0.10.0'}
 
-  event-target-shim@5.0.1:
-    resolution: {integrity: sha512-i/2XbnSz/uxRCU6+NdVJgKWDTM427+MqYbkQzD321DuCQJUqOuJKIA0IM2+W2xtYHdKOmZ4dR6fExsd4SXL+WQ==}
-    engines: {node: '>=6'}
-
   eventemitter3@3.1.2:
     resolution: {integrity: sha512-tvtQIeLVHjDkJYnzf2dgVMxfuSGJeM/7UCG17TT4EumTfNtF+0nebF/4zWOIkCreAbtNqhGEboB6BWrwqNaw4Q==}
 
@@ -3190,8 +3091,8 @@ packages:
   header-case@2.0.4:
     resolution: {integrity: sha512-H/vuk5TEEVZwrR0lp2zed9OCo1uAILMlx0JEMgC26rzyJJ3N1v6XkwHHXJQdR2doSjcGPM6OKPYoJgf0plJ11Q==}
 
-  hono-remix-adapter@0.5.4:
-    resolution: {integrity: sha512-jYK/UJUY/XlYL8Xva0ObR6++A+ke1KPgJEDZ2i1LC22bPR2WPbeYflDlnzu+pzJT0HMlHQfp1qvQew1y5+GXDQ==}
+  hono-react-router-adapter@0.6.2:
+    resolution: {integrity: sha512-DBmLpwLOS2GI9sS8Na1/xjpVknp/Pqu/pcN4nlVt9/LL6hH0awcaY88FjSB8su31u0EU2M7CZbAAYBrXBZwEHg==}
     engines: {node: '>=18.0.0'}
     peerDependencies:
       hono: '*'
@@ -3448,10 +3349,6 @@ packages:
 
   isarray@2.0.5:
     resolution: {integrity: sha512-xHjhDr3cNBK0BzdUJSPXZntQUx/mwMS5Rw4A7lPJ90XGAO6ISP/ePDNuo0vhqOZU+UD5JoodwCAAoZQd3FeAKw==}
-
-  isbot@5.1.22:
-    resolution: {integrity: sha512-RqCFY3cJy3c2y1I+rMn81cfzAR4XJwfPBC+M8kffUjbPzxApzyyv7Tbm1C/gXXq2dSCuD238pKFEWlQMTWsTFw==}
-    engines: {node: '>=18'}
 
   isexe@2.0.0:
     resolution: {integrity: sha512-RHxMLp9lnKHGHRng9QFhRCMbYAcVpn69smSGcq3f36xjgVVWThj4qqLbTLlq7Ssj8B+fIQ1EuCEGI2lKsyQeIw==}
@@ -3829,11 +3726,6 @@ packages:
     resolution: {integrity: sha512-PXwfBhYu0hBCPw8Dn0E+WDYb7af3dSLVWKi3HGv84IdF4TyFoC0ysxFd0Goxw7nSv4T/PzEJQxsYsEiFCKo2BA==}
     engines: {node: '>=8.6'}
 
-  mime@2.6.0:
-    resolution: {integrity: sha512-USPkMeET31rOMiarsBNIHZKLGgvKc/LrjofAnBlOttf5ajRvqiRA8QsenbcooctK6d6Ts6aqZXBA+XbkKthiQg==}
-    engines: {node: '>=4.0.0'}
-    hasBin: true
-
   mime@3.0.0:
     resolution: {integrity: sha512-jSCU7/VB1loIWBZe14aEYHU/+1UMEHoaO7qxCOVJOw9GgH72VAWppxNcjU+x9a2k3GSIBXNKxXQFqRvvZ7vr3A==}
     engines: {node: '>=10.0.0'}
@@ -3872,10 +3764,6 @@ packages:
 
   monaco-editor@0.52.2:
     resolution: {integrity: sha512-GEQWEZmfkOGLdd3XK8ryrfWz3AIP8YymVXiPHEdewrUq7mh0qrKrfHLNCXcbB6sTnMLnOZ3ztSiKcciFUkIJwQ==}
-
-  mrmime@1.0.1:
-    resolution: {integrity: sha512-hzzEagAgDyoU1Q6yg5uI+AorQgdvMCur3FcKf7NhMKWsaYg+RnbTyHRa/9IlLF9rf455MOCtcqqrQQ83pPP7Uw==}
-    engines: {node: '>=10'}
 
   ms@2.1.3:
     resolution: {integrity: sha512-6FlzubTLZG3J2a/NVCAleEhjzq5oxgHyaCU9yYXvcLsvoVaHJq/s5xXI6/XXP6tz7R9xAOtHnSO/tXtF3WRTlA==}
@@ -4312,12 +4200,6 @@ packages:
   queue-microtask@1.2.3:
     resolution: {integrity: sha512-NuaNSa6flKT5JaSYQzJok04JzTL1CA6aGhv5rfLW3PgqA+M2ChpZQnAC8h8i4ZFkBS8X5RqkDBHA7r4hej3K9A==}
 
-  react-blurhash@0.3.0:
-    resolution: {integrity: sha512-XlKr4Ns1iYFRnk6DkAblNbAwN/bTJvxTVoxMvmTcURdc5oLoXZwqAF9N3LZUh/HT+QFlq5n6IS6VsDGsviYAiQ==}
-    peerDependencies:
-      blurhash: ^2.0.3
-      react: '>=15'
-
   react-daisyui@5.0.5:
     resolution: {integrity: sha512-bh2XjayCeCmV855GqdhvCwIGDsrHxDfbczuVSMze4B71Ou6VwIesMTaHu8LQ6qYFi7tN59mBF073b0EUh2khFA==}
     peerDependencies:
@@ -4630,10 +4512,6 @@ packages:
   source-map@0.6.1:
     resolution: {integrity: sha512-UjgapumWlbMhkBgzT7Ykc5YXUT46F0iKu8SGXq0bcwP5dz/h0Plj6enJqjz1Zbq2l5WaqYnrVbwWOWMyF3F47g==}
     engines: {node: '>=0.10.0'}
-
-  source-map@0.7.4:
-    resolution: {integrity: sha512-l3BikUxvPOcn5E74dZiq5BGsTb5yEwhaTSzccU6t4sDOH8NWJCstKO5QT2CvtFoK6F0saL7p9xHAqHOlCPJygA==}
-    engines: {node: '>= 8'}
 
   sourcemap-codec@1.4.8:
     resolution: {integrity: sha512-9NykojV5Uih4lgo5So5dtw+f0JgJX30KCNI8gwhz2J9A15wD0Ml6tjHKwf6fTSa6fAdVBdZeNOs9eJ71qCk8vA==}
@@ -5068,9 +4946,6 @@ packages:
 
   wcwidth@1.0.1:
     resolution: {integrity: sha512-XHPEwS0q6TaxcvG85+8EYkbiCux2XtWG2mkc47Ng2A77BQu9+DqIOJldST4HgPkuea7dvKSj5VgX3P1d4rW8Tg==}
-
-  web-encoding@1.1.5:
-    resolution: {integrity: sha512-HYLeVCdJ0+lBYV2FvNZmv3HJ2Nt0QYXqZojk3d9FJOLkwnuhzM9tmamh8d7HPM8QqjKH8DeHkFTx+CFlWpZZDA==}
 
   web-streams-polyfill@3.3.3:
     resolution: {integrity: sha512-d2JWLCivmZYTSIoge9MsgFCZrt571BikcWGYkjC1khllbTeDlGqZ2D8vD8E/lJa8WGWbb7Plm8/XJYV7IJHZZw==}
@@ -5667,11 +5542,6 @@ snapshots:
     dependencies:
       '@babel/helper-string-parser': 7.25.9
       '@babel/helper-validator-identifier': 7.25.9
-
-  '@cloudflare/kv-asset-handler@0.1.3':
-    dependencies:
-      mime: 2.6.0
-    optional: true
 
   '@cloudflare/kv-asset-handler@0.3.4':
     dependencies:
@@ -6550,15 +6420,6 @@ snapshots:
     dependencies:
       hono: 4.6.20
 
-  '@hono/vite-dev-server@0.17.0(hono@4.6.20)(miniflare@3.20250129.0)(wrangler@3.107.2(@cloudflare/workers-types@4.20250129.0))':
-    dependencies:
-      '@hono/node-server': 1.13.8(hono@4.6.20)
-      hono: 4.6.20
-      minimatch: 9.0.5
-    optionalDependencies:
-      miniflare: 3.20250129.0
-      wrangler: 3.107.2(@cloudflare/workers-types@4.20250129.0)
-
   '@hono/vite-dev-server@0.18.1(hono@4.6.20)(miniflare@3.20250129.0)(wrangler@3.107.2(@cloudflare/workers-types@4.20250129.0))':
     dependencies:
       '@hono/node-server': 1.13.8(hono@4.6.20)
@@ -6882,75 +6743,6 @@ snapshots:
       undici: 6.21.1
     optionalDependencies:
       typescript: 5.7.3
-
-  '@remix-run/cloudflare@2.15.3(@cloudflare/workers-types@4.20250129.0)(typescript@5.7.3)':
-    dependencies:
-      '@cloudflare/kv-asset-handler': 0.1.3
-      '@cloudflare/workers-types': 4.20250129.0
-      '@remix-run/server-runtime': 2.15.3(typescript@5.7.3)
-    optionalDependencies:
-      typescript: 5.7.3
-    optional: true
-
-  '@remix-run/node@2.15.3(typescript@5.7.3)':
-    dependencies:
-      '@remix-run/server-runtime': 2.15.3(typescript@5.7.3)
-      '@remix-run/web-fetch': 4.4.2
-      '@web3-storage/multipart-parser': 1.0.0
-      cookie-signature: 1.2.2
-      source-map-support: 0.5.21
-      stream-slice: 0.1.2
-      undici: 6.21.1
-    optionalDependencies:
-      typescript: 5.7.3
-    optional: true
-
-  '@remix-run/router@1.22.0': {}
-
-  '@remix-run/server-runtime@2.15.3(typescript@5.7.3)':
-    dependencies:
-      '@remix-run/router': 1.22.0
-      '@types/cookie': 0.6.0
-      '@web3-storage/multipart-parser': 1.0.0
-      cookie: 0.6.0
-      set-cookie-parser: 2.7.1
-      source-map: 0.7.4
-      turbo-stream: 2.4.0
-    optionalDependencies:
-      typescript: 5.7.3
-
-  '@remix-run/web-blob@3.1.0':
-    dependencies:
-      '@remix-run/web-stream': 1.1.0
-      web-encoding: 1.1.5
-    optional: true
-
-  '@remix-run/web-fetch@4.4.2':
-    dependencies:
-      '@remix-run/web-blob': 3.1.0
-      '@remix-run/web-file': 3.1.0
-      '@remix-run/web-form-data': 3.1.0
-      '@remix-run/web-stream': 1.1.0
-      '@web3-storage/multipart-parser': 1.0.0
-      abort-controller: 3.0.0
-      data-uri-to-buffer: 3.0.1
-      mrmime: 1.0.1
-    optional: true
-
-  '@remix-run/web-file@3.1.0':
-    dependencies:
-      '@remix-run/web-blob': 3.1.0
-    optional: true
-
-  '@remix-run/web-form-data@3.1.0':
-    dependencies:
-      web-encoding: 1.1.5
-    optional: true
-
-  '@remix-run/web-stream@1.1.0':
-    dependencies:
-      web-streams-polyfill: 3.3.3
-    optional: true
 
   '@repeaterjs/repeater@3.0.6': {}
 
@@ -7283,8 +7075,6 @@ snapshots:
       '@urql/core': 5.0.8(graphql@16.10.0)
       wonka: 6.3.4
 
-  '@web3-storage/multipart-parser@1.0.0': {}
-
   '@whatwg-node/disposablestack@0.0.5':
     dependencies:
       tslib: 2.8.1
@@ -7309,14 +7099,6 @@ snapshots:
       '@whatwg-node/disposablestack': 0.0.5
       '@whatwg-node/fetch': 0.10.3
       tslib: 2.8.1
-
-  '@zxing/text-encoding@0.9.0':
-    optional: true
-
-  abort-controller@3.0.0:
-    dependencies:
-      event-target-shim: 5.0.1
-    optional: true
 
   acorn-jsx@5.3.2(acorn@8.14.0):
     dependencies:
@@ -7735,11 +7517,6 @@ snapshots:
 
   convert-source-map@2.0.0: {}
 
-  cookie-signature@1.2.2:
-    optional: true
-
-  cookie@0.6.0: {}
-
   cookie@0.7.2: {}
 
   cookie@1.0.2: {}
@@ -7783,12 +7560,9 @@ snapshots:
 
   csstype@3.1.3: {}
 
-  daisyui@5.0.0-beta.4: {}
+  daisyui@5.0.0-beta.6: {}
 
   data-uri-to-buffer@2.0.2: {}
-
-  data-uri-to-buffer@3.0.1:
-    optional: true
 
   data-uri-to-buffer@4.0.1: {}
 
@@ -8286,9 +8060,6 @@ snapshots:
 
   esutils@2.0.3: {}
 
-  event-target-shim@5.0.1:
-    optional: true
-
   eventemitter3@3.1.2: {}
 
   exit-hook@2.2.1: {}
@@ -8603,18 +8374,18 @@ snapshots:
       capital-case: 1.0.4
       tslib: 2.8.1
 
-  hono-remix-adapter@0.5.4(@cloudflare/workers-types@4.20250129.0)(hono@4.6.20)(miniflare@3.20250129.0)(typescript@5.7.3)(wrangler@3.107.2(@cloudflare/workers-types@4.20250129.0)):
+  hono-react-router-adapter@0.6.2(hono@4.6.20)(miniflare@3.20250129.0)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(typescript@5.7.3)(wrangler@3.107.2(@cloudflare/workers-types@4.20250129.0)):
     dependencies:
-      '@hono/vite-dev-server': 0.17.0(hono@4.6.20)(miniflare@3.20250129.0)(wrangler@3.107.2(@cloudflare/workers-types@4.20250129.0))
-      '@remix-run/server-runtime': 2.15.3(typescript@5.7.3)
+      '@hono/vite-dev-server': 0.18.1(hono@4.6.20)(miniflare@3.20250129.0)(wrangler@3.107.2(@cloudflare/workers-types@4.20250129.0))
       hono: 4.6.20
+      react-router: 7.1.5(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
     optionalDependencies:
       '@hono/node-server': 1.13.8(hono@4.6.20)
-      '@remix-run/cloudflare': 2.15.3(@cloudflare/workers-types@4.20250129.0)(typescript@5.7.3)
-      '@remix-run/node': 2.15.3(typescript@5.7.3)
+      '@react-router/node': 7.1.5(react-router@7.1.5(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(typescript@5.7.3)
     transitivePeerDependencies:
-      - '@cloudflare/workers-types'
       - miniflare
+      - react
+      - react-dom
       - typescript
       - wrangler
 
@@ -8870,8 +8641,6 @@ snapshots:
   isarray@1.0.0: {}
 
   isarray@2.0.5: {}
-
-  isbot@5.1.22: {}
 
   isexe@2.0.0: {}
 
@@ -9388,9 +9157,6 @@ snapshots:
       braces: 3.0.3
       picomatch: 2.3.1
 
-  mime@2.6.0:
-    optional: true
-
   mime@3.0.0: {}
 
   mimic-fn@2.1.0: {}
@@ -9434,9 +9200,6 @@ snapshots:
       ufo: 1.5.4
 
   monaco-editor@0.52.2: {}
-
-  mrmime@1.0.1:
-    optional: true
 
   ms@2.1.3: {}
 
@@ -9871,14 +9634,9 @@ snapshots:
 
   queue-microtask@1.2.3: {}
 
-  react-blurhash@0.3.0(blurhash@2.0.5)(react@19.0.0):
+  react-daisyui@5.0.5(daisyui@5.0.0-beta.6)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(tailwindcss@4.0.3):
     dependencies:
-      blurhash: 2.0.5
-      react: 19.0.0
-
-  react-daisyui@5.0.5(daisyui@5.0.0-beta.4)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(tailwindcss@4.0.3):
-    dependencies:
-      daisyui: 5.0.0-beta.4
+      daisyui: 5.0.0-beta.6
       react: 19.0.0
       react-dom: 19.0.0(react@19.0.0)
       tailwindcss: 4.0.3
@@ -10251,8 +10009,6 @@ snapshots:
       source-map: 0.6.1
 
   source-map@0.6.1: {}
-
-  source-map@0.7.4: {}
 
   sourcemap-codec@1.4.8: {}
 
@@ -10746,13 +10502,6 @@ snapshots:
   wcwidth@1.0.1:
     dependencies:
       defaults: 1.0.4
-
-  web-encoding@1.1.5:
-    dependencies:
-      util: 0.12.5
-    optionalDependencies:
-      '@zxing/text-encoding': 0.9.0
-    optional: true
 
   web-streams-polyfill@3.3.3: {}
 

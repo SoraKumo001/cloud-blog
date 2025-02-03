@@ -3,7 +3,7 @@
   @apply relative h-full w-full overflow-x-hidden overflow-y-scroll;
 }
 .root .title {
-  @apply m-4 flex items-center gap-4 border-b-2 border-gray-300 p-2 px-8 text-center text-3xl leading-10;
+  @apply m-4 inline-flex items-center gap-4 border-b-2 border-gray-300 p-2 px-8 text-center text-3xl leading-10 flex-wrap justify-center;
 }
 .root .date {
   @apply px-8 text-end font-mono text-gray-500;

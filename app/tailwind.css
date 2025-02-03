@@ -16,6 +16,7 @@
     font-family: "Noto Sans JP", ui-sans-serif, system-ui, sans-serif,
       "Apple Color Emoji", "Segoe UI Emoji", Segoe UI Symbol, "Noto Color Emoji";
     color: rgba(0, 0, 0, 0.87);
+    background-color: white;
     font-weight: 400;
     overflow: hidden;
   }
