@@ -1,7 +1,5 @@
-import { FC, useState } from "react";
+import { type FC, useState } from "react";
 import { Button } from "react-daisyui";
-import { SubmitHandler, useForm } from "react-hook-form";
-import styled from "./SiteSetting.module.css";
 import { ImageDragField } from "@/components/Commons/ImageDragField";
 import { TextField } from "@/components/Commons/TextField";
 import {
@@ -12,6 +10,7 @@ import {
 } from "@/generated/graphql";
 import { useFirebaseUrl } from "@/hooks/useFirebaseUrl";
 import { useLoading } from "@/hooks/useLoading";
+import { type SubmitHandler, useForm } from "react-hook-form";
 
 interface FormInput {
   title: string;
@@ -60,10 +59,10 @@ export const SiteSetting: FC<Props> = ({}) => {
     data?.findUniqueSystem.icon?.id &&
     getFirebaseUrl(data?.findUniqueSystem.icon?.id);
   return (
-    <div className={styled.root}>
+    <div className="h-full overflow-y-auto">
       <div className="m-auto max-w-2xl p-8">
         <div className="grid gap-8">
-          <h1>サイト情報</h1>
+          <h1 className="mb-4 border-b text-xl">サイト情報</h1>
           <TextField
             label="タイトル"
             defaultValue={data?.findUniqueSystem.title}

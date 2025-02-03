@@ -25,7 +25,7 @@ export const PostList: FC<Props> = ({ id, title, posts, limit }) => {
   }, [limit, posts]);
   const getFirebaseUrl = useFirebaseUrl();
   return (
-    <div className={styled.root}>
+    <div>
       <div className={styled.title}>
         <Link to={`/category/${id ?? ""}`}>📚 {title}</Link>
       </div>

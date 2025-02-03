@@ -49,9 +49,9 @@ export const ToolBar: FC<Props> = ({ post, control, onCard }) => {
   const [isConverting, convertImage] = useConvertImage();
   const [isExpand, setExpand] = useState(false);
   const getFirebaseUrl = useFirebaseUrl();
-  const url = post.cardId && getFirebaseUrl(post.cardId);
   useLoading([fetching, updateFetching, isConverting]);
-  if (!categoryList) return null;
+  if (!categoryList || !post) return null;
+  const url = post.cardId && getFirebaseUrl(post.cardId);
   const dateOptions = {
     year: "numeric",
     month: "2-digit",
@@ -98,7 +98,7 @@ export const ToolBar: FC<Props> = ({ post, control, onCard }) => {
           render={({ field: { onChange, ...field } }) => (
             <FieldSet label="Category">
               <MultiSelect
-                className="w-64 border-none py-0"
+                className="w-64 border-none pt-0 pb-1"
                 items={categoryList.map(({ id, name }) => (
                   <label
                     key={id}
@@ -129,7 +129,7 @@ export const ToolBar: FC<Props> = ({ post, control, onCard }) => {
               </MultiSelect>
             </FieldSet>
           )}
-        ></Controller>
+        />
         {post.publishedAt && (
           <TextField
             type="datetime-local"

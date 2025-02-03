@@ -7,6 +7,7 @@ export const backup = (
   >
 ) =>
   t.string({
+    nullable: false,
     resolve: async (_root, {}, { user, prisma }) => {
       if (!user) throw new Error("Unauthorized");
 

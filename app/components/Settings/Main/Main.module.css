@@ -1,3 +1,4 @@
+@reference 'tailwindcss';
 .root {
   @apply h-full overflow-auto;
 }

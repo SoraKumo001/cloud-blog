@@ -1,6 +1,5 @@
-import { FC } from "react";
+import type { FC } from "react";
 import { Link } from "react-router";
-import styled from "./Main.module.css";
 
 interface Props {}
 
@@ -11,17 +10,17 @@ interface Props {}
  */
 export const Main: FC<Props> = ({}) => {
   return (
-    <div className={styled.root}>
+    <div className="h-full overflow-auto">
       <div className="m-auto grid max-w-2xl gap-8 pt-8">
-        <h1>システム設定</h1>
-        <div className={styled.items}>
-          <Link className={styled.link} to="/settings/system">
+        <h1 className="mb-8 border-b text-xl">システム設定</h1>
+        <div className="grid gap-4">
+          <Link className="block rounded border p-4" to="/settings/system">
             サイト設定
           </Link>
-          <Link className={styled.link} to="/settings/category">
+          <Link className="block rounded border p-4" to="/settings/category">
             カテゴリ設定
           </Link>
-          <Link className={styled.link} to="/settings/backup">
+          <Link className="block rounded border p-4" to="/settings/backup">
             バックアップ/リストア
           </Link>
         </div>

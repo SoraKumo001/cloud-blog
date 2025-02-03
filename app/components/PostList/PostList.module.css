@@ -1,3 +1,5 @@
+@reference "tailwindcss";
+
 .postList {
   @apply m-auto flex max-w-[1240px] flex-wrap justify-center gap-4;
 }

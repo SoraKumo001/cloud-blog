@@ -1,3 +1,4 @@
+@reference "tailwindcss";
 .root {
   @apply mb-1 shadow;
 }

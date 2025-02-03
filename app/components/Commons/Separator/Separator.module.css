@@ -1,3 +1,4 @@
+@reference "tailwindcss";
 .root {
   @apply flex h-full w-full border;
 }

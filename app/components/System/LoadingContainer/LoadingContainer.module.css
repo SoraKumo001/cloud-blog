@@ -1,3 +1,4 @@
+@reference "tailwindcss";
 .root {
   position: fixed;
   right: 16px;

@@ -52,7 +52,7 @@ export const Editor: FC<Props> = ({ id }) => {
   const [{ fetching: uploadCardFeting }, uploadPostIcon] =
     useUploadPostIconMutation();
   const monaco = useMonaco();
-  const refEditor = useRef<editor.IStandaloneCodeEditor>();
+  const refEditor = useRef<editor.IStandaloneCodeEditor>(null);
   const refMarkdown = useRef<HTMLDivElement>(null);
   const [currentLine, setCurrentLine] = useState(1);
   const [card, setCard] = useState<Blob | null | undefined>();

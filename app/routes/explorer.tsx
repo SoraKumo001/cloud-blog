@@ -1,4 +1,3 @@
-/* eslint-disable tailwindcss/no-custom-classname */
 import { ApolloExplorer } from "@apollo/explorer/react";
 import { printSchema } from "graphql";
 import { LoaderFunctionArgs, useLoaderData } from "react-router";

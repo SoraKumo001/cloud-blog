@@ -1,3 +1,4 @@
+@reference "tailwindcss";
 .root h2 {
   margin-left: 0px;
 }

@@ -9,6 +9,7 @@ export const uploadPostImage = (
 ) =>
   t.prismaField({
     type: "FireStore",
+    nullable: false,
     args: {
       postId: t.arg({ type: "String", required: true }),
       file: t.arg({ type: "Upload", required: true }),

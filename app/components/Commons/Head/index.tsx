@@ -108,10 +108,14 @@ const extractInfoFromChildren = (
   React.Children.toArray(children).flatMap((child) => {
     if (React.isValidElement(child)) {
       if (child.type === React.Fragment) {
-        return extractInfoFromChildren(child.props.children);
+        return extractInfoFromChildren(
+          (child as { props: { children: ReactNode } }).props.children
+        );
       }
       if (typeof child.type === "string") {
-        return [{ type: child.type, props: child.props }];
+        return [
+          { type: child.type, props: child.props as Record<string, unknown> },
+        ];
       }
     }
     return [];

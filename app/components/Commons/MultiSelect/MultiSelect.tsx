@@ -1,4 +1,4 @@
-import { FC, ReactNode, useState } from "react";
+import { type FC, type ReactNode, useState } from "react";
 import { MdExpandMore as ExpandIcon } from "react-icons/md";
 import { Popup } from "../Popup";
 import { classNames } from "@/libs/client/classNames";

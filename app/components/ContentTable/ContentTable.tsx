@@ -21,7 +21,7 @@ interface Props {
  */
 export const ContentTable: FC<Props> = ({ className, title, vnode }) => {
   const titles = useMemo(() => {
-    return vnode?.children?.flatMap((node: Heading) =>
+    return vnode?.children?.flatMap((node) =>
       node.type !== "heading"
         ? []
         : ([[(node as Heading).depth, convertText(node as VNode)]] as const)
@@ -35,7 +35,7 @@ export const ContentTable: FC<Props> = ({ className, title, vnode }) => {
           {title}
         </Link>
         <ul className="mt-2 flex flex-col gap-1">
-          {titles?.map((node: VNode, index: number) => (
+          {titles?.map((node, index) => (
             <li
               key={index}
               className="list-disc break-all"
@@ -52,5 +52,5 @@ export const ContentTable: FC<Props> = ({ className, title, vnode }) => {
 
 const convertText = (node: VNode): string => {
   if (node.type === "text") return node.value;
-  return node.children?.map((n: VNode) => convertText(n)).join("") ?? "";
+  return node.children?.map((n) => convertText(n as VNode)).join("") ?? "";
 };

@@ -1,11 +1,33 @@
-@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100..900&display=swap");
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+@plugin "daisyui";
 
-body {
-  font-family: "Noto Sans JP", ui-sans-serif, system-ui, sans-serif,
-    "Apple Color Emoji", "Segoe UI Emoji", Segoe UI Symbol, "Noto Color Emoji";
-  color: rgba(0, 0, 0, 0.87);
-  font-weight: 400;
+@layer utilities {
+  input,
+  textarea,
+  select,
+  button {
+    border: 0px solid;
+    border-radius: 0;
+    padding: 0;
+    color: inherit;
+    background-color: transparent;
+  }
+  body {
+    font-family: "Noto Sans JP", ui-sans-serif, system-ui, sans-serif,
+      "Apple Color Emoji", "Segoe UI Emoji", Segoe UI Symbol, "Noto Color Emoji";
+    color: rgba(0, 0, 0, 0.87);
+    font-weight: 400;
+    overflow: hidden;
+  }
+  *,
+  :before,
+  :after {
+    box-sizing: border-box;
+    border-width: 0;
+    border-style: solid;
+    border-color: #e5e7eb;
+  }
+  :root {
+    --color-primary: var(--color-blue-500);
+  }
 }

@@ -1,5 +1,4 @@
 import { FC, useCallback, useEffect, useRef } from "react";
-import styled from "./NotificationContainer.module.css";
 import { Notification } from "../Notification";
 import {
   useNotificationsDispatch,
@@ -16,7 +15,7 @@ interface Props {}
  */
 export const NotificationContainer: FC<Props> = ({}) => {
   const notifications = useNotificationsSelector();
-  const timer = useRef<number>();
+  const timer = useRef<number>(null);
   const dispatch = useNotificationsDispatch();
   const onAnimationEnd = useCallback(() => {
     dispatch((state) => ({

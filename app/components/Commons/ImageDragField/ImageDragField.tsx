@@ -1,7 +1,6 @@
-import { FC, ReactNode, useRef, useState } from "react";
+import { type FC, type ReactNode, useRef, useState } from "react";
 import { Button } from "react-daisyui";
 import { MdClose as CloseIcon } from "react-icons/md";
-import styled from "./ImageDragField.module.css";
 import { FieldSet } from "../FieldSet";
 import { classNames } from "@/libs/client/classNames";
 import { arrayBufferToBase64 } from "@/libs/server/buffer";
@@ -34,9 +33,9 @@ export const ImageDragField: FC<Props> = ({
   return (
     <FieldSet
       className={classNames(
-        styled.root,
-        styled.field,
-        isDrag && styled.drag,
+        "relative",
+        "min-h-[64px] p-4",
+        isDrag && "border-gray-700",
         className,
         active && "ring-1 ring-offset-4"
       )}
@@ -89,7 +88,7 @@ export const ImageDragField: FC<Props> = ({
         <Button
           type="button"
           variant="link"
-          className={styled.close}
+          className={"absolute right-6 top-6 bg-white/50 p-2 border-gray-400"}
           onClick={() => {
             onChange?.(null);
             setImage(undefined);
@@ -100,7 +99,11 @@ export const ImageDragField: FC<Props> = ({
         </Button>
       )}
       {image && (
-        <img className={styled.image} src={image} alt={placeholder || ""} />
+        <img
+          className={"m-auto max-w-64 max-h-64"}
+          src={image}
+          alt={placeholder || ""}
+        />
       )}
     </FieldSet>
   );

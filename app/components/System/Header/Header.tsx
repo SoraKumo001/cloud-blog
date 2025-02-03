@@ -1,4 +1,4 @@
-import { FC } from "react";
+import type { FC } from "react";
 import { Button } from "react-daisyui";
 import {
   MdCreate as CreateIcon,
@@ -8,7 +8,6 @@ import {
   MdSettings as SettingsIcon,
 } from "react-icons/md";
 import { Link, useNavigate } from "react-router";
-import styled from "./Header.module.css";
 import { Head } from "@/components/Commons/Head";
 import { useSystemQuery } from "@/generated/graphql";
 import { useUser, useSignOut } from "@/hooks/useAuth";
@@ -51,8 +50,13 @@ export const Header: FC<Props> = () => {
         />
         {favicon && <link rel="icon" href={favicon} />}
       </Head>
-      <header className={styled.root}>
-        <Link className={styled.title} to="/">
+      <header className="sticky top-0 z-10 flex items-center bg-blue-100 p-2">
+        <Link
+          className={
+            "flex flex-1 items-center gap-4 text-3xl text-blue-800 hover:text-blue-600"
+          }
+          to="/"
+        >
           <HomeIcon fontSize="large" size={24} />
           {data?.findUniqueSystem.title}
         </Link>

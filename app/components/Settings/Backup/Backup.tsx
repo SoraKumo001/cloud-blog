@@ -135,7 +135,7 @@ export const Backup: FC<Props> = () => {
         <FieldSet label="CORS" className="flex gap-4 p-2">
           <Checkbox
             color="primary"
-            checked={bucketData?.bucket.cors?.[0].origin?.[0] === "*"}
+            checked={bucketData?.bucket?.cors?.[0].origin?.[0] === "*"}
             onChange={(e) => {
               updateCors({ origin: e.target.checked ? ["*"] : [] });
             }}

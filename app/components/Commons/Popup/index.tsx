@@ -1,4 +1,4 @@
-import { FC, ReactNode, useCallback, useRef, useState } from "react";
+import { type FC, type ReactNode, useCallback, useRef, useState } from "react";
 import { Portal } from "../Portal";
 
 type Props = {
@@ -65,7 +65,7 @@ export const Popup: FC<Props> = ({
       <div ref={refTarget} />
       {isOpen && (
         <Portal effect={updateEffect}>
-          <button className="fixed inset-0 -z-10" onClick={onClose} />
+          <button className="fixed inset-0" onClick={onClose} />
           <div
             ref={refPopup}
             className="fixed z-50"

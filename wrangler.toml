@@ -1,13 +1,9 @@
 #:schema node_modules/wrangler/config-schema.json
 name = "cloud-blog"
-compatibility_date = "2024-09-25"
+compatibility_date = "2025-01-28"
 compatibility_flags = ["nodejs_compat"]
 main = "./build/server/index.js"
 assets = { directory = "./build/client" ,binding = "ASSETS"}
-
-services = [
-  { binding = "prisma", service = "prisma-accelerate-workers" }
-]
 
 [observability]
 enabled = true

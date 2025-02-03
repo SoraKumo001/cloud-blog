@@ -1,3 +1,4 @@
+@reference "tailwindcss";
 .root {
   @apply relative h-full w-full overflow-x-hidden overflow-y-scroll;
 }
