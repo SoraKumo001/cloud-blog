@@ -18,6 +18,9 @@ type Env = {
   Variables: {
     prisma: PrismaClient;
   };
+  Bindings: {
+    database: Hyperdrive;
+  };
 };
 
 const getAdapter = (datasourceUrl: string) => {
@@ -40,7 +43,8 @@ export const prisma: PrismaClient = new Proxy<PrismaClient>({} as never, {
   get(_target: unknown, props: keyof PrismaClient) {
     const context = getContext<Env>();
     if (!context.get("prisma")) {
-      const datasourceUrl = process.env.DATABASE_URL as string;
+      const datasourceUrl =
+        context.env.database.connectionString ?? process.env.DATABASE_URL;
       const adapter = getAdapter(datasourceUrl);
       const prisma = new PrismaClient({
         adapter,

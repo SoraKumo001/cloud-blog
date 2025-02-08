@@ -13,3 +13,7 @@ cpu_ms = 10000
 
 [placement]
 mode = "smart"
+
+[[hyperdrive]]
+binding = "database"
+id = "209758540bd5475d88b9250492b1a08c"

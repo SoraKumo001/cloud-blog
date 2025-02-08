@@ -1,6 +1,6 @@
-import { FC, useMemo, useState } from "react";
+import { type FC, useMemo, useState } from "react";
 import { Button, Checkbox } from "react-daisyui";
-import { Control, Controller } from "react-hook-form";
+import { type Control, Controller } from "react-hook-form";
 import {
   MdDelete as DeleteIcon,
   MdExpandLess as LessIcon,
@@ -16,7 +16,7 @@ import { ImageDragField } from "@/components/Commons/ImageDragField";
 import { MultiSelect } from "@/components/Commons/MultiSelect";
 import { TextField } from "@/components/Commons/TextField";
 import {
-  PostQuery,
+  type PostQuery,
   useCategoriesQuery,
   useDeleteOnePostMutation,
 } from "@/generated/graphql";

@@ -9,7 +9,7 @@ const fetchPublicKeys = async () => {
 
   if (!maxAgeMatch?.[1]) throw new Error("error");
 
-  const maxAgeSeconds = parseInt(maxAgeMatch[1], 10);
+  const maxAgeSeconds = Number.parseInt(maxAgeMatch[1], 10);
   const expirationTime = Date.now() + maxAgeSeconds * 1000;
 
   const publicKeys: { [key: string]: string } = await response.json();
