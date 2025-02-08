@@ -26,7 +26,7 @@ export function blurHashToDataURL(
 function parsePixels(pixels: Uint8ClampedArray, width: number, height: number) {
   const paddingSize = (4 - ((width * 4) % 4)) % 4;
   const paddedRowSize = width * 4 + paddingSize;
-  const bitmapSize = paddedRowSize * height + height * 2 + 14;
+  const bitmapSize = paddedRowSize * height + 54;
 
   const bitmap = new Uint8Array(bitmapSize);
   let pos = 0;
@@ -134,29 +134,28 @@ export const Image = ({ src, width, height, alt, className }: Props) => {
   }, [ref]);
   const isBlur = hashUrl && !isLoad;
   return (
-    <div
-      className="relative"
-      style={{ width: "fit-content", height: "fit-content" }}
-    >
-      <img
-        className={classNames(isBlur ? className : "hidden", "absolute")}
-        src={hashUrl}
-        width={width}
-        height={height}
-      />
-      <img
-        className={classNames(className, "relative z-10")}
-        ref={ref}
-        src={url.toString()}
-        width={width}
-        height={height}
-        alt={""}
-        loading="lazy"
-        decoding="async"
-        onLoad={() => {
-          setLoad(true);
-        }}
-      />
-    </div>
+    <img
+      className={classNames(className, "text-white/75 bg-black")}
+      ref={ref}
+      src={url.toString()}
+      style={
+        hashUrl
+          ? {
+              backgroundImage: `url("${hashUrl}")`,
+              backgroundRepeat: "no-repeat",
+              backgroundSize: "cover",
+              textAlign: "center",
+            }
+          : undefined
+      }
+      width={width}
+      height={height}
+      alt={alt}
+      loading="lazy"
+      decoding="async"
+      onLoad={() => {
+        setLoad(true);
+      }}
+    />
   );
 };
