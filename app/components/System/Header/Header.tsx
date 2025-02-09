@@ -1,4 +1,3 @@
-import type { FC } from "react";
 import { Button } from "react-daisyui";
 import {
   MdCreate as CreateIcon,
@@ -8,6 +7,7 @@ import {
   MdSettings as SettingsIcon,
 } from "react-icons/md";
 import { Link, useNavigate } from "react-router";
+import type { FC } from "react";
 import { Head } from "@/components/Commons/Head";
 import { useSystemQuery } from "@/generated/graphql";
 import { useUser, useSignOut } from "@/hooks/useAuth";

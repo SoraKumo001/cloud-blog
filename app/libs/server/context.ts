@@ -1,7 +1,7 @@
-import { PrismaPg } from "@prisma/adapter-pg-worker";
+import { PrismaPg } from "@prisma/adapter-pg";
 import { PrismaClient } from "@prisma/client";
-import { Pool } from "@prisma/pg-worker";
 import { getContext } from "hono/context-storage";
+import pg from "pg";
 import type { User } from "@prisma/client";
 import type { serialize } from "cookie";
 
@@ -30,7 +30,7 @@ const getAdapter = (datasourceUrl: string) => {
   ) {
     const url = new URL(datasourceUrl);
     const schema = url.searchParams.get("schema") ?? undefined;
-    const pool = new Pool({
+    const pool = new pg.Pool({
       connectionString: datasourceUrl,
     });
     return new PrismaPg(pool, { schema });

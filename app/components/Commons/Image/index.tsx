@@ -120,7 +120,6 @@ export const Image = ({ src, width, height, alt, className }: Props) => {
     if (width) url.searchParams.set("w", String(Math.min(width, 800)));
     url.searchParams.set("q", "90");
   }
-  const [isLoad, setLoad] = useState(false);
   const ref = useRef<HTMLImageElement>(null);
   const hashUrl = useBluerHash({
     src,

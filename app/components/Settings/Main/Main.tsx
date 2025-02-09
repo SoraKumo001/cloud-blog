@@ -1,5 +1,5 @@
-import type { FC } from "react";
 import { Link } from "react-router";
+import type { FC } from "react";
 
 interface Props {}
 

@@ -1,32 +1,31 @@
 /**
  * @type {import('eslint').Linter.FlatConfig[]}
  */
-import { fixupPluginRules } from "@eslint/compat";
 import eslint from "@eslint/js";
 import eslintConfigPrettier from "eslint-config-prettier";
 import importPlugin from "eslint-plugin-import";
 import react from "eslint-plugin-react";
 import reactHooks from "eslint-plugin-react-hooks";
-import tailwind from "eslint-plugin-tailwindcss";
+// import tailwind from "eslint-plugin-tailwindcss";
 import tslint from "typescript-eslint";
 
 export default [
   eslint.configs.recommended,
   ...tslint.configs.recommended,
-  ...tailwind.configs["flat/recommended"],
+  // ...tailwind.configs["flat/recommended"],
   eslintConfigPrettier,
   {
     ignores: ["**/generated/**"],
   },
   {
     plugins: {
-      react: fixupPluginRules(react),
+      react,
     },
     rules: react.configs["jsx-runtime"].rules,
   },
   {
     plugins: {
-      "react-hooks": fixupPluginRules(reactHooks),
+      "react-hooks": reactHooks,
     },
     rules: reactHooks.configs.recommended.rules,
   },
