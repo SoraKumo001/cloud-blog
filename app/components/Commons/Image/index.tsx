@@ -1,5 +1,5 @@
 import { decode } from "blurhash";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import { useEnv } from "@/components/Provider/EnvProvider";
 import { fileNameToBase83 } from "@/libs/client/blurhash";
 import { classNames } from "@/libs/client/classNames";
@@ -127,12 +127,6 @@ export const Image = ({ src, width, height, alt, className }: Props) => {
     width: width ?? 0,
     height: height ?? 0,
   });
-  useEffect(() => {
-    if (ref.current?.complete) {
-      setLoad(true);
-    }
-  }, [ref]);
-  const isBlur = hashUrl && !isLoad;
   return (
     <img
       className={classNames(className, "text-white/75 bg-black")}
@@ -153,9 +147,6 @@ export const Image = ({ src, width, height, alt, className }: Props) => {
       alt={alt}
       loading="lazy"
       decoding="async"
-      onLoad={() => {
-        setLoad(true);
-      }}
     />
   );
 };
