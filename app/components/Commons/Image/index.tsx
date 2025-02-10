@@ -120,7 +120,6 @@ export const Image = ({ src, width, height, alt, className }: Props) => {
     if (width) url.searchParams.set("w", String(Math.min(width, 800)));
     url.searchParams.set("q", "90");
   }
-  const ref = useRef<HTMLImageElement>(null);
   const hashUrl = useBluerHash({
     src,
     width: width ?? 0,
@@ -129,13 +128,11 @@ export const Image = ({ src, width, height, alt, className }: Props) => {
   return (
     <img
       className={classNames(className, "text-white/75 bg-black")}
-      ref={ref}
       src={url.toString()}
       style={
         hashUrl
           ? {
               backgroundImage: `url("${hashUrl}")`,
-              backgroundRepeat: "no-repeat",
               backgroundSize: "cover",
               textAlign: "center",
             }
