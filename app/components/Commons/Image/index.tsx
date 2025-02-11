@@ -28,57 +28,40 @@ function parsePixels(pixels: Uint8ClampedArray, width: number, height: number) {
   const paddedRowSize = width * 4 + paddingSize;
   const bitmapSize = paddedRowSize * height + 54;
 
-  const bitmap = new Uint8Array(bitmapSize);
-  let pos = 0;
+  const header = Buffer.alloc(54);
+  header.write("BM", 0);
+  header.writeUInt32LE(bitmapSize, 2);
+  header.writeUInt32LE(0, 6);
+  header.writeUInt32LE(54, 10);
+  header.writeUInt32LE(40, 14);
+  header.writeUInt32LE(width, 18);
+  header.writeUInt32LE(height, 22);
+  header.writeUInt16LE(1, 26);
+  header.writeUInt16LE(32, 28);
+  header.writeUInt32LE(0, 30);
+  header.writeUInt32LE(paddedRowSize * height, 34);
+  header.writeUInt32LE(0, 38);
+  header.writeUInt32LE(0, 42);
+  header.writeUInt32LE(0, 46);
+  header.writeUInt32LE(0, 50);
 
-  const setByte = (value: number) => {
-    bitmap[pos] = value;
-    pos++;
-  };
-
-  const setWord = (value: number) => {
-    setByte(value & 0xff);
-    setByte((value >> 8) & 0xff);
-  };
-
-  const setDWord = (value: number) => {
-    setWord(value & 0xffff);
-    setWord((value >> 16) & 0xffff);
-  };
-
-  setByte(0x42);
-  setByte(0x4d);
-  setDWord(bitmapSize);
-  setWord(0);
-  setWord(0);
-  setDWord(54);
-
-  setDWord(40);
-  setDWord(width);
-  setDWord(height);
-  setWord(1);
-  setWord(32);
-  setDWord(0);
-  setDWord(paddedRowSize * height);
-  setDWord(0);
-  setDWord(0);
-  setDWord(0);
-  setDWord(0);
+  let pt = 0;
+  const data = Buffer.alloc(paddedRowSize * height);
 
   for (let i = 0; i < height; i++) {
     for (let j = 0; j < width; j++) {
       const pos = (i * width + j) * 4;
-      setByte(pixels[pos + 2]);
-      setByte(pixels[pos + 1]);
-      setByte(pixels[pos]);
-      setByte(pixels[pos + 3]);
+      data.writeUInt8(pixels[pos + 2], pt++);
+      data.writeUInt8(pixels[pos + 1], pt++);
+      data.writeUInt8(pixels[pos], pt++);
+      data.writeUInt8(pixels[pos + 3], pt++);
     }
     for (let p = 0; p < paddingSize; p++) {
-      setByte(0);
+      data.writeUInt8(0, pt++);
     }
   }
 
-  const dataURL = btoa(String.fromCharCode(...bitmap));
+  const dataURL = Buffer.concat([header, data]).toString("base64");
   return "data:image/bmp;base64," + dataURL;
 }
 const useBluerHash = ({
