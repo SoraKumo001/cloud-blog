@@ -1,5 +1,5 @@
 import { decode } from "blurhash";
-import { useMemo, useRef, useState } from "react";
+import { useMemo } from "react";
 import { useEnv } from "@/components/Provider/EnvProvider";
 import { fileNameToBase83 } from "@/libs/client/blurhash";
 import { classNames } from "@/libs/client/classNames";
@@ -34,8 +34,8 @@ function parsePixels(pixels: Uint8ClampedArray, width: number, height: number) {
   header.writeUInt32LE(0, 6);
   header.writeUInt32LE(54, 10);
   header.writeUInt32LE(40, 14);
-  header.writeUInt32LE(width, 18);
-  header.writeUInt32LE(height, 22);
+  header.writeInt32LE(width, 18);
+  header.writeInt32LE(-(height + 1), 22);
   header.writeUInt16LE(1, 26);
   header.writeUInt16LE(32, 28);
   header.writeUInt32LE(0, 30);
