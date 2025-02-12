@@ -1,7 +1,8 @@
 @import "tailwindcss";
 @plugin "daisyui" {
-  include: button checkbox;
+  include: button, checkbox;
 }
+@source "../node_modules/react-daisyui/dist";
 
 @layer utilities {
   input,
