@@ -12,9 +12,7 @@ export default defineConfig(({ isSsrBuild }) => ({
       ? {
           input: entry,
         }
-      : {
-          external: ["@react-router/fs-routes"],
-        },
+      : undefined,
     minify: true,
     cssMinify: false,
   },
