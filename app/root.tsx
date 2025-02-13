@@ -6,6 +6,7 @@ import {
   Outlet,
   Scripts,
   ScrollRestoration,
+  useLocation,
 } from "react-router";
 import { GoogleAnalytics } from "./components/Commons/GoogleAnalytics";
 import { HeadProvider, HeadRoot } from "./components/Commons/Head";
@@ -16,8 +17,9 @@ import { LoadingContainer } from "./components/System/LoadingContainer";
 import { NotificationContainer } from "./components/System/Notification/NotificationContainer";
 import { StoreProvider } from "./libs/client/context";
 import { RootValue, useRootContext } from "./libs/server/RootContext";
-import stylesheet from "./tailwind.css?url";
 import type { Route } from "./+types/root";
+import "./tailwind.css";
+import { InlineFont } from "./libs/client/FontProvider";
 
 export const links: Route.LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -26,16 +28,16 @@ export const links: Route.LinksFunction = () => [
     href: "https://fonts.gstatic.com",
     crossOrigin: "anonymous",
   },
-  {
-    rel: "stylesheet",
-    href: "https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap",
-  },
-  { rel: "stylesheet", href: stylesheet },
+  // {
+  //   rel: "stylesheet",
+  //   href: "https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100;200;300;400;500;600;700;800;900&display=swap",
+  // },
 ];
 
 export function Layout({ children }: { children: React.ReactNode }) {
   const value = useRootContext();
   const { host, session, cookie, env } = value;
+  const { pathname } = useLocation();
   return (
     <html lang="ja">
       <EnvProvider value={env}>
@@ -48,12 +50,6 @@ export function Layout({ children }: { children: React.ReactNode }) {
                   name="viewport"
                   content="width=device-width, initial-scale=1"
                 />
-                <link rel="preconnect" href="https://fonts.googleapis.com" />
-                <link
-                  rel="preconnect"
-                  href="https://fonts.gstatic.com"
-                  crossOrigin="anonymous"
-                />
                 <Meta />
                 <Links />
                 <GoogleAnalytics />
@@ -61,11 +57,15 @@ export function Layout({ children }: { children: React.ReactNode }) {
                 <NextSSRWait>
                   <HeadRoot />
                 </NextSSRWait>
+                <InlineFont href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100;400;900&display=swap" />
               </head>
               <body>
                 <div className={"flex h-screen flex-col"}>
                   <Header />
-                  <main className="relative flex-1 overflow-hidden">
+                  <main
+                    className="relative flex-1 overflow-hidden starting:opacity-10 opacity-100 transition-opacity duration-200 ease-in-out"
+                    key={pathname}
+                  >
                     {children}
                   </main>
                   <LoadingContainer />
