@@ -19,50 +19,45 @@ export function blurHashToDataURL(
   if (!hash) return undefined;
 
   const pixels = decode(hash, width, height);
-  const dataURL = parsePixels(pixels, width, height);
-  return dataURL;
+  return parsePixels(pixels, width, height);
 }
 
 function parsePixels(pixels: Uint8ClampedArray, width: number, height: number) {
-  const paddingSize = (4 - ((width * 4) % 4)) % 4;
-  const paddedRowSize = width * 4 + paddingSize;
+  const paddingSize = (4 - ((width * 2) % 4)) % 4;
+  const paddedRowSize = width * 2 + paddingSize;
   const bitmapSize = paddedRowSize * height + 54;
 
-  const header = Buffer.alloc(54);
-  header.write("BM", 0);
-  header.writeUInt32LE(bitmapSize, 2);
-  header.writeUInt32LE(0, 6);
-  header.writeUInt32LE(54, 10);
-  header.writeUInt32LE(40, 14);
-  header.writeInt32LE(width, 18);
-  header.writeInt32LE(-(height + 1), 22);
-  header.writeUInt16LE(1, 26);
-  header.writeUInt16LE(32, 28);
-  header.writeUInt32LE(0, 30);
-  header.writeUInt32LE(paddedRowSize * height, 34);
-  header.writeUInt32LE(0, 38);
-  header.writeUInt32LE(0, 42);
-  header.writeUInt32LE(0, 46);
-  header.writeUInt32LE(0, 50);
+  const data = new Uint8Array(54 + paddedRowSize * height);
+  const dataView = new DataView(data.buffer);
 
-  let pt = 0;
-  const data = Buffer.alloc(paddedRowSize * height);
+  dataView.setUint16(0, 0x424d);
+  dataView.setUint32(2, bitmapSize, true);
+  dataView.setUint32(6, 0, true);
+  dataView.setUint32(10, 54, true);
+  dataView.setUint32(14, 40, true);
+  dataView.setInt32(18, width, true);
+  dataView.setInt32(22, -(height + 1), true);
+  dataView.setUint16(26, 1, true);
+  dataView.setUint16(28, 16, true);
+  dataView.setUint32(30, 0, true);
+  dataView.setUint32(34, paddedRowSize * height, true);
 
+  let pt = 54;
   for (let i = 0; i < height; i++) {
     for (let j = 0; j < width; j++) {
       const pos = (i * width + j) * 4;
-      data.writeUInt8(pixels[pos + 2], pt++);
-      data.writeUInt8(pixels[pos + 1], pt++);
-      data.writeUInt8(pixels[pos], pt++);
-      data.writeUInt8(pixels[pos + 3], pt++);
+      const color =
+        ((pixels[pos] >> 3) << 10) |
+        ((pixels[pos + 1] >> 3) << 5) |
+        (pixels[pos + 2] >> 3);
+      dataView.setUint16(pt, color, true);
+      pt += 2;
     }
-    for (let p = 0; p < paddingSize; p++) {
-      data.writeUInt8(0, pt++);
-    }
+    pt += paddingSize;
   }
-
-  const dataURL = Buffer.concat([header, data]).toString("base64");
-  return "data:image/bmp;base64," + dataURL;
+  const dataURL =
+    "data:image/bmp;base64," + btoa(String.fromCharCode(...Array.from(data)));
+  return dataURL;
 }
 const useBluerHash = ({
   src,
@@ -77,19 +72,14 @@ const useBluerHash = ({
     const hash = src.match(/-\[(.*?)\]$/)?.[1];
     if (!hash || !width || !height) return;
     try {
-      let [newWidth, newHeight] = [width, height];
-      const maxSize = 16;
-      if (newWidth > maxSize || newHeight > maxSize) {
-        const aspect = newWidth / newHeight;
-        if (aspect > 1) {
-          newWidth = maxSize;
-          newHeight = Math.floor(maxSize / aspect);
-        } else {
-          newWidth = maxSize;
-          newHeight = Math.floor(maxSize * aspect);
-        }
-      }
-      return blurHashToDataURL(fileNameToBase83(hash), newWidth, newHeight);
+      const area = 128;
+      const newWidth = Math.sqrt((area * width) / height);
+      const newHeight = area / newWidth;
+      return blurHashToDataURL(
+        fileNameToBase83(hash),
+        Math.ceil(newWidth),
+        Math.ceil(newHeight)
+      );
     } catch (e) {}
   }, [src, width, height]);
 };
@@ -110,7 +100,7 @@ export const Image = ({ src, width, height, alt, className }: Props) => {
   });
   return (
     <img
-      className={classNames(className, "text-white/75 bg-black")}
+      className={classNames(className, "text-white/75")}
       src={url.toString()}
       style={
         hashUrl
