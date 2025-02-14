@@ -11,9 +11,7 @@ export const CloudflareFonts: FC<{ href: string | string[] }> = ({ href }) => {
   const property = useRef<FontProperty>({}).current;
   if (!property.isLoaded && !isServer) {
     property.isLoaded = true;
-    const nodes = document.querySelectorAll(
-      "head style[type='text/css']:last-of-type"
-    );
+    const nodes = document.querySelectorAll("head style[type='text/css']");
     property.isData = Array.from(nodes).some((v) =>
       v.textContent?.includes("url(/cf-fonts/")
     );
