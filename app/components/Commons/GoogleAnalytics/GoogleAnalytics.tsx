@@ -29,12 +29,10 @@ export const GoogleAnalytics: FC<Props> = ({}) => {
       {id && (
         <>
           <script
-            defer
+            async
             src={`https://www.googletagmanager.com/gtag/js?id=${id}`}
           />
           <script
-            id="ga"
-            defer
             dangerouslySetInnerHTML={{
               __html: `
               window.dataLayer = window.dataLayer || [];
