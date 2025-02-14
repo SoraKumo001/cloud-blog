@@ -75,7 +75,7 @@ export const PostList: FC<Props> = ({ id, title, posts, limit }) => {
         <div className="mt-3 text-center">
           <Link
             to={`/category/${id ?? ""}`}
-            className="text-center text-xl text-blue-400 hover:text-blue-600"
+            className="text-center text-2xl text-blue-600 hover:text-blue-800 underline hover:font-bold"
           >
             more…
           </Link>
