@@ -1,5 +1,4 @@
 import { FC, useMemo } from "react";
-import styled from "./Categories.module.css";
 import { PostList } from "@/components/PostList";
 import { Title } from "@/components/System/Title";
 import { useCategoryQuery, usePostsQuery } from "@/generated/graphql";
@@ -38,7 +37,7 @@ export const Categories: FC<Props> = ({ id }) => {
   return (
     <>
       <Title>一覧</Title>
-      <div className={styled.root}>
+      <div className="flex h-full w-full flex-col gap-16 overflow-auto p-8">
         <PostList
           title={
             id === "news" ? "新着順" : category?.findUniqueCategory.name ?? ""

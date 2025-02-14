@@ -15,7 +15,7 @@
     "typecheck": "tsc",
     "typegen": "wrangler types",
     "build": "react-router build",
-    "deploy": "next-exec -c deploy -- wrangler deploy",
+    "deploy": "pnpm run build && next-exec -c deploy -- wrangler deploy",
     "deploy-secret": "tsx ./tools/deploySecret",
     "prisma": "npm-run-all -p prisma:*",
     "prisma:migrate": "prisma format && prisma migrate dev",

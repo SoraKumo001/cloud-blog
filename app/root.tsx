@@ -15,11 +15,11 @@ import { UrqlProvider } from "./components/Provider/UrqlProvider";
 import { Header } from "./components/System/Header";
 import { LoadingContainer } from "./components/System/LoadingContainer";
 import { NotificationContainer } from "./components/System/Notification/NotificationContainer";
+import { CloudflareFonts } from "./libs/client/CloudflareFonts";
 import { StoreProvider } from "./libs/client/context";
 import { RootValue, useRootContext } from "./libs/server/RootContext";
+import css from "./tailwind.css?inline";
 import type { Route } from "./+types/root";
-import "./tailwind.css";
-import { InlineFont } from "./libs/client/FontProvider";
 
 export const links: Route.LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -28,10 +28,6 @@ export const links: Route.LinksFunction = () => [
     href: "https://fonts.gstatic.com",
     crossOrigin: "anonymous",
   },
-  // {
-  //   rel: "stylesheet",
-  //   href: "https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100;200;300;400;500;600;700;800;900&display=swap",
-  // },
 ];
 
 export function Layout({ children }: { children: React.ReactNode }) {
@@ -45,11 +41,14 @@ export function Layout({ children }: { children: React.ReactNode }) {
           <UrqlProvider host={host} cookie={cookie}>
             <HeadProvider>
               <head>
-                <meta charSet="utf-8" />
-                <meta
-                  name="viewport"
-                  content="width=device-width, initial-scale=1"
+                <style
+                  type="text/css"
+                  dangerouslySetInnerHTML={{ __html: css }}
                 />
+                {/* <link
+                  rel="stylesheet"
+                  href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100..900&display=swap"
+                /> */}
                 <Meta />
                 <Links />
                 <GoogleAnalytics />
@@ -57,13 +56,13 @@ export function Layout({ children }: { children: React.ReactNode }) {
                 <NextSSRWait>
                   <HeadRoot />
                 </NextSSRWait>
-                <InlineFont href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100;400;900&display=swap" />
+                <CloudflareFonts href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100..900&display=swap" />
               </head>
               <body>
                 <div className={"flex h-screen flex-col"}>
                   <Header />
                   <main
-                    className="relative flex-1 overflow-hidden starting:opacity-10 opacity-100 transition-opacity duration-200 ease-in-out"
+                    className="relative flex-1 overflow-hidden starting:opacity-50 opacity-100 transition-opacity duration-200 ease-in-out"
                     key={pathname}
                   >
                     {children}
