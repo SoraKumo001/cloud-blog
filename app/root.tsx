@@ -21,15 +21,6 @@ import { RootValue, useRootContext } from "./libs/server/RootContext";
 import css from "./tailwind.css?inline";
 import type { Route } from "./+types/root";
 
-export const links: Route.LinksFunction = () => [
-  { rel: "preconnect", href: "https://fonts.googleapis.com" },
-  {
-    rel: "preconnect",
-    href: "https://fonts.gstatic.com",
-    crossOrigin: "anonymous",
-  },
-];
-
 export function Layout({ children }: { children: React.ReactNode }) {
   const value = useRootContext();
   const { host, session, cookie, env } = value;
@@ -45,10 +36,6 @@ export function Layout({ children }: { children: React.ReactNode }) {
                   type="text/css"
                   dangerouslySetInnerHTML={{ __html: css }}
                 />
-                {/* <link
-                  rel="stylesheet"
-                  href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100..900&display=swap"
-                /> */}
                 <Meta />
                 <Links />
                 <GoogleAnalytics />
