@@ -1,4 +1,5 @@
 import { NextSSRWait } from "@react-libraries/next-exchange-ssr";
+import { CloudflareFonts } from "cloudflare-fonts";
 import {
   isRouteErrorResponse,
   Links,
@@ -15,7 +16,6 @@ import { UrqlProvider } from "./components/Provider/UrqlProvider";
 import { Header } from "./components/System/Header";
 import { LoadingContainer } from "./components/System/LoadingContainer";
 import { NotificationContainer } from "./components/System/Notification/NotificationContainer";
-import { CloudflareFonts } from "./libs/client/CloudflareFonts";
 import { StoreProvider } from "./libs/client/context";
 import { RootValue, useRootContext } from "./libs/server/RootContext";
 import css from "./tailwind.css?inline";

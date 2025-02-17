@@ -46,7 +46,8 @@ export const normalizationPostFiles = async (
       })
     ),
     ...deletes.map(
-      ({ id, posts }) => posts.length === 1 && firebaseStorage.del({ name: id })
+      ({ id, posts }) =>
+        posts.length === 1 && firebaseStorage.del({ name: id }).catch(() => {})
     ),
   ]);
 };
