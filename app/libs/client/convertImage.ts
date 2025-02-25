@@ -1,6 +1,6 @@
-import { encode } from "@node-libraries/wasm-avif-encoder";
 import { encode as encodeHash } from "blurhash";
 import { useCallback, useState } from "react";
+import { optimizeImage } from "wasm-image-optimization/web-worker";
 import { base83toFileName } from "./blurhash";
 import { arrayBufferToBase64 } from "@/libs/server/buffer";
 
@@ -45,6 +45,10 @@ export const convertImage = async (
   width?: number,
   height?: number
 ): Promise<File | Blob | null> => {
+  if (typeof window === "undefined") {
+    return blob;
+  }
+  // Check if the blob is an image by checking its MIME type
   if (!blob.type.match(/^image\/(png|jpeg|webp|avif|gif)/)) {
     return blob;
   }
@@ -72,12 +76,11 @@ export const convertImage = async (
 
   if (!ctx) return null;
   ctx.drawImage(img, 0, 0, img.width, img.height, 0, 0, outWidth, outHeight);
-  const data = ctx.getImageData(0, 0, outWidth, outHeight);
+
   const value =
     blob.type !== "image/gif"
-      ? await encode({
-          data,
-          worker: `/${type}/worker.js`,
+      ? await optimizeImage({
+          image: await blob.arrayBuffer(),
           quality: 90,
         })
       : await blob.arrayBuffer();

@@ -1,4 +1,10 @@
-import { EffectCallback, FC, ReactNode, useEffect, useState } from "react";
+import {
+  type EffectCallback,
+  type FC,
+  type ReactNode,
+  useEffect,
+  useState,
+} from "react";
 import { createPortal } from "react-dom";
 
 interface Props {

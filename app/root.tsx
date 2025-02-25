@@ -18,54 +18,63 @@ import { LoadingContainer } from "./components/System/LoadingContainer";
 import { NotificationContainer } from "./components/System/Notification/NotificationContainer";
 import { StoreProvider } from "./libs/client/context";
 import { RootValue, useRootContext } from "./libs/server/RootContext";
+import "./tailwind.css";
 import css from "./tailwind.css?inline";
 import type { Route } from "./+types/root";
 
 export function Layout({ children }: { children: React.ReactNode }) {
-  const value = useRootContext();
-  const { host, session, cookie, env } = value;
-  const { pathname } = useLocation();
-  return (
-    <html lang="ja">
-      <EnvProvider value={env}>
-        <StoreProvider initState={() => ({ host, user: session })}>
-          <UrqlProvider host={host} cookie={cookie}>
-            <HeadProvider>
-              <head>
-                <style
-                  type="text/css"
-                  dangerouslySetInnerHTML={{ __html: css }}
-                />
-                <Meta />
-                <Links />
-                <GoogleAnalytics />
-                <RootValue value={{ session, env }} />
-                <NextSSRWait>
-                  <HeadRoot />
-                </NextSSRWait>
-                <CloudflareFonts href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100..900&display=swap" />
-              </head>
-              <body>
-                <div className={"flex h-screen flex-col"}>
-                  <Header />
-                  <main
-                    className="relative flex-1 overflow-hidden starting:opacity-50 opacity-100 transition-opacity duration-200 ease-in-out"
-                    key={pathname}
-                  >
-                    {children}
-                  </main>
-                  <LoadingContainer />
-                  <NotificationContainer />
-                </div>
-                <ScrollRestoration />
-                <Scripts />
-              </body>
-            </HeadProvider>
-          </UrqlProvider>
-        </StoreProvider>
-      </EnvProvider>
-    </html>
-  );
+  try {
+    const value = useRootContext();
+    const { host, session, cookie, env } = value;
+    const { pathname } = useLocation();
+    return (
+      <html lang="ja">
+        <EnvProvider value={env}>
+          <StoreProvider initState={() => ({ host, user: session })}>
+            <UrqlProvider host={host} cookie={cookie}>
+              <HeadProvider>
+                <head>
+                  <style type="text/css">{css}</style>
+                  <Meta />
+                  <Links />
+                  <GoogleAnalytics />
+                  <RootValue value={{ session, env }} />
+                  <NextSSRWait>
+                    <HeadRoot />
+                  </NextSSRWait>
+                  <CloudflareFonts href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100..900&display=swap" />
+                </head>
+                <body>
+                  <div className={"flex h-screen flex-col"}>
+                    <Header />
+                    <main
+                      className="relative flex-1 overflow-hidden starting:opacity-50 opacity-100 transition-opacity duration-200 ease-in-out"
+                      key={pathname}
+                    >
+                      {children}
+                    </main>
+                    <LoadingContainer />
+                    <NotificationContainer />
+                  </div>
+                  <ScrollRestoration />
+                  <Scripts />
+                </body>
+              </HeadProvider>
+            </UrqlProvider>
+          </StoreProvider>
+        </EnvProvider>
+      </html>
+    );
+  } catch (e) {
+    if (
+      import.meta.env.MODE === "development" &&
+      String(e).startsWith("TypeError: Cannot read properties of null")
+    ) {
+      location.href = ".";
+      return null;
+    }
+    throw e;
+  }
 }
 export default function App() {
   return <Outlet />;

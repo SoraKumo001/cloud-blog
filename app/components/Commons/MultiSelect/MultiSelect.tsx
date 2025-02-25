@@ -32,7 +32,7 @@ export const MultiSelect: FC<Props> = ({ className, children, items }) => {
           setExpand(false);
         }}
       >
-        <div className="gap-0.5 rounded bg-white p-2 shadow">
+        <div className="shadow gap-0.5 rounded bg-white p-2">
           {items?.map((item, index) => (
             <div
               className="cursor-pointer rounded p-1 hover:text-primary"

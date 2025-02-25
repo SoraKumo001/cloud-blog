@@ -160,7 +160,7 @@ export const ToolBar: FC<Props> = ({ post, control, onCard }) => {
           aria-label="delete"
           onClick={() => setDelete(true)}
         >
-          <DeleteIcon />
+          <DeleteIcon size={16} />
         </Button>
         <MessageDialog
           isOpen={isDelete}

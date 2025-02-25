@@ -1,4 +1,4 @@
-import { FC, ReactNode } from "react";
+import type { FC, ReactNode } from "react";
 import { Button } from "react-daisyui";
 import { classNames } from "@/libs/client/classNames";
 

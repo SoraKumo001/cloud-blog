@@ -1,6 +1,6 @@
 @import "tailwindcss";
 @plugin "daisyui" {
-  include: button, checkbox, toggle;
+  include: button, checkbox, toggle, modal, theme;
 }
 @source "../node_modules/react-daisyui/dist";
 @layer utilities {

@@ -3,6 +3,7 @@ import { createContext, useContext, useMemo } from "react";
 export const RootContext = createContext<{ [key: string]: unknown }>({});
 export const RootProvider = RootContext.Provider;
 const DATA_NAME = "__ROOT_VALUE__";
+const isServer = typeof window === "undefined";
 export const useRootContext = () => {
   const serverValue = useContext(RootContext);
   const clientValue = useMemo(() => {
@@ -13,7 +14,7 @@ export const useRootContext = () => {
     }
   }, []);
 
-  return typeof window === "undefined" ? serverValue : clientValue;
+  return isServer ? serverValue : clientValue;
 };
 
 export const RootValue = ({ value }: { value: unknown }) => {
