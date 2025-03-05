@@ -18,7 +18,6 @@ import { LoadingContainer } from "./components/System/LoadingContainer";
 import { NotificationContainer } from "./components/System/Notification/NotificationContainer";
 import { StoreProvider } from "./libs/client/context";
 import { RootValue, useRootContext } from "./libs/server/RootContext";
-import "./tailwind.css";
 import css from "./tailwind.css?inline";
 import type { Route } from "./+types/root";
 

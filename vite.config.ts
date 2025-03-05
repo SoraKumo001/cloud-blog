@@ -15,8 +15,6 @@ export default defineConfig(({ isSsrBuild }) => ({
           input: entry,
         }
       : undefined,
-    minify: true,
-    cssMinify: false,
   },
   plugins: [
     serverAdapter({
@@ -28,9 +26,6 @@ export default defineConfig(({ isSsrBuild }) => ({
     tsconfigPaths(),
     wasmImageOptimizationPlugin(),
   ],
-  css: {
-    transformer: "lightningcss",
-  },
   ssr: {
     resolve: {
       conditions: ["workerd", "worker"],
