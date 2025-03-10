@@ -9,6 +9,7 @@ type Props = {
   height?: number;
   alt?: string;
   className?: string;
+  isOptimize?: boolean;
 };
 
 export function blurHashToDataURL(
@@ -84,9 +85,16 @@ const useBluerHash = ({
   }, [src, width, height]);
 };
 
-export const Image = ({ src, width, height, alt, className }: Props) => {
+export const Image = ({
+  src,
+  width,
+  height,
+  alt,
+  className,
+  isOptimize,
+}: Props) => {
   const env = useEnv();
-  const optimizer = env.NEXT_PUBLIC_IMAGE_URL;
+  const optimizer = isOptimize ? env.NEXT_PUBLIC_IMAGE_URL : undefined;
   const url = new URL(optimizer ?? src);
   if (optimizer) {
     url.searchParams.set("url", encodeURI(src));

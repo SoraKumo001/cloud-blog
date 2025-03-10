@@ -22,7 +22,8 @@ const FirebaseImage = ({
 } & React.HTMLAttributes<HTMLElement> &
   React.Attributes) => {
   const getFirebaseUrl = useFirebaseUrl();
-  const url = src.match(/https?:/) ? src : getFirebaseUrl(src);
+  const isOptimize = !src.match(/https?:/);
+  const url = isOptimize ? getFirebaseUrl(src) : src;
 
   try {
     const styleString = alt?.match(/^{.*}$/);
@@ -41,6 +42,7 @@ const FirebaseImage = ({
         width={style.width && parseInt(style.width)}
         height={style.height && parseInt(style.height)}
         alt={alt}
+        isOptimize={isOptimize}
       />
     );
   } catch {}
