@@ -8,7 +8,7 @@ import tsconfigPaths from "vite-tsconfig-paths";
 
 const entry = "./server.ts";
 
-export default defineConfig(({ isSsrBuild }) => ({
+export default defineConfig(() => ({
   plugins: [
     serverAdapter({
       adapter,
