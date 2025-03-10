@@ -22,9 +22,14 @@ app.use(async (_c, next) => {
 });
 
 app.use(async (c) => {
-  // @ts-expect-error - virtual module provided by React Router at build time
-  const build = await import("virtual:react-router/server-build");
-  const handler = createRequestHandler(build, import.meta.env.MODE);
+  const handler = createRequestHandler(
+    await import(
+      import.meta.env
+        ? "virtual:react-router/server-build"
+        : "./build/server/index.js"
+    ).catch(),
+    import.meta.env?.MODE
+  );
 
   const next = (input: Request | string, init?: RequestInit) => {
     return handler(new Request(input, init), {

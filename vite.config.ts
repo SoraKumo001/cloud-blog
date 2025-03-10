@@ -9,13 +9,6 @@ import tsconfigPaths from "vite-tsconfig-paths";
 const entry = "./server.ts";
 
 export default defineConfig(({ isSsrBuild }) => ({
-  build: {
-    rollupOptions: isSsrBuild
-      ? {
-          input: entry,
-        }
-      : undefined,
-  },
   plugins: [
     serverAdapter({
       adapter,

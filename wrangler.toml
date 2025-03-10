@@ -2,7 +2,7 @@
 name = "cloud-blog"
 compatibility_date = "2025-01-28"
 compatibility_flags = ["nodejs_compat"]
-main = "./build/server/index.js"
+main = "./server.ts"
 assets = { directory = "./build/client" ,binding = "ASSETS"}
 logpush = true
 
