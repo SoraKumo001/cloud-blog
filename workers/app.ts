@@ -22,14 +22,10 @@ app.use(async (_c, next) => {
 });
 
 app.use(async (c) => {
-  const handler = createRequestHandler(
-    await import(
-      import.meta.env
-        ? "virtual:react-router/server-build"
-        : "./build/server/index.js"
-    ).catch(),
-    import.meta.env?.MODE
-  );
+  // @ts-ignore
+  const build = await import("../build/server/index.js");
+  // @ts-ignore
+  const handler = createRequestHandler(build, import.meta.env?.MODE);
 
   const next = (input: Request | string, init?: RequestInit) => {
     return handler(new Request(input, init), {

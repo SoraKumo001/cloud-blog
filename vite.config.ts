@@ -6,9 +6,17 @@ import wasmImageOptimizationPlugin from "wasm-image-optimization/vite-plugin";
 import { defineConfig } from "vite";
 import tsconfigPaths from "vite-tsconfig-paths";
 
-const entry = "./server.ts";
+const entry = "./workers/app.ts";
 
 export default defineConfig(() => ({
+  resolve: {
+    alias: [
+      {
+        find: "../build/server/index.js",
+        replacement: "virtual:react-router/server-build",
+      },
+    ],
+  },
   plugins: [
     serverAdapter({
       adapter,
@@ -21,11 +29,7 @@ export default defineConfig(() => ({
   ],
   ssr: {
     resolve: {
-      conditions: ["workerd", "worker"],
-      externalConditions: ["workerd", "worker"],
+      externalConditions: ["workerd"],
     },
-  },
-  resolve: {
-    mainFields: ["browser", "module", "main"],
   },
 }));

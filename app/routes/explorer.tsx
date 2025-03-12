@@ -1,4 +1,4 @@
-import { ApolloExplorer } from "@apollo/explorer/react";
+import { ApolloExplorer } from "apollo-explorer";
 import { printSchema } from "graphql";
 import { LoaderFunctionArgs, useLoaderData } from "react-router";
 import { schema } from "@/libs/server/schema";
@@ -6,26 +6,13 @@ import { schema } from "@/libs/server/schema";
 const Explorer = () => {
   const schema = useLoaderData<string>();
   return (
-    <>
-      <style>{`
-        .explorer {
-          position: fixed;
-          height: 100vh;
-          width: 100vw;
-          top: 0;
-          left: 0;
-        }
-      `}</style>
-      <ApolloExplorer
-        className="explorer"
-        schema={schema}
-        endpointUrl="/api/graphql"
-        persistExplorerState={true}
-        handleRequest={(url, option) =>
-          fetch(url, { ...option, credentials: "same-origin" })
-        }
-      />
-    </>
+    <ApolloExplorer
+      className="fixed z-50 inset-0"
+      explorer={{
+        schema: schema,
+        endpointUrl: "/api/graphql",
+      }}
+    />
   );
 };
 export default Explorer;
