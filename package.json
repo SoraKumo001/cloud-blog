@@ -45,10 +45,10 @@
     "graphql": "^16.10.0",
     "graphql-yoga": "^5.13.1",
     "hono": "^4.7.4",
-    "jose": "^6.0.9",
+    "jose": "^6.0.10",
     "monaco-editor": "^0.52.2",
     "pg": "^8.14.0",
-    "pothos-prisma-generator": "^1.1.0",
+    "pothos-prisma-generator": "^1.2.0",
     "prism-react-renderer": "^2.4.1",
     "pure-uuid": "^1.8.1",
     "react": "19.0.0",
@@ -63,7 +63,7 @@
     "wasm-image-optimization": "1.2.28"
   },
   "devDependencies": {
-    "@cloudflare/workers-types": "^4.20250311.0",
+    "@cloudflare/workers-types": "^4.20250312.0",
     "@graphql-codegen/cli": "^5.0.5",
     "@graphql-codegen/typescript": "^4.1.5",
     "@graphql-codegen/typescript-operations": "^4.5.1",
@@ -73,7 +73,7 @@
     "@node-libraries/wasm-webp-encoder": "^1.1.1",
     "@parcel/watcher": "^2.5.1",
     "@storybook/react": "^8.6.4",
-    "@tailwindcss/vite": "^4.0.13",
+    "@tailwindcss/vite": "^4.0.14",
     "@types/cross-spawn": "^6.0.6",
     "@types/mdast": "^4.0.4",
     "@types/pg": "^8.11.11",
@@ -82,11 +82,11 @@
     "@types/react-syntax-highlighter": "^15.5.13",
     "@types/unist": "^3.0.3",
     "cross-spawn": "^7.0.6",
-    "daisyui": "5.0.2",
+    "daisyui": "5.0.3",
     "dotenv": "^16.4.7",
     "eslint": "^9.22.0",
     "eslint-config-prettier": "^10.1.1",
-    "eslint-import-resolver-typescript": "^3.8.5",
+    "eslint-import-resolver-typescript": "^3.8.6",
     "eslint-plugin-import": "^2.31.0",
     "eslint-plugin-react": "^7.37.4",
     "eslint-plugin-react-hooks": "^5.2.0",
@@ -99,7 +99,7 @@
     "prisma": "^6.5.0",
     "remark-gfm": "^4.0.1",
     "rimraf": "6.0.1",
-    "tailwindcss": "^4.0.13",
+    "tailwindcss": "^4.0.14",
     "tsx": "^4.19.3",
     "typed-css-modules": "^0.9.1",
     "typescript": "^5.8.2",
@@ -108,7 +108,7 @@
     "vite-plugin-wasm": "3.4.1",
     "vite-tsconfig-paths": "^5.1.4",
     "wonka": "^6.3.5",
-    "wrangler": "^3.114.1"
+    "wrangler": "^4.0.0"
   },
   "engines": {
     "node": ">=20.0.0"
