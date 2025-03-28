@@ -7,7 +7,7 @@ const Explorer = () => {
   const schema = useLoaderData<string>();
   return (
     <ApolloExplorer
-      className="fixed z-50 inset-0"
+      className="fixed inset-0 z-50"
       explorer={{
         schema: schema,
         endpointUrl: "/api/graphql",

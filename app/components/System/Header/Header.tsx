@@ -53,7 +53,10 @@ export const Header: FC<Props> = () => {
       <header className="sticky top-0 z-10 flex items-center bg-blue-100 p-2">
         <Link
           className={
-            "flex flex-1 items-center gap-4 text-3xl text-blue-800 hover:text-blue-600"
+            `
+              flex flex-1 items-center gap-4 text-3xl text-blue-800
+              hover:text-blue-600
+            `
           }
           to="/"
         >

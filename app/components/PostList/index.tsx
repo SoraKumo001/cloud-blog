@@ -57,7 +57,7 @@ export const PostList: FC<Props> = ({ id, title, posts, limit }) => {
               <div className="line-clamp-2 flex-1 border-b text-2xl">
                 {post.title}
               </div>
-              <div className="flex gap-2 whitespace-nowrap text-sm">
+              <div className="flex gap-2 text-sm whitespace-nowrap">
                 <div>公開: {DateString(post.publishedAt)}</div>
                 <div>更新: {DateString(post.updatedAt)}</div>
               </div>
@@ -75,7 +75,10 @@ export const PostList: FC<Props> = ({ id, title, posts, limit }) => {
         <div className="mt-3 text-center">
           <Link
             to={`/category/${id ?? ""}`}
-            className="text-center text-2xl text-blue-600 hover:text-blue-800 underline hover:font-bold"
+            className={`
+              text-center text-2xl text-blue-600 underline
+              hover:font-bold hover:text-blue-800
+            `}
           >
             more…
           </Link>

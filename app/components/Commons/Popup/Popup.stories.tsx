@@ -15,7 +15,7 @@ const meta: Meta<typeof Popup> = {
       parameters.setIsOpen = setIsOpen;
       return (
         <div className="size-[640px]">
-          <div className="absolute left-32 top-32 size-16 bg-red-50">
+          <div className="absolute top-32 left-32 size-16 bg-red-50">
             <Story args={{ ...args, isOpen }} />
             ABCD
           </div>

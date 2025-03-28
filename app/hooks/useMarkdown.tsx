@@ -119,7 +119,7 @@ const components = (edit?: boolean): MarkdownComponents => ({
                   {...getLineProps({ line })}
                   data-sourcepos={(node.position?.start.line ?? 0) + i + 1}
                 >
-                  <span className="mr-2 inline-block w-10 select-none text-right text-gray-300">
+                  <span className={`mr-2 inline-block w-10 text-right text-gray-300 select-none`}>
                     {i + 1}
                   </span>
                   {line.map((token, key) => (

@@ -88,7 +88,7 @@ export const ImageDragField: FC<Props> = ({
         <Button
           type="button"
           variant="link"
-          className={"absolute right-6 top-6 bg-white/50 p-2 border-gray-400"}
+          className={"absolute top-6 right-6 border-gray-400 bg-white/50 p-2"}
           onClick={() => {
             onChange?.(null);
             setImage(undefined);
@@ -100,7 +100,7 @@ export const ImageDragField: FC<Props> = ({
       )}
       {image && (
         <img
-          className={"m-auto max-w-64 max-h-64"}
+          className={"m-auto max-h-64 max-w-64"}
           src={image}
           alt={placeholder || ""}
         />

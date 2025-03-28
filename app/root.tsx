@@ -22,10 +22,10 @@ import css from "./tailwind.css?inline";
 import type { Route } from "./+types/root";
 
 export function Layout({ children }: { children: React.ReactNode }) {
+  const value = useRootContext();
+  const { host, session, cookie, env } = value;
+  const { pathname } = useLocation();
   try {
-    const value = useRootContext();
-    const { host, session, cookie, env } = value;
-    const { pathname } = useLocation();
     return (
       <html lang="ja">
         <EnvProvider value={env}>
@@ -47,7 +47,10 @@ export function Layout({ children }: { children: React.ReactNode }) {
                   <div className={"flex h-screen flex-col"}>
                     <Header />
                     <main
-                      className="relative flex-1 overflow-hidden starting:opacity-50 opacity-100 transition-opacity duration-200 ease-in-out"
+                      className={`
+                        relative flex-1 overflow-hidden opacity-100 transition-opacity duration-200 ease-in-out
+                        starting:opacity-50
+                      `}
                       key={pathname}
                     >
                       {children}
