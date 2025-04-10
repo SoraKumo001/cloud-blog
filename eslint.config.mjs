@@ -36,6 +36,7 @@ export default [
     rules: {
       ...eslintPluginReadableTailwind.configs.warning.rules,
       ...eslintPluginReadableTailwind.configs.error.rules,
+      "@typescript-eslint/ban-ts-comment": 0,
       "readable-tailwind/multiline": [0, { printWidth: 300 }],
       "@typescript-eslint/no-import-type-side-effects": 1,
       "@typescript-eslint/no-unused-vars": 0,
