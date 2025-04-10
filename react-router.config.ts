@@ -5,4 +5,5 @@ export default {
   future: {
     unstable_optimizeDeps: true,
   },
+  serverModuleFormat: "esm",
 } satisfies Config;

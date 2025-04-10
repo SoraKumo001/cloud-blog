@@ -1,3 +1,4 @@
+// import { cloudflare } from "@cloudflare/vite-plugin";
 import adapter from "@hono/vite-dev-server/cloudflare";
 import { reactRouter } from "@react-router/dev/vite";
 import tailwindcss from "@tailwindcss/vite";
@@ -22,6 +23,7 @@ export default defineConfig(() => ({
       adapter,
       entry,
     }),
+    // cloudflare({ viteEnvironment: { name: "ssr" } }),
     tailwindcss(),
     reactRouter(),
     tsconfigPaths(),
@@ -29,7 +31,14 @@ export default defineConfig(() => ({
   ],
   ssr: {
     resolve: {
-      externalConditions: ["workerd"],
+      externalConditions: ["worker"],
     },
   },
+  // environments: {
+  //   ssr: {
+  //     resolve: {
+  //       conditions: ["worker"],
+  //     },
+  //   },
+  // },
 }));

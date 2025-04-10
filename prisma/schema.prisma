@@ -2,6 +2,7 @@ generator client {
   provider        = "prisma-client-js"
   previewFeatures = ["driverAdapters"]
   output   = "../node_modules/.prisma/client"
+  moduleFormat = "esm"
   // engineType      = "client"
 }
 

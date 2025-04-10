@@ -62,6 +62,7 @@
     "wasm-image-optimization": "1.2.28"
   },
   "devDependencies": {
+    "@cloudflare/vite-plugin": "1.0.4",
     "@cloudflare/workers-types": "^4.20250409.0",
     "@eslint/js": "9.24.0",
     "@graphql-codegen/cli": "^5.0.5",
