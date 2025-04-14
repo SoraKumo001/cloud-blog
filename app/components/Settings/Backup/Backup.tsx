@@ -51,7 +51,9 @@ export const Backup: FC<Props> = () => {
         const limit = 10;
         for (let i = 0; i < files.length; i += limit) {
           const sliceFiles = files.slice(i, i + limit);
-          notification(`ファイルを${sliceFiles.length}件リストア中...`);
+          notification(
+            `ファイルを${sliceFiles.length + i}/${files.length}件リストア中...`
+          );
           const flag = await restoreFiles({ files: sliceFiles }).then(
             ({ error }) => {
               if (error) {
