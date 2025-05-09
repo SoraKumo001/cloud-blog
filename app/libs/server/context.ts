@@ -1,3 +1,4 @@
+import process from "node:process";
 import { PrismaPg } from "@prisma/adapter-pg";
 import { PrismaClient } from "@prisma/client";
 import { getContext } from "hono/context-storage";
@@ -23,15 +24,9 @@ type Env = {
 };
 
 const getAdapter = (datasourceUrl: string) => {
-  if (
-    process.env.NODE_ENV !== "development" &&
-    !datasourceUrl.startsWith("prisma:")
-  ) {
-    const url = new URL(datasourceUrl);
-    const schema = url.searchParams.get("schema") ?? undefined;
-    return new PrismaPg({ connectionString: datasourceUrl }, { schema });
-  }
-  return null;
+  const url = new URL(datasourceUrl);
+  const schema = url.searchParams.get("schema") ?? undefined;
+  return new PrismaPg({ connectionString: datasourceUrl }, { schema });
 };
 
 // Create a proxy that returns a PrismaClient instance on SessionContext with the variable name prisma
@@ -40,7 +35,10 @@ export const prisma: PrismaClient = new Proxy<PrismaClient>({} as never, {
     const context = getContext<Env>();
     if (!context.get("prisma")) {
       const datasourceUrl =
-        context.env.database.connectionString ?? process.env.DATABASE_URL;
+        process.env.DATABASE_URL ??
+        (process.env.database as { connectionString: string } | undefined)
+          ?.connectionString;
+      if (!datasourceUrl) throw new Error("DATABASE_URL is not set");
       const adapter = getAdapter(datasourceUrl);
       const prisma = new PrismaClient({
         adapter,

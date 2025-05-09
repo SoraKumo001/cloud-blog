@@ -1,4 +1,3 @@
-import { initFetch } from "./app/init";
 import type { AppLoadContext } from "react-router";
 import type { PlatformProxy } from "wrangler";
 
@@ -14,10 +13,9 @@ type GetLoadContext = (args: {
 }) => AppLoadContext;
 
 export const getLoadContext: GetLoadContext = (p) => {
-  const { request, context } = p;
+  const { context } = p;
   const cloudflare = context.cloudflare;
   const env = cloudflare.env;
-  initFetch(env, request, cloudflare.next);
 
   return {
     ...context,

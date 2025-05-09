@@ -1,25 +1,10 @@
 import { Hono } from "hono";
-import { contextStorage, getContext } from "hono/context-storage";
+import { contextStorage } from "hono/context-storage";
 import { getLoadContext } from "load-context";
 import { createRequestHandler } from "react-router";
 
 const app = new Hono();
 app.use(contextStorage());
-app.use(async (_c, next) => {
-  if (!Object.getOwnPropertyDescriptor(process, "env")?.get) {
-    const processEnv = process.env;
-    Object.defineProperty(process, "env", {
-      get() {
-        try {
-          return { ...processEnv, ...getContext().env };
-        } catch {
-          return processEnv;
-        }
-      },
-    });
-  }
-  return next();
-});
 
 app.use(async (c) => {
   // @ts-ignore

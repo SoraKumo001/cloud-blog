@@ -20,10 +20,12 @@ export const UrqlProvider = ({
   host,
   cookie,
   children,
+  next,
 }: {
   host?: string;
   cookie?: string;
   children: ReactNode;
+  next: typeof fetch;
 }) => {
   const session = useUser();
   const nextSSRExchange = useCreateNextSSRExchange();
@@ -37,6 +39,7 @@ export const UrqlProvider = ({
           cookie: (session && cookie) || "",
         },
       },
+      fetch: next instanceof Function ? next : undefined,
       suspense: isServerSide,
       exchanges: [
         cacheExchange,
@@ -45,7 +48,7 @@ export const UrqlProvider = ({
         fetchExchange,
       ],
     });
-  }, [host, nextSSRExchange, session, cookie]);
+  }, [host, nextSSRExchange, session, cookie, next]);
   return (
     <Provider value={client}>
       <NextSSRProvider>{children}</NextSSRProvider>

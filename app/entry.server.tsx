@@ -57,8 +57,17 @@ const getInitialProps = async (
   request: Request,
   loadContext: AppLoadContext
 ) => {
-  const env = (loadContext as { cloudflare: { env: Record<string, string> } })
-    .cloudflare.env;
+  const { env, next } = (
+    loadContext as {
+      cloudflare: {
+        env: Record<string, string>;
+        next: (
+          input: Request | string,
+          init?: RequestInit
+        ) => Promise<Response>;
+      };
+    }
+  ).cloudflare;
   const cookie = request.headers.get("cookie");
   const cookies = Object.fromEntries(
     cookie?.split(";").map((v) => v.trim().split("=")) ?? []
@@ -73,5 +82,6 @@ const getInitialProps = async (
     env: Object.fromEntries(
       Object.entries(env).filter(([v]) => v.startsWith("NEXT_PUBLIC_"))
     ),
+    next,
   };
 };

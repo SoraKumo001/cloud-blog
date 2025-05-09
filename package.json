@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "npm-run-all -p dev:*",
-    "dev:react-router": "rimraf node_modules/.vite && react-router dev --port 3000",
+    "dev:react-router": "react-router dev --port 3000",
     "dev:docker": "docker compose -f docker/development/docker-compose.yml up -d",
     "dev:codegen": "graphql-codegen -c codegen/codegen.json -w",
     "dev:css": "tcm app --ignore **/tailwindcss.css -w",

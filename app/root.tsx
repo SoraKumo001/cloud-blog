@@ -23,14 +23,14 @@ import type { Route } from "./+types/root";
 
 export function Layout({ children }: { children: React.ReactNode }) {
   const value = useRootContext();
-  const { host, session, cookie, env } = value;
+  const { host, session, cookie, env, next } = value;
   const { pathname } = useLocation();
   try {
     return (
       <html lang="ja">
         <EnvProvider value={env}>
           <StoreProvider initState={() => ({ host, user: session })}>
-            <UrqlProvider host={host} cookie={cookie}>
+            <UrqlProvider host={host} cookie={cookie} next={next}>
               <HeadProvider>
                 <head>
                   <style type="text/css">{css}</style>

@@ -1,20 +1,20 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "cloud-blog2",
-  "compatibility_date": "2025-01-28",
+  "compatibility_date": "2025-05-09",
   "compatibility_flags": ["nodejs_compat"],
   "main": "./workers/app.ts",
   "assets": {
     "directory": "./build/client",
     "binding": "ASSETS"
   },
-  "logpush": true,
+  // "logpush": true,
   "observability": {
     "enabled": true
   },
-  "limits": {
-    "cpu_ms": 10000
-  },
+  // "limits": {
+  //   "cpu_ms": 10000
+  // },
   "hyperdrive": [
     {
       "binding": "database",
