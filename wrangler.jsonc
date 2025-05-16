@@ -1,6 +1,6 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
-  "name": "cloud-blog2",
+  "name": "cloud-blog",
   "compatibility_date": "2025-05-09",
   "compatibility_flags": ["nodejs_compat"],
   "main": "./workers/app.ts",
