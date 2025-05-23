@@ -25,8 +25,8 @@
     "log": "wrangler tail cloud-blog2"
   },
   "dependencies": {
-    "@firebase/app": "^0.12.3",
-    "@firebase/auth": "^1.10.4",
+    "@firebase/app": "^0.13.0",
+    "@firebase/auth": "^1.10.6",
     "@monaco-editor/react": "^4.7.0",
     "@node-libraries/semaphore": "^1.0.3",
     "@pothos/core": "^4.6.2",
@@ -63,14 +63,14 @@
     "wasm-image-optimization": "1.2.30"
   },
   "devDependencies": {
-    "@cloudflare/vite-plugin": "1.2.2",
-    "@cloudflare/workers-types": "^4.20250519.0",
+    "@cloudflare/vite-plugin": "1.2.4",
+    "@cloudflare/workers-types": "^4.20250522.0",
     "@eslint/js": "9.27.0",
     "@graphql-codegen/cli": "^5.0.6",
     "@graphql-codegen/typescript": "^4.1.6",
     "@graphql-codegen/typescript-operations": "^4.6.1",
     "@graphql-codegen/typescript-urql": "^4.0.0",
-    "@hono/vite-dev-server": "^0.19.0",
+    "@hono/vite-dev-server": "^0.19.1",
     "@node-libraries/wasm-avif-encoder": "^1.0.2",
     "@node-libraries/wasm-webp-encoder": "^1.1.1",
     "@parcel/watcher": "^2.5.1",
@@ -78,12 +78,12 @@
     "@tailwindcss/vite": "^4.1.7",
     "@types/cross-spawn": "^6.0.6",
     "@types/mdast": "^4.0.4",
-    "@types/react": "^19.1.4",
+    "@types/react": "^19.1.5",
     "@types/react-dom": "^19.1.5",
     "@types/react-syntax-highlighter": "^15.5.13",
     "@types/unist": "^3.0.3",
     "cross-spawn": "^7.0.6",
-    "daisyui": "5.0.35",
+    "daisyui": "5.0.37",
     "dotenv": "^16.5.0",
     "eslint": "^9.27.0",
     "eslint-config-prettier": "^10.1.5",
@@ -109,7 +109,7 @@
     "vite-plugin-wasm": "3.4.1",
     "vite-tsconfig-paths": "^5.1.4",
     "wonka": "^6.3.5",
-    "wrangler": "^4.15.2"
+    "wrangler": "^4.16.1"
   },
   "engines": {
     "node": ">=20.0.0"
