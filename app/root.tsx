@@ -48,7 +48,8 @@ export function Layout({ children }: { children: React.ReactNode }) {
                     <Header />
                     <main
                       className={`
-                        relative flex-1 overflow-hidden opacity-100 transition-opacity duration-200 ease-in-out
+                        relative flex-1 overflow-hidden opacity-100
+                        transition-opacity duration-200 ease-in-out
                         starting:opacity-50
                       `}
                       key={pathname}

@@ -1,18 +1,22 @@
-/**
- * @type {import('eslint').Linter.FlatConfig[]}
- */
 import eslint from "@eslint/js";
 import eslintConfigPrettier from "eslint-config-prettier";
+import eslintPluginBetterTailwindcss from "eslint-plugin-better-tailwindcss";
 import importPlugin from "eslint-plugin-import";
 import react from "eslint-plugin-react";
 import reactHooks from "eslint-plugin-react-hooks";
-import eslintPluginReadableTailwind from "eslint-plugin-readable-tailwind";
 import tslint from "typescript-eslint";
 
 export default [
   eslint.configs.recommended,
   ...tslint.configs.recommended,
   eslintConfigPrettier,
+  {
+    settings: {
+      "better-tailwindcss": {
+        entryPoint: "app/tailwind.css",
+      },
+    },
+  },
   {
     ignores: ["**/generated/**"],
   },
@@ -25,7 +29,7 @@ export default [
   {
     plugins: {
       "react-hooks": reactHooks,
-      "readable-tailwind": eslintPluginReadableTailwind,
+      "better-tailwindcss": eslintPluginBetterTailwindcss,
     },
     rules: reactHooks.configs.recommended.rules,
   },
@@ -34,10 +38,11 @@ export default [
       import: importPlugin,
     },
     rules: {
-      ...eslintPluginReadableTailwind.configs.warning.rules,
-      ...eslintPluginReadableTailwind.configs.error.rules,
+      ...eslintPluginBetterTailwindcss.configs["recommended-warn"].rules,
+      ...eslintPluginBetterTailwindcss.configs["recommended-error"].rules,
+      "better-tailwindcss/enforce-consistent-line-wrapping": 0,
       "@typescript-eslint/ban-ts-comment": 0,
-      "readable-tailwind/multiline": [0, { printWidth: 300 }],
+      "better-tailwindcss/multiline": [0, { printWidth: 300 }],
       "@typescript-eslint/no-import-type-side-effects": 1,
       "@typescript-eslint/no-unused-vars": 0,
       "@typescript-eslint/no-empty-object-type": 0,

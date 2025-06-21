@@ -36,8 +36,8 @@ export const MultiSelect: FC<Props> = ({ className, children, items }) => {
           {items?.map((item, index) => (
             <div
               className={`
-                hover:text-primary
                 cursor-pointer rounded p-1
+                hover:text-primary
               `}
               key={index}
             >
