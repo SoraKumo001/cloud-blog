@@ -1,5 +1,4 @@
 // import { cloudflare } from "@cloudflare/vite-plugin";
-// import adapter from "@hono/vite-dev-server/cloudflare";
 import { reactRouter } from "@react-router/dev/vite";
 import tailwindcss from "@tailwindcss/vite";
 import serverAdapter from "hono-react-router-adapter/vite";
@@ -38,18 +37,19 @@ export default defineConfig(() => ({
     tailwindcss(),
     reactRouter(),
     tsconfigPaths(),
-    wasmImageOptimizationPlugin(),
+    wasmImageOptimizationPlugin("./build/client/assets/"),
   ],
   ssr: {
     resolve: {
       externalConditions: ["worker"],
     },
   },
-  // environments: {
-  //   ssr: {
-  //     resolve: {
-  //       conditions: ["worker"],
-  //     },
-  //   },
-  // },
+  environments: {
+    ssr: {
+      resolve: {
+        conditions: ["worker"],
+      },
+    },
+  },
+  experimental: { enableNativePlugin: true },
 }));

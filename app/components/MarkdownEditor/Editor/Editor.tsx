@@ -174,20 +174,21 @@ export const Editor: FC<Props> = ({ id }) => {
     published,
     publishedAt,
   }) => {
-    Promise.all([
-      updatePost({
-        postId: id,
-        title,
-        content,
-        published,
-        categories: categories.map((id) => ({ id })),
-        publishedAt: new Date(publishedAt).toISOString(),
-      }),
-      (card !== undefined && uploadPostIcon({ postId: id, file: card })) || {},
-    ]).then((result) => {
-      const isError = result.some((v) => "error" in v && v.error);
-      sendNotification(isError ? "Error" : "Update Post Success");
-    });
+    updatePost({
+      postId: id,
+      title,
+      content,
+      published,
+      categories: categories.map((id) => ({ id })),
+      publishedAt: new Date(publishedAt).toISOString(),
+    })
+      .then((result) => {
+        if (result.error || !card) return result;
+        return uploadPostIcon({ postId: id, file: card });
+      })
+      .then((result) => {
+        sendNotification(result.error ? "Error" : "Update Post Success");
+      });
   };
 
   const [{ fetching, data }] = usePostQuery({ variables: { postId: id } });

@@ -8,7 +8,7 @@
     "directory": "./build/client",
     "binding": "ASSETS"
   },
-  // "logpush": true,
+  "logpush": false,
   "observability": {
     "enabled": true
   },
