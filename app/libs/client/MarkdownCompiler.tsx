@@ -7,8 +7,9 @@ import {
   isValidElement,
   type ReactNode,
 } from "react";
-import { remark } from "remark";
 import remarkGfm from "remark-gfm";
+import remarkParse from "remark-parse";
+import { unified } from "unified";
 import type { RootContent } from "mdast";
 import type React from "react";
 import type unist from "unist";
@@ -162,7 +163,7 @@ function ReactCompiler(
   return [reactNode(tree as VNode), tree];
 }
 export const createProcessor = (option?: MarkdownComponents) => {
-  const processor = remark().use(remarkGfm);
+  const processor = unified().use(remarkParse).use(remarkGfm);
   return (file: string) => {
     const tree = processor.parse(file);
     return ReactCompiler(tree as VNode, option);

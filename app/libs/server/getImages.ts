@@ -1,9 +1,9 @@
- 
-import { remark } from "remark";
+import remarkParse from "remark-parse";
+import { unified } from "unified";
 import type { Root } from "mdast";
 
 export const getImages = async (content: string) => {
-  const processor = remark();
+  const processor = unified().use(remarkParse);
   const tree = processor().parse(content);
 
   const grep = /^https?:\/\//i;
