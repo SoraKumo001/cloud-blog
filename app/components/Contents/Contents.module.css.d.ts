@@ -6,6 +6,7 @@ declare const styles: {
   readonly "content": string;
   readonly "date": string;
   readonly "edit": string;
+  readonly "header": string;
   readonly "label": string;
   readonly "main": string;
   readonly "root": string;

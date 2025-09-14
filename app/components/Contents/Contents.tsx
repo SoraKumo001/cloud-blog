@@ -70,7 +70,7 @@ export const Contents: FC<Props> = ({ id }) => {
             <EditIcon size={24} />
           </Button>
         )}
-        <h1 className={styled.title} id="header-top">
+        <h1 className={styled.header} id="header-top">
           {image ? (
             <Image
               className={styled.card}
@@ -83,7 +83,7 @@ export const Contents: FC<Props> = ({ id }) => {
           ) : (
             <div className={styled.cardText}>📖</div>
           )}
-          {data.findUniquePost.title}
+          <div className={styled.title}>{data.findUniquePost.title}</div>
         </h1>
         <div className={styled.separator}>
           <ContentTable
