@@ -1,6 +1,6 @@
 import { semaphore } from "@node-libraries/semaphore";
-import { BuilderType } from "../builder";
 import { storage } from "../getStorage";
+import type { BuilderType } from "../builder";
 
 export const restoreFiles = (
   t: PothosSchemaTypes.MutationFieldBuilder<

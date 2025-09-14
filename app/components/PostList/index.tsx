@@ -1,10 +1,10 @@
-import { FC, useMemo } from "react";
+import { type FC, useMemo } from "react";
 import { Link } from "react-router";
-import { Image } from "@/components/Commons/Image";
-import { PostsQuery } from "@/generated/graphql";
-import { useFirebaseUrl } from "@/hooks/useFirebaseUrl";
-import { classNames } from "@/libs/client/classNames";
-import { DateString } from "@/libs/client/dateString";
+import type { PostsQuery } from "~/generated/graphql";
+import { Image } from "~/components/Commons/Image";
+import { useFirebaseUrl } from "~/hooks/useFirebaseUrl";
+import { classNames } from "~/libs/client/classNames";
+import { DateString } from "~/libs/client/dateString";
 
 interface Props {
   id?: string;
@@ -48,6 +48,7 @@ export const PostList: FC<Props> = ({ id, title, posts, limit }) => {
                   alt="Eye catch"
                   width={80}
                   height={80}
+                  isOptimize
                 />
               ) : (
                 <span className="text-6xl">📖</span>

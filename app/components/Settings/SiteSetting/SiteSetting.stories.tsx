@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { SiteSetting } from ".";
-import { Decorator } from "@/storybook";
+import { Decorator } from "~/storybook";
 
 const meta: Meta<typeof SiteSetting> = {
   component: SiteSetting,

@@ -1,14 +1,12 @@
 import { Highlight, themes } from "prism-react-renderer";
-import { ElementType, Fragment, ReactNode, useMemo } from "react";
+import { Fragment, useMemo } from "react";
 import { Link } from "react-router";
-import { Image } from "@/components/Commons/Image";
-import { LinkTarget } from "@/components/Commons/LinkTarget";
-import { useFirebaseUrl } from "@/hooks/useFirebaseUrl";
-import {
-  MarkdownComponents,
-  VNode,
-  createProcessor,
-} from "@/libs/client/MarkdownCompiler";
+import type { ElementType, ReactNode } from "react";
+import type { MarkdownComponents, VNode } from "~/libs/client/MarkdownCompiler";
+import { Image } from "~/components/Commons/Image";
+import { LinkTarget } from "~/components/Commons/LinkTarget";
+import { useFirebaseUrl } from "~/hooks/useFirebaseUrl";
+import { createProcessor } from "~/libs/client/MarkdownCompiler";
 
 const FirebaseImage = ({
   src,
@@ -119,9 +117,11 @@ const components = (edit?: boolean): MarkdownComponents => ({
                   {...getLineProps({ line })}
                   data-sourcepos={(node.position?.start.line ?? 0) + i + 1}
                 >
-                  <span className={`
+                  <span
+                    className={`
                     mr-2 inline-block w-10 text-right text-gray-300 select-none
-                  `}>
+                  `}
+                  >
                     {i + 1}
                   </span>
                   {line.map((token, key) => (

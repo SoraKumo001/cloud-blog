@@ -1,5 +1,5 @@
 import { useCallback } from "react";
-import { useEnv } from "@/components/Provider/EnvProvider";
+import { useEnv } from "~/components/Provider/EnvProvider";
 
 export const useFirebaseUrl = () => {
   const env = useEnv();

@@ -19,7 +19,7 @@ export const normalizationPostFiles = (
         projectId: env.GOOGLE_PROJECT_ID ?? "",
         clientEmail: env.GOOGLE_CLIENT_EMAIL ?? "",
         privateKey: env.GOOGLE_PRIVATE_KEY ?? "",
-      });
+      }).catch(() => null);
       await isolatedFiles({
         projectId: env.GOOGLE_PROJECT_ID ?? "",
         clientEmail: env.GOOGLE_CLIENT_EMAIL ?? "",

@@ -1,8 +1,9 @@
-import { FC, useMemo } from "react";
-import { PostList } from "@/components/PostList";
-import { Title } from "@/components/System/Title";
-import { useCategoryQuery, usePostsQuery } from "@/generated/graphql";
-import { useLoading } from "@/hooks/useLoading";
+import { useMemo } from "react";
+import type { FC } from "react";
+import { PostList } from "~/components/PostList";
+import { Title } from "~/components/System/Title";
+import { useCategoryQuery, usePostsQuery } from "~/generated/graphql";
+import { useLoading } from "~/hooks/useLoading";
 
 interface Props {
   id: string;

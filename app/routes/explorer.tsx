@@ -1,7 +1,8 @@
 import { ApolloExplorer } from "apollo-explorer";
 import { printSchema } from "graphql";
-import { LoaderFunctionArgs, useLoaderData } from "react-router";
-import { schema } from "@/libs/server/schema";
+import { useLoaderData } from "react-router";
+import type { LoaderFunctionArgs } from "react-router";
+import { schema } from "~/libs/server/schema";
 
 const Explorer = () => {
   const schema = useLoaderData<string>();

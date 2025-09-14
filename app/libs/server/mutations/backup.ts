@@ -1,4 +1,4 @@
-import { BuilderType } from "../builder";
+import type { BuilderType } from "../builder";
 
 export const backup = (
   t: PothosSchemaTypes.MutationFieldBuilder<

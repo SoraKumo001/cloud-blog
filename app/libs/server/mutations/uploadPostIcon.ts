@@ -1,5 +1,5 @@
-import { BuilderType } from "../builder";
 import { isolatedFiles, uploadFile } from "../uploadFile";
+import type { BuilderType } from "../builder";
 
 export const uploadPostIcon = (
   t: PothosSchemaTypes.MutationFieldBuilder<

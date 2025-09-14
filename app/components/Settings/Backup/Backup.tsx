@@ -1,18 +1,18 @@
-import { FC } from "react";
 import { Checkbox } from "react-daisyui";
 import styled from "./Backup.module.css";
-import { FieldSet } from "@/components/Commons/FieldSet";
+import type { FC } from "react";
+import { FieldSet } from "~/components/Commons/FieldSet";
 import {
   useBackupMutation,
   useBucketQuery,
   useRestoreFilesMutation,
   useRestoreMutation,
   useUpdateCorsMutation,
-} from "@/generated/graphql";
-import { useFirebaseUrl } from "@/hooks/useFirebaseUrl";
-import { useLoading } from "@/hooks/useLoading";
-import { useNotification } from "@/hooks/useNotification";
-import { arrayBufferToBase64, base64ToArrayBuffer } from "@/libs/server/buffer";
+} from "~/generated/graphql";
+import { useFirebaseUrl } from "~/hooks/useFirebaseUrl";
+import { useLoading } from "~/hooks/useLoading";
+import { useNotification } from "~/hooks/useNotification";
+import { arrayBufferToBase64, base64ToArrayBuffer } from "~/libs/server/buffer";
 
 interface Props {}
 

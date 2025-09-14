@@ -58,11 +58,13 @@
     "react-icons": "^5.5.0",
     "react-router": "^7.8.2",
     "react-router-dom": "^7.8.2",
+    "rehype-react": "8.0.0",
     "remark-parse": "11.0.0",
     "remark-rehype": "11.1.2",
     "unified": "11.0.5",
     "unist-util-visit": "5.0.0",
     "urql": "^5.0.1",
+    "vfile": "6.0.3",
     "wasm-image-optimization": "1.2.30"
   },
   "devDependencies": {

@@ -1,15 +1,15 @@
-import { FC, Fragment, useEffect } from "react";
+import { type FC, Fragment, useEffect } from "react";
 import { Button } from "react-daisyui";
-import { SubmitHandler, useFieldArray, useForm } from "react-hook-form";
+import { type SubmitHandler, useFieldArray, useForm } from "react-hook-form";
 import styled from "./CategorySetting.module.css";
-import { TextField } from "@/components/Commons/TextField";
+import { TextField } from "~/components/Commons/TextField";
 import {
   useCategoriesQuery,
   useUpdateCategoryMutation,
   useCreateCategoryMutation,
   useDeleteOneCategoryMutation,
-} from "@/generated/graphql";
-import { useLoading } from "@/hooks/useLoading";
+} from "~/generated/graphql";
+import { useLoading } from "~/hooks/useLoading";
 
 const context = { additionalTypenames: ["Category"] };
 

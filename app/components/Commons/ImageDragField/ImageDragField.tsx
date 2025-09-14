@@ -2,8 +2,8 @@ import { type FC, type ReactNode, useRef, useState } from "react";
 import { Button } from "react-daisyui";
 import { MdClose as CloseIcon } from "react-icons/md";
 import { FieldSet } from "../FieldSet";
-import { classNames } from "@/libs/client/classNames";
-import { arrayBufferToBase64 } from "@/libs/server/buffer";
+import { classNames } from "~/libs/client/classNames";
+import { arrayBufferToBase64 } from "~/libs/server/buffer";
 
 interface Props {
   className?: string;

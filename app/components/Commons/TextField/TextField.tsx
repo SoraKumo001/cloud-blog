@@ -1,6 +1,7 @@
-import { InputHTMLAttributes, forwardRef } from "react";
+import { forwardRef } from "react";
 import { FieldSet } from "../FieldSet";
-import { classNames } from "@/libs/client/classNames";
+import type { InputHTMLAttributes } from "react";
+import { classNames } from "~/libs/client/classNames";
 
 type Props = Omit<InputHTMLAttributes<HTMLInputElement>, "size"> & {
   className?: string;
@@ -16,7 +17,6 @@ type Props = Omit<InputHTMLAttributes<HTMLInputElement>, "size"> & {
  */
 
 export const TextField = forwardRef<HTMLInputElement, Props>(
-   
   ({ className, inputClassName, label, size, ...props }, ref) => {
     return (
       <FieldSet

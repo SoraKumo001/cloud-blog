@@ -1,6 +1,6 @@
-import "@/styles/globals.scss";
+import "~/styles/globals.scss";
 import "./storybook.scss";
-import { FunctionComponent } from "react";
+import type { FunctionComponent } from "react";
 
 export const Decorator = (Story: FunctionComponent) => {
   return (

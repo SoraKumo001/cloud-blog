@@ -1,5 +1,5 @@
-import { LoaderFunctionArgs } from "react-router";
-import { prisma } from "@/libs/server/context";
+import type { LoaderFunctionArgs } from "react-router";
+import { prisma } from "~/libs/server/context";
 
 export const action = () => null;
 

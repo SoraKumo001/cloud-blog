@@ -1,4 +1,4 @@
-import { FC, ReactNode, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Button } from "react-daisyui";
 import {
   MdArrowLeft as LeftIcon,
@@ -7,7 +7,8 @@ import {
 } from "react-icons/md";
 
 import styled from "./Separator.module.css";
-import { classNames } from "@/libs/client/classNames";
+import type { FC, ReactNode } from "react";
+import { classNames } from "~/libs/client/classNames";
 
 interface Props {
   className?: string;

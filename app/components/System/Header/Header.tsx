@@ -8,11 +8,11 @@ import {
 } from "react-icons/md";
 import { Link, useNavigate } from "react-router";
 import type { FC } from "react";
-import { Head } from "@/components/Commons/Head";
-import { useSystemQuery } from "@/generated/graphql";
-import { useUser, useSignOut } from "@/hooks/useAuth";
-import { useFirebaseUrl } from "@/hooks/useFirebaseUrl";
-import { useLoading } from "@/hooks/useLoading";
+import { Head } from "~/components/Commons/Head";
+import { useSystemQuery } from "~/generated/graphql";
+import { useUser, useSignOut } from "~/hooks/useAuth";
+import { useFirebaseUrl } from "~/hooks/useFirebaseUrl";
+import { useLoading } from "~/hooks/useLoading";
 
 interface Props {}
 
@@ -52,12 +52,10 @@ export const Header: FC<Props> = () => {
       </Head>
       <header className="sticky top-0 z-10 flex items-center bg-blue-100 p-2">
         <Link
-          className={
-            `
+          className={`
               flex flex-1 items-center gap-4 text-3xl text-blue-800
               hover:text-blue-600
-            `
-          }
+            `}
           to="/"
         >
           <HomeIcon fontSize="large" size={24} />

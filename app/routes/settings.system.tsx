@@ -1,4 +1,4 @@
-import { SiteSetting } from "@/components/Settings/SiteSetting";
+import { SiteSetting } from "~/components/Settings/SiteSetting";
 
 const Page = () => {
   return <SiteSetting />;

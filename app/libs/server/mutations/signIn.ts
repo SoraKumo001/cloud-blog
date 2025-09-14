@@ -1,7 +1,7 @@
 import { SignJWT } from "jose";
-import { BuilderType } from "../builder";
 import { getUser } from "../getUser";
 import { getUserInfo } from "../getUserInfo";
+import type { BuilderType } from "../builder";
 
 export const signIn = (
   t: PothosSchemaTypes.MutationFieldBuilder<

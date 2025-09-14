@@ -2,7 +2,7 @@ import { encode as encodeHash } from "blurhash";
 import { useCallback, useState } from "react";
 import { optimizeImage } from "wasm-image-optimization/web-worker";
 import { base83toFileName } from "./blurhash";
-import { arrayBufferToBase64 } from "@/libs/server/buffer";
+import { arrayBufferToBase64 } from "~/libs/server/buffer";
 
 const type = "avif";
 

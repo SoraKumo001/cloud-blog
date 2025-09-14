@@ -1,5 +1,5 @@
 import { useCallback } from "react";
-import { useDispatch, useSelector } from "@/libs/client/context";
+import { useDispatch, useSelector } from "~/libs/client/context";
 
 export const useNotificationsDispatch: typeof useDispatch<{
   notifications?: string[];

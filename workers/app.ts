@@ -1,7 +1,7 @@
 import { Hono } from "hono";
 import { contextStorage } from "hono/context-storage";
-import { getLoadContext } from "load-context";
 import { createRequestHandler } from "react-router";
+import { getLoadContext } from "./load-context";
 
 const app = new Hono();
 app.use(contextStorage());

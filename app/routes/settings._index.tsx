@@ -1,4 +1,4 @@
-import { Main } from "@/components/Settings/Main";
+import { Main } from "~/components/Settings/Main";
 
 const Page = () => {
   return <Main />;

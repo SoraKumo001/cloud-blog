@@ -3,7 +3,7 @@ import { createYoga } from "graphql-yoga";
 import { type Context, prisma } from "../libs/server/context";
 import { schema } from "../libs/server/schema";
 import type { ActionFunctionArgs, LoaderFunctionArgs } from "react-router";
-import { getUserFromToken } from "@/libs/client/getUserFromToken";
+import { getUserFromToken } from "~/libs/client/getUserFromToken";
 
 const yoga = createYoga<
   {

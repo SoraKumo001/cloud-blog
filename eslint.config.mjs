@@ -34,6 +34,16 @@ export default [
     rules: reactHooks.configs.recommended.rules,
   },
   {
+    rules: {
+      "@typescript-eslint/consistent-type-imports": [
+        "warn",
+        {
+          prefer: "type-imports",
+        },
+      ],
+    },
+  },
+  {
     plugins: {
       import: importPlugin,
     },

@@ -7,13 +7,13 @@ import { Head } from "../Commons/Head";
 import { ContentMarkdown } from "../ContentMarkdown";
 import { ContentTable } from "../ContentTable";
 import { Title } from "../System/Title";
-import { Image } from "@/components/Commons/Image";
-import { usePostQuery } from "@/generated/graphql";
-import { useUser } from "@/hooks/useAuth";
-import { useFirebaseUrl } from "@/hooks/useFirebaseUrl";
-import { useLoading } from "@/hooks/useLoading";
-import { useMarkdown } from "@/hooks/useMarkdown";
-import { DateString } from "@/libs/client/dateString";
+import { Image } from "~/components/Commons/Image";
+import { usePostQuery } from "~/generated/graphql";
+import { useUser } from "~/hooks/useAuth";
+import { useFirebaseUrl } from "~/hooks/useFirebaseUrl";
+import { useLoading } from "~/hooks/useLoading";
+import { useMarkdown } from "~/hooks/useMarkdown";
+import { DateString } from "~/libs/client/dateString";
 
 const context = { additionalTypenames: ["Category"] };
 
@@ -78,6 +78,7 @@ export const Contents: FC<Props> = ({ id }) => {
               alt="Eye catch"
               width={80}
               height={80}
+              isOptimize
             />
           ) : (
             <div className={styled.cardText}>📖</div>

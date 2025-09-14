@@ -1,5 +1,5 @@
-import { BuilderType } from "../builder";
 import { uploadFile } from "../uploadFile";
+import type { BuilderType } from "../builder";
 
 export const uploadPostImage = (
   t: PothosSchemaTypes.MutationFieldBuilder<

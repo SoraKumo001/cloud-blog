@@ -10,20 +10,20 @@ import {
 import { useNavigate } from "react-router";
 import styled from "./ToolBar.module.css";
 import type { FormInput } from "../Editor/Editor";
-import { MessageDialog } from "@/components/Commons/Dialog/MessageDialog";
-import { FieldSet } from "@/components/Commons/FieldSet";
-import { ImageDragField } from "@/components/Commons/ImageDragField";
-import { MultiSelect } from "@/components/Commons/MultiSelect";
-import { TextField } from "@/components/Commons/TextField";
+import { MessageDialog } from "~/components/Commons/Dialog/MessageDialog";
+import { FieldSet } from "~/components/Commons/FieldSet";
+import { ImageDragField } from "~/components/Commons/ImageDragField";
+import { MultiSelect } from "~/components/Commons/MultiSelect";
+import { TextField } from "~/components/Commons/TextField";
 import {
   type PostQuery,
   useCategoriesQuery,
   useDeleteOnePostMutation,
-} from "@/generated/graphql";
-import { useFirebaseUrl } from "@/hooks/useFirebaseUrl";
-import { useLoading } from "@/hooks/useLoading";
-import { classNames } from "@/libs/client/classNames";
-import { useConvertImage } from "@/libs/client/convertImage";
+} from "~/generated/graphql";
+import { useFirebaseUrl } from "~/hooks/useFirebaseUrl";
+import { useLoading } from "~/hooks/useLoading";
+import { classNames } from "~/libs/client/classNames";
+import { useConvertImage } from "~/libs/client/convertImage";
 interface Props {
   post: PostQuery["findUniquePost"];
   control: Control<FormInput>;

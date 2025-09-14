@@ -1,5 +1,5 @@
 import { LinkTarget } from ".";
-import { Decorator } from "@/storybook";
+import { Decorator } from "~/storybook";
 
 const StoryInfo = {
   title: "Components/Commons/LinkTarget",

@@ -1,4 +1,4 @@
-import { Meta } from '@storybook/react';
+import type { Meta } from '@storybook/react';
 import { Editor } from '.';
 import { Decorator } from '@/storybook';
 

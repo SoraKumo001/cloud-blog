@@ -1,10 +1,11 @@
-import { FC, useMemo } from "react";
+import { useMemo } from "react";
 import { Link } from "react-router";
 
 import styled from "./ContentTable.module.css";
 import type { Heading } from "mdast";
-import { classNames } from "@/libs/client/classNames";
-import { VNode } from "@/libs/client/MarkdownCompiler";
+import type { FC } from "react";
+import type { VNode } from "~/libs/client/MarkdownCompiler";
+import { classNames } from "~/libs/client/classNames";
 
 export type MarkdownTitles = { text: string; depth: number }[];
 

@@ -1,16 +1,16 @@
 import { type FC, useState } from "react";
 import { Button } from "react-daisyui";
 import { type SubmitHandler, useForm } from "react-hook-form";
-import { ImageDragField } from "@/components/Commons/ImageDragField";
-import { TextField } from "@/components/Commons/TextField";
+import { ImageDragField } from "~/components/Commons/ImageDragField";
+import { TextField } from "~/components/Commons/TextField";
 import {
   useCreateSystemMutation,
   useSystemQuery,
   useUpdateSystemMutation,
   useUploadSystemIconMutation,
-} from "@/generated/graphql";
-import { useFirebaseUrl } from "@/hooks/useFirebaseUrl";
-import { useLoading } from "@/hooks/useLoading";
+} from "~/generated/graphql";
+import { useFirebaseUrl } from "~/hooks/useFirebaseUrl";
+import { useLoading } from "~/hooks/useLoading";
 
 interface FormInput {
   title: string;

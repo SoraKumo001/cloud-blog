@@ -1,5 +1,5 @@
-import { FC } from "react";
 import styled from "./LinkTarget.module.css";
+import type { FC } from "react";
 
 interface Props {
   id?: string;

@@ -1,6 +1,7 @@
-import { FC, useEffect } from "react";
+import { useEffect } from "react";
 import { useLocation } from "react-router";
-import { useEnv } from "@/components/Provider/EnvProvider";
+import type { FC } from "react";
+import { useEnv } from "~/components/Provider/EnvProvider";
 
 interface Props {}
 

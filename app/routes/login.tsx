@@ -1,8 +1,8 @@
 import { Button } from "react-daisyui";
 import { useNavigate } from "react-router";
-import { useEnv } from "@/components/Provider/EnvProvider";
-import { useSignIn } from "@/hooks/useAuth";
-import { firebaseApp } from "@/libs/client/getFirebaseApp";
+import { useEnv } from "~/components/Provider/EnvProvider";
+import { useSignIn } from "~/hooks/useAuth";
+import { firebaseApp } from "~/libs/client/getFirebaseApp";
 
 const useSignInGoogle = () => {
   const env = useEnv();

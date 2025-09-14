@@ -1,7 +1,7 @@
-import { FC, ReactNode } from "react";
-
 import styled from "./ContentMarkdown.module.css";
-import { classNames } from "@/libs/client/classNames";
+import type { FC, ReactNode } from "react";
+
+import { classNames } from "~/libs/client/classNames";
 
 interface Props {
   className?: string;

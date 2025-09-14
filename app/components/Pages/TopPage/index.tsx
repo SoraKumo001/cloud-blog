@@ -1,8 +1,12 @@
-import { FC, useMemo } from "react";
+import { type FC, useMemo } from "react";
 import { PostList } from "../../PostList";
 import { Title } from "../../System/Title";
-import { PostsQuery, usePostsQuery, useSystemQuery } from "@/generated/graphql";
-import { useLoading } from "@/hooks/useLoading";
+import {
+  type PostsQuery,
+  usePostsQuery,
+  useSystemQuery,
+} from "~/generated/graphql";
+import { useLoading } from "~/hooks/useLoading";
 
 interface Props {}
 

@@ -1,4 +1,4 @@
-import { Backup } from '@/components/Settings/Backup';
+import { Backup } from "~/components/Settings/Backup";
 
 const Page = () => {
   return <Backup />;

@@ -1,5 +1,5 @@
 import { useParams } from "react-router";
-import { Categories } from "@/components/Pages/Categories";
+import { Categories } from "~/components/Pages/Categories";
 
 const Page = () => {
   const { id } = useParams();

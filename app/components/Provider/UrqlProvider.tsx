@@ -3,8 +3,8 @@ import {
   useCreateNextSSRExchange,
 } from "@react-libraries/next-exchange-ssr";
 
-import { RetryExchangeOptions, retryExchange } from "@urql/exchange-retry";
-import { ReactNode, useMemo } from "react";
+import { type RetryExchangeOptions, retryExchange } from "@urql/exchange-retry";
+import { type ReactNode, useMemo } from "react";
 import { cacheExchange, Client, fetchExchange, Provider } from "urql";
 import { useUser } from "../../hooks/useAuth";
 

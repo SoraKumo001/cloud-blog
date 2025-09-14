@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router";
-import { useCreateOnePostMutation } from "@/generated/graphql";
+import { useCreateOnePostMutation } from "~/generated/graphql";
 
 const Page = () => {
   const navigate = useNavigate();

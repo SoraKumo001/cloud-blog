@@ -1,33 +1,25 @@
-import {
-  OnMount,
-  Editor as MonacoEditor,
-  useMonaco,
-} from "@monaco-editor/react";
-import {
-  DOMAttributes,
-  FC,
-  useEffect,
-  useRef,
-  useState,
-  useTransition,
-} from "react";
-import { SubmitHandler, useForm } from "react-hook-form";
+import { Editor as MonacoEditor, useMonaco } from "@monaco-editor/react";
+import { useEffect, useRef, useState, useTransition } from "react";
+import { useForm } from "react-hook-form";
 import { MdModeStandby as ModeStandbyIcon } from "react-icons/md";
 import styled from "./Editor.module.css";
 import { Separator } from "../../Commons/Separator";
 import { ContentMarkdown } from "../../ContentMarkdown";
 import { ToolBar } from "../ToolBar";
+import type { OnMount } from "@monaco-editor/react";
 import type { editor } from "monaco-editor";
+import type { DOMAttributes, FC } from "react";
+import type { SubmitHandler } from "react-hook-form";
 import {
   usePostQuery,
   useUpdatePostMutation,
   useUploadPostIconMutation,
   useUploadPostImageMutation,
-} from "@/generated/graphql";
-import { useLoading } from "@/hooks/useLoading";
-import { useMarkdown } from "@/hooks/useMarkdown";
-import { useNotification } from "@/hooks/useNotification";
-import { getImageSize, useConvertImage } from "@/libs/client/convertImage";
+} from "~/generated/graphql";
+import { useLoading } from "~/hooks/useLoading";
+import { useMarkdown } from "~/hooks/useMarkdown";
+import { useNotification } from "~/hooks/useNotification";
+import { getImageSize, useConvertImage } from "~/libs/client/convertImage";
 
 export type FormInput = {
   categories: string[];

@@ -1,5 +1,5 @@
 import { useParams } from "react-router";
-import { Editor } from "@/components/MarkdownEditor/Editor";
+import { Editor } from "~/components/MarkdownEditor/Editor";
 
 const Page = () => {
   const { id } = useParams();

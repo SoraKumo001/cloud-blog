@@ -1,8 +1,8 @@
 import { decode } from "blurhash";
 import { useMemo } from "react";
-import { useEnv } from "@/components/Provider/EnvProvider";
-import { fileNameToBase83 } from "@/libs/client/blurhash";
-import { classNames } from "@/libs/client/classNames";
+import { useEnv } from "~/components/Provider/EnvProvider";
+import { fileNameToBase83 } from "~/libs/client/blurhash";
+import { classNames } from "~/libs/client/classNames";
 type Props = {
   src: string;
   width?: number;

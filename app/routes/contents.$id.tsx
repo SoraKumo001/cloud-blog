@@ -1,5 +1,5 @@
 import { useParams } from "react-router";
-import { Contents } from "@/components/Contents";
+import { Contents } from "~/components/Contents";
 
 const Page = () => {
   const { id } = useParams();

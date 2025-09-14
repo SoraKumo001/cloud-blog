@@ -1,4 +1,4 @@
-import { CategorySetting } from "@/components/Settings/CategorySetting";
+import { CategorySetting } from "~/components/Settings/CategorySetting";
 
 const Page = () => {
   return <CategorySetting />;

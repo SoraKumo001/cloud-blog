@@ -1,6 +1,7 @@
-import React, { AnimationEventHandler, FC } from "react";
+import React from "react";
 import { MdInfoOutline as IconInfo } from "react-icons/md";
 import styled from "./Notification.module.css";
+import type { AnimationEventHandler, FC } from "react";
 interface Props {
   onClose?: () => void;
   onAnimationEnd?: AnimationEventHandler<HTMLDivElement>;

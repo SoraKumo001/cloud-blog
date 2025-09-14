@@ -1,5 +1,5 @@
-import { BuilderType } from "../builder";
 import { importFile } from "../importFile";
+import type { BuilderType } from "../builder";
 
 export const restore = (
   t: PothosSchemaTypes.MutationFieldBuilder<
