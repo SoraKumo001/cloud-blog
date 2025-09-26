@@ -32,6 +32,11 @@ export default defineConfig(() => ({
     serverAdapter({
       adapter,
       entry,
+      exclude: [
+        ...defaultOptions.exclude,
+        "/app/**",
+        /\.(css|webp|png|svg)(\?.*)?$/,
+      ],
     }),
     // cloudflare({ viteEnvironment: { name: "ssr" } }),
     tailwindcss(),

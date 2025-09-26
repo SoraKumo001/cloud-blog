@@ -9,3 +9,5 @@ ALTER TABLE "_FireStoreToPost" ADD CONSTRAINT "_FireStoreToPost_AB_pkey" PRIMARY
 
 -- DropIndex
 DROP INDEX "_FireStoreToPost_AB_unique";
+
+INSERT INTO "System"(id,title,description,"updatedAt") VALUES('system','title','description',now());
