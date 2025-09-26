@@ -16,11 +16,11 @@ export type Scalars = {
   Int: { input: number; output: number; }
   Float: { input: number; output: number; }
   /** The `BigInt` scalar type represents non-fractional signed whole numeric values. */
-  BigInt: { input: any; output: any; }
+  BigInt: { input: bigint; output: bigint; }
   /** The `Byte` scalar type represents byte value as a Buffer */
   Bytes: { input: any; output: any; }
   /** A date-time string at UTC, such as 2007-12-03T10:15:30Z, compliant with the `date-time` format outlined in section 5.6 of the RFC 3339 profile of the ISO 8601 standard for representation of dates and times using the Gregorian calendar. */
-  DateTime: { input: string; output: string; }
+  DateTime: { input: Date | string; output: Date | string; }
   /** A field whose value is a hexadecimal: https://en.wikipedia.org/wiki/Hexadecimal. */
   Decimal: { input: any; output: any; }
   /** The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf). */
@@ -1385,31 +1385,31 @@ export type SignInMutationVariables = Exact<{
 }>;
 
 
-export type SignInMutation = { __typename?: 'Mutation', signIn?: { __typename?: 'User', id: string, name: string, email: string, createdAt: string, updatedAt: string } | null };
+export type SignInMutation = { __typename?: 'Mutation', signIn?: { __typename?: 'User', id: string, name: string, email: string, createdAt: Date | string, updatedAt: Date | string } | null };
 
 export type PostQueryVariables = Exact<{
   postId: Scalars['String']['input'];
 }>;
 
 
-export type PostQuery = { __typename?: 'Query', findUniquePost: { __typename?: 'Post', id: string, published: boolean, title: string, content: string, authorId: string, cardId?: string | null, createdAt: string, updatedAt: string, publishedAt: string, categories: Array<{ __typename?: 'Category', id: string, name: string, createdAt: string, updatedAt: string }> } };
+export type PostQuery = { __typename?: 'Query', findUniquePost: { __typename?: 'Post', id: string, published: boolean, title: string, content: string, authorId: string, cardId?: string | null, createdAt: Date | string, updatedAt: Date | string, publishedAt: Date | string, categories: Array<{ __typename?: 'Category', id: string, name: string, createdAt: Date | string, updatedAt: Date | string }> } };
 
 export type PostsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type PostsQuery = { __typename?: 'Query', findManyPost: Array<{ __typename?: 'Post', id: string, published: boolean, title: string, authorId: string, cardId?: string | null, createdAt: string, updatedAt: string, publishedAt: string, categories: Array<{ __typename?: 'Category', id: string, name: string, createdAt: string, updatedAt: string }> }> };
+export type PostsQuery = { __typename?: 'Query', findManyPost: Array<{ __typename?: 'Post', id: string, published: boolean, title: string, authorId: string, cardId?: string | null, createdAt: Date | string, updatedAt: Date | string, publishedAt: Date | string, categories: Array<{ __typename?: 'Category', id: string, name: string, createdAt: Date | string, updatedAt: Date | string }> }> };
 
 export type CreateOnePostMutationVariables = Exact<{ [key: string]: never; }>;
 
 
-export type CreateOnePostMutation = { __typename?: 'Mutation', createOnePost: { __typename?: 'Post', id: string, published: boolean, title: string, authorId: string, cardId?: string | null, createdAt: string, updatedAt: string, publishedAt: string, categories: Array<{ __typename?: 'Category', id: string, name: string, createdAt: string, updatedAt: string }> } };
+export type CreateOnePostMutation = { __typename?: 'Mutation', createOnePost: { __typename?: 'Post', id: string, published: boolean, title: string, authorId: string, cardId?: string | null, createdAt: Date | string, updatedAt: Date | string, publishedAt: Date | string, categories: Array<{ __typename?: 'Category', id: string, name: string, createdAt: Date | string, updatedAt: Date | string }> } };
 
 export type DeleteOnePostMutationVariables = Exact<{
   id: Scalars['String']['input'];
 }>;
 
 
-export type DeleteOnePostMutation = { __typename?: 'Mutation', deleteOnePost: { __typename?: 'Post', id: string, published: boolean, title: string, authorId: string, cardId?: string | null, createdAt: string, updatedAt: string, publishedAt: string, categories: Array<{ __typename?: 'Category', id: string, name: string, createdAt: string, updatedAt: string }> } };
+export type DeleteOnePostMutation = { __typename?: 'Mutation', deleteOnePost: { __typename?: 'Post', id: string, published: boolean, title: string, authorId: string, cardId?: string | null, createdAt: Date | string, updatedAt: Date | string, publishedAt: Date | string, categories: Array<{ __typename?: 'Category', id: string, name: string, createdAt: Date | string, updatedAt: Date | string }> } };
 
 export type UpdateOnePostMutationVariables = Exact<{
   categories?: InputMaybe<Array<CategoryUniqueFilter> | CategoryUniqueFilter>;
@@ -1429,7 +1429,7 @@ export type UpdatePostMutationVariables = Exact<{
 }>;
 
 
-export type UpdatePostMutation = { __typename?: 'Mutation', normalizationPostFiles?: boolean | null, updateOnePost: { __typename?: 'Post', id: string, published: boolean, title: string, content: string, authorId: string, createdAt: string, updatedAt: string, publishedAt: string, cardId?: string | null, categories: Array<{ __typename?: 'Category', id: string, name: string, createdAt: string, updatedAt: string }> } };
+export type UpdatePostMutation = { __typename?: 'Mutation', normalizationPostFiles?: boolean | null, updateOnePost: { __typename?: 'Post', id: string, published: boolean, title: string, content: string, authorId: string, createdAt: Date | string, updatedAt: Date | string, publishedAt: Date | string, cardId?: string | null, categories: Array<{ __typename?: 'Category', id: string, name: string, createdAt: Date | string, updatedAt: Date | string }> } };
 
 export type UploadPostImageMutationVariables = Exact<{
   postId: Scalars['String']['input'];
@@ -1437,19 +1437,19 @@ export type UploadPostImageMutationVariables = Exact<{
 }>;
 
 
-export type UploadPostImageMutation = { __typename?: 'Mutation', uploadPostImage: { __typename?: 'FireStore', id: string, createdAt: string, updatedAt: string, name: string, mimeType: string } };
+export type UploadPostImageMutation = { __typename?: 'Mutation', uploadPostImage: { __typename?: 'FireStore', id: string, createdAt: Date | string, updatedAt: Date | string, name: string, mimeType: string } };
 
 export type SystemQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type SystemQuery = { __typename?: 'Query', findUniqueSystem: { __typename?: 'System', id: string, title: string, description: string, iconId?: string | null, cardId?: string | null, createdAt: string, updatedAt: string, icon?: { __typename?: 'FireStore', id: string, name: string, mimeType: string, createdAt: string, updatedAt: string } | null } };
+export type SystemQuery = { __typename?: 'Query', findUniqueSystem: { __typename?: 'System', id: string, title: string, description: string, iconId?: string | null, cardId?: string | null, createdAt: Date | string, updatedAt: Date | string, icon?: { __typename?: 'FireStore', id: string, name: string, mimeType: string, createdAt: Date | string, updatedAt: Date | string } | null } };
 
 export type CreateSystemMutationVariables = Exact<{
   input: SystemCreateInput;
 }>;
 
 
-export type CreateSystemMutation = { __typename?: 'Mutation', createOneSystem: { __typename?: 'System', id: string, title: string, description: string, iconId?: string | null, cardId?: string | null, createdAt: string, updatedAt: string } };
+export type CreateSystemMutation = { __typename?: 'Mutation', createOneSystem: { __typename?: 'System', id: string, title: string, description: string, iconId?: string | null, cardId?: string | null, createdAt: Date | string, updatedAt: Date | string } };
 
 export type UpdateSystemMutationVariables = Exact<{
   title?: InputMaybe<Scalars['String']['input']>;
@@ -1458,26 +1458,26 @@ export type UpdateSystemMutationVariables = Exact<{
 }>;
 
 
-export type UpdateSystemMutation = { __typename?: 'Mutation', updateOneSystem: { __typename?: 'System', id: string, title: string, description: string, iconId?: string | null, cardId?: string | null, createdAt: string, updatedAt: string, icon?: { __typename?: 'FireStore', id: string, name: string, mimeType: string, createdAt: string, updatedAt: string } | null } };
+export type UpdateSystemMutation = { __typename?: 'Mutation', updateOneSystem: { __typename?: 'System', id: string, title: string, description: string, iconId?: string | null, cardId?: string | null, createdAt: Date | string, updatedAt: Date | string, icon?: { __typename?: 'FireStore', id: string, name: string, mimeType: string, createdAt: Date | string, updatedAt: Date | string } | null } };
 
 export type CategoryQueryVariables = Exact<{
   id: Scalars['String']['input'];
 }>;
 
 
-export type CategoryQuery = { __typename?: 'Query', findUniqueCategory: { __typename?: 'Category', id: string, name: string, createdAt: string, updatedAt: string } };
+export type CategoryQuery = { __typename?: 'Query', findUniqueCategory: { __typename?: 'Category', id: string, name: string, createdAt: Date | string, updatedAt: Date | string } };
 
 export type CategoriesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type CategoriesQuery = { __typename?: 'Query', findManyCategory: Array<{ __typename?: 'Category', id: string, name: string, createdAt: string, updatedAt: string }> };
+export type CategoriesQuery = { __typename?: 'Query', findManyCategory: Array<{ __typename?: 'Category', id: string, name: string, createdAt: Date | string, updatedAt: Date | string }> };
 
 export type CreateCategoryMutationVariables = Exact<{
   name: Scalars['String']['input'];
 }>;
 
 
-export type CreateCategoryMutation = { __typename?: 'Mutation', createOneCategory: { __typename?: 'Category', id: string, name: string, createdAt: string, updatedAt: string } };
+export type CreateCategoryMutation = { __typename?: 'Mutation', createOneCategory: { __typename?: 'Category', id: string, name: string, createdAt: Date | string, updatedAt: Date | string } };
 
 export type UpdateCategoryMutationVariables = Exact<{
   id: Scalars['String']['input'];
@@ -1485,21 +1485,21 @@ export type UpdateCategoryMutationVariables = Exact<{
 }>;
 
 
-export type UpdateCategoryMutation = { __typename?: 'Mutation', updateOneCategory: { __typename?: 'Category', id: string, name: string, createdAt: string, updatedAt: string } };
+export type UpdateCategoryMutation = { __typename?: 'Mutation', updateOneCategory: { __typename?: 'Category', id: string, name: string, createdAt: Date | string, updatedAt: Date | string } };
 
 export type DeleteOneCategoryMutationVariables = Exact<{
   id: Scalars['String']['input'];
 }>;
 
 
-export type DeleteOneCategoryMutation = { __typename?: 'Mutation', deleteOneCategory: { __typename?: 'Category', id: string, name: string, createdAt: string, updatedAt: string } };
+export type DeleteOneCategoryMutation = { __typename?: 'Mutation', deleteOneCategory: { __typename?: 'Category', id: string, name: string, createdAt: Date | string, updatedAt: Date | string } };
 
 export type UploadSystemIconMutationVariables = Exact<{
   file: Scalars['Upload']['input'];
 }>;
 
 
-export type UploadSystemIconMutation = { __typename?: 'Mutation', uploadSystemIcon?: { __typename?: 'FireStore', id: string, name: string, mimeType: string, createdAt: string, updatedAt: string } | null };
+export type UploadSystemIconMutation = { __typename?: 'Mutation', uploadSystemIcon?: { __typename?: 'FireStore', id: string, name: string, mimeType: string, createdAt: Date | string, updatedAt: Date | string } | null };
 
 export type UploadPostIconMutationVariables = Exact<{
   postId: Scalars['String']['input'];
@@ -1507,7 +1507,7 @@ export type UploadPostIconMutationVariables = Exact<{
 }>;
 
 
-export type UploadPostIconMutation = { __typename?: 'Mutation', uploadPostIcon?: { __typename?: 'FireStore', id: string, name: string, mimeType: string, createdAt: string, updatedAt: string } | null };
+export type UploadPostIconMutation = { __typename?: 'Mutation', uploadPostIcon?: { __typename?: 'FireStore', id: string, name: string, mimeType: string, createdAt: Date | string, updatedAt: Date | string } | null };
 
 export type NormalizationPostFilesMutationVariables = Exact<{
   postId: Scalars['String']['input'];
@@ -1546,7 +1546,7 @@ export type RestoreFilesMutationVariables = Exact<{
 }>;
 
 
-export type RestoreFilesMutation = { __typename?: 'Mutation', restoreFiles?: Array<{ __typename?: 'FireStore', id: string, name: string, mimeType: string, createdAt: string, updatedAt: string }> | null };
+export type RestoreFilesMutation = { __typename?: 'Mutation', restoreFiles?: Array<{ __typename?: 'FireStore', id: string, name: string, mimeType: string, createdAt: Date | string, updatedAt: Date | string }> | null };
 
 
 export const SignInDocument = gql`

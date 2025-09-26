@@ -8,9 +8,9 @@ import * as queries from "./queries";
 
 const createSchema = () => {
   let schema: GraphQLSchema;
-  return ({ env }: { env: { [key: string]: string | undefined } }) => {
+  return () => {
     if (!schema) {
-      const builder = createBuilder(env.DATABASE_URL ?? "");
+      const builder = createBuilder();
 
       for (const value of Object.values(objects)) {
         if (!(value instanceof ObjectRef)) {

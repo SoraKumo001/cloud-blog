@@ -52,7 +52,7 @@ export const TopPage: FC<Props> = ({}) => {
       <div className="flex size-full flex-col gap-16 overflow-auto p-8">
         <PostList id="news" title="新着順" posts={posts} limit={10} />
         {categories.map(([id, { name, posts }]) => (
-          <PostList key={id} id={id} title={name} posts={posts} limit={10} />
+          <PostList key={id} id={id} title={name} posts={posts} limit={6} />
         ))}
       </div>
     </>

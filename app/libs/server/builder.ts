@@ -21,7 +21,7 @@ export type BuilderType = {
   Context: Context;
 };
 
-export const createBuilder = (datasourceUrl: string) => {
+export const createBuilder = () => {
   const builder = new SchemaBuilder<BuilderType>({
     plugins: [PrismaPlugin, PrismaUtils, PothosPrismaGeneratorPlugin],
     prisma: {

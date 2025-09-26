@@ -2,6 +2,7 @@ import process from "node:process";
 import { PrismaPg } from "@prisma/adapter-pg";
 import { PrismaClient } from "@prisma/client";
 import { getContext } from "hono/context-storage";
+import type { Hyperdrive } from "@cloudflare/workers-types/experimental";
 import type { User } from "@prisma/client";
 import type { serialize } from "cookie";
 
