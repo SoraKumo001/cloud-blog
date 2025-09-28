@@ -37,6 +37,16 @@ export default defineConfig(() => ({
         "/app/**",
         /\.(css|webp|png|svg)(\?.*)?$/,
       ],
+      // HMR adjustment
+      handleHotUpdate: ({ server, modules }) => {
+        const isServer = modules.some((mod) => {
+          return mod._ssrModule?.id && !mod._clientModule;
+        });
+        if (isServer) {
+          server.hot.send({ type: "full-reload" });
+          return [];
+        }
+      },
     }),
     // cloudflare({ viteEnvironment: { name: "ssr" } }),
     tailwindcss(),

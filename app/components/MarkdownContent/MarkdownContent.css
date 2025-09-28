@@ -1,6 +1,6 @@
 @reference "tailwindcss";
 .markdown {
-  @apply px-2;
+  @apply px-4;
   h1,
   h2,
   h3,
@@ -108,12 +108,5 @@
     height: 720px;
     border: #dddddd;
     background: #f0f0f0;
-  }
-  .plain {
-    display: inline-block;
-    font-weight: 500;
-    border-radius: 2px;
-    padding: 0 4px;
-    margin: 0 1px;
   }
 }

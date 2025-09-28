@@ -83,7 +83,7 @@ const Code = ({
                   data-line={dataLine + i + 1}
                 >
                   <span
-                    className={`sticky left-0 z-10 inline-block bg-blue-900 px-2 text-gray-300 select-none`}
+                    className={`sticky left-0 z-10 mr-1 inline-block bg-blue-900 px-2 text-gray-300 select-none`}
                   >
                     <span
                       className="inline-block text-right"
