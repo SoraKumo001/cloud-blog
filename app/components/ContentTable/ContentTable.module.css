@@ -1,7 +1,0 @@
-@reference "tailwindcss";
-.root {
-  @apply max-h-[calc(100vh-64px)] min-w-[300px] overflow-y-auto border bg-white;
-  li {
-    @apply ml-[1em] list-disc py-0.5;
-  }
-}

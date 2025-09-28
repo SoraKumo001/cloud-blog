@@ -1,6 +1,5 @@
-import { createContext, useMemo, type FC, type ReactNode } from "react";
-import styled from "./MarkdownContent.module.css";
-
+import css from "./MarkdownContent.css?inline";
+import type { FC, ReactNode } from "react";
 import { classNames } from "~/libs/client/classNames";
 import { MarkdownProvider } from "~/libs/client/markdownConverter";
 
@@ -26,8 +25,9 @@ export const MarkdownContent: FC<Props> = ({
 }) => {
   return (
     <MarkdownProvider edit={edit}>
+      <style>{css}</style>
       <div
-        className={classNames(styled.markdown, className)}
+        className={classNames("markdown", className)}
         onClick={(e) => {
           const framePos = e.currentTarget.getBoundingClientRect();
           let node = e.target as HTMLElement | null;

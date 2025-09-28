@@ -72,7 +72,7 @@
   a {
     @apply underline text-blue-700;
   }
-  :global(.inner-link) {
+  .inner-link {
     @apply no-underline text-base;
   }
   table {
@@ -112,7 +112,6 @@
   .plain {
     display: inline-block;
     font-weight: 500;
-    background: #dceef0;
     border-radius: 2px;
     padding: 0 4px;
     margin: 0 1px;

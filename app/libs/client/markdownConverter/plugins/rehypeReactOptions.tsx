@@ -123,7 +123,7 @@ export const rehypeReactOptions: RehypeReactOptions = {
   ...prod,
   components: {
     code: Code,
-    link({ href, ...props }) {
+    a({ href, ...props }) {
       if (href?.match(/^https:\/\/codepen.io\//)) {
         return (
           <iframe

@@ -1,7 +1,6 @@
 import { useMemo } from "react";
 import { Link } from "react-router";
 import { visit } from "unist-util-visit";
-import styled from "./ContentTable.module.css";
 import type { Root } from "mdast";
 import type { FC } from "react";
 import { classNames } from "~/libs/client/classNames";
@@ -33,7 +32,12 @@ export const ContentTable: FC<Props> = ({ className, tree, title }) => {
     return titles;
   }, [tree]);
   return (
-    <nav className={classNames(styled.root, className)}>
+    <nav
+      className={classNames(
+        " max-h-[calc(100vh-64px)] min-w-[300px] overflow-y-auto border bg-white",
+        className
+      )}
+    >
       <div className="border-b text-center font-bold">Index</div>
       <div className="flex-col p-2 text-xs">
         <Link to={`#header-top`} className="break-all">
@@ -41,7 +45,11 @@ export const ContentTable: FC<Props> = ({ className, tree, title }) => {
         </Link>
         <ul className="mt-2 flex flex-col gap-1">
           {headers.map(({ id, text, depth }) => (
-            <li key={id} style={{ marginLeft: `${depth * 16}px` }}>
+            <li
+              key={id}
+              className="ml-[1em] list-disc py-0.5"
+              style={{ marginLeft: `${depth * 16}px` }}
+            >
               <Link to={`#${text}`}>{text}</Link>
             </li>
           ))}
