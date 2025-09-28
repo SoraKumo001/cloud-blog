@@ -3,7 +3,7 @@ import { useRef, useState, useTransition } from "react";
 import { useForm } from "react-hook-form";
 import styled from "./Editor.module.css";
 import { Separator } from "../../Commons/Separator";
-import { ContentMarkdown } from "../../ContentMarkdown";
+import { MarkdownContent } from "../../MarkdownContent";
 import { ToolBar } from "../ToolBar";
 import type { OnMount } from "@monaco-editor/react";
 import type { editor } from "monaco-editor";
@@ -235,7 +235,7 @@ export const Editor: FC<Props> = ({ id }) => {
             ref={refMarkdown}
             className="relative h-full overflow-y-auto px-4"
           >
-            <ContentMarkdown
+            <MarkdownContent
               onClick={(line, offset) => {
                 const editor = refEditor.current;
                 const node = refMarkdown.current;
@@ -248,7 +248,7 @@ export const Editor: FC<Props> = ({ id }) => {
               line={currentLine}
             >
               {children}
-            </ContentMarkdown>
+            </MarkdownContent>
           </div>
         </Separator>
       </div>

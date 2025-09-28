@@ -4,8 +4,8 @@ import { MdEditNote as EditIcon } from "react-icons/md";
 import { Link, useNavigate } from "react-router";
 import styled from "./Contents.module.css";
 import { Head } from "../Commons/Head";
-import { ContentMarkdown } from "../ContentMarkdown";
 import { ContentTable } from "../ContentTable";
+import { MarkdownContent } from "../MarkdownContent";
 import { Title } from "../System/Title";
 import { Image } from "~/components/Commons/Image";
 import { usePostQuery } from "~/generated/graphql";
@@ -119,9 +119,9 @@ export const Contents: FC<Props> = ({ id }) => {
                 ))}
               </div>
             )}
-            <ContentMarkdown className={styled.content}>
+            <MarkdownContent className={styled.content}>
               {children}
-            </ContentMarkdown>
+            </MarkdownContent>
           </div>
         </div>
       </div>

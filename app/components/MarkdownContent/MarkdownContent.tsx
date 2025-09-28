@@ -1,4 +1,4 @@
-import styled from "./ContentMarkdown.module.css";
+import styled from "./MarkdownContent.module.css";
 import type { FC, ReactNode } from "react";
 
 import { classNames } from "~/libs/client/classNames";
@@ -11,11 +11,11 @@ interface Props {
 }
 
 /**
- * ContentMarkdown
+ * MarkdownContent
  *
  * @param {Props} { }
  */
-export const ContentMarkdown: FC<Props> = ({
+export const MarkdownContent: FC<Props> = ({
   className,
   onClick,
   children,
