@@ -93,7 +93,6 @@
   }
   img,
   canvas {
-    margin: 0 auto;
     max-width: 80%;
     height: auto;
   }
