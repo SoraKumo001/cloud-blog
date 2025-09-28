@@ -1,4 +1,3 @@
-import styled from "./LinkTarget.module.css";
 import type { FC } from "react";
 
 interface Props {
@@ -11,5 +10,5 @@ interface Props {
  * @param {Props} { }
  */
 export const LinkTarget: FC<Props> = ({ id }) => {
-  return <div className={styled.root} id={id} />;
+  return <div className="absolute -m-16" id={id} />;
 };

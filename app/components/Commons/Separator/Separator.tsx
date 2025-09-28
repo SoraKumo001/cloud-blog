@@ -6,7 +6,6 @@ import {
   MdFilterCenterFocus as CenterIcon,
 } from "react-icons/md";
 
-import styled from "./Separator.module.css";
 import type { FC, ReactNode } from "react";
 import { classNames } from "~/libs/client/classNames";
 
@@ -45,12 +44,12 @@ export const Separator: FC<Props> = ({ className, children }) => {
     };
   }, [property]);
   return (
-    <div className={classNames(styled.root, className)}>
-      <div className={styled.client} style={{ flex: rato }}>
+    <div className={classNames("flex h-full w-full border", className)}>
+      <div className="h-full overflow-hidden" style={{ flex: rato }}>
         {children[0]}
       </div>
       <div
-        className={styled.separator}
+        className="flex h-full w-3 cursor-ew-resize flex-col items-center gap-y-2 overflow-hidden bg-slate-300 pt-4"
         ref={refSeparator}
         onMouseDown={(e) => {
           property.isDrag = true;
@@ -92,7 +91,7 @@ export const Separator: FC<Props> = ({ className, children }) => {
           <RightIcon className="w-6" />
         </Button>
       </div>
-      <div className={styled.client} style={{ flex: 1 - rato }}>
+      <div className="h-full overflow-hidden" style={{ flex: 1 - rato }}>
         {children[1]}
       </div>
     </div>

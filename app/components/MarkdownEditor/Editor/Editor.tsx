@@ -1,7 +1,6 @@
 import { Editor as MonacoEditor, useMonaco } from "@monaco-editor/react";
 import { useRef, useState, useTransition } from "react";
 import { useForm } from "react-hook-form";
-import styled from "./Editor.module.css";
 import { Separator } from "../../Commons/Separator";
 import { MarkdownContent } from "../../MarkdownContent";
 import { ToolBar } from "../ToolBar";
@@ -182,9 +181,9 @@ export const Editor: FC<Props> = ({ id }) => {
   });
   if (fetching || !post) return null;
   return (
-    <form className={styled.root} onSubmit={handleSubmit(onSubmit)}>
+    <form className="flex h-full flex-col" onSubmit={handleSubmit(onSubmit)}>
       <ToolBar post={post} control={control} onCard={setCard} />
-      <div className={styled.body}>
+      <div className="flex h-full flex-1 overflow-hidden">
         <Separator>
           <div
             className="h-full"

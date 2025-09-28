@@ -8,7 +8,6 @@ import {
   MdSave as SaveIcon,
 } from "react-icons/md";
 import { useNavigate } from "react-router";
-import styled from "./ToolBar.module.css";
 import type { FormInput } from "../Editor/Editor";
 import { MessageDialog } from "~/components/Commons/Dialog/MessageDialog";
 import { FieldSet } from "~/components/Commons/FieldSet";
@@ -60,8 +59,8 @@ export const ToolBar: FC<Props> = ({ post, control, onCard }) => {
     minute: "2-digit",
   } as const;
   return (
-    <div className={styled.root}>
-      <div className={styled.row}>
+    <div className="mb-1 shadow">
+      <div className="flex flex-wrap items-center gap-2 p-2">
         <Button
           type="button"
           onClick={() => setExpand((v) => !v)}
@@ -176,7 +175,12 @@ export const ToolBar: FC<Props> = ({ post, control, onCard }) => {
           削除しますか?
         </MessageDialog>
       </div>
-      <div className={classNames(styled.row, !isExpand && styled.invisible)}>
+      <div
+        className={classNames(
+          "flex flex-wrap gap-2 p-2 items-center",
+          !isExpand && "hidden"
+        )}
+      >
         <ImageDragField
           placeholder="Eye catch"
           onChange={(blob) => {

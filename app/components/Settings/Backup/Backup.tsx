@@ -1,5 +1,4 @@
 import { Checkbox } from "react-daisyui";
-import styled from "./Backup.module.css";
 import type { FC } from "react";
 import { FieldSet } from "~/components/Commons/FieldSet";
 import {
@@ -122,14 +121,14 @@ export const Backup: FC<Props> = () => {
       fetchingRestoreFile
   );
   return (
-    <div className={styled.root}>
+    <div className="h-full overflow-auto">
       <div className="m-auto max-w-2xl pt-8">
         <h1>バックアップ/リストア</h1>
-        <div className={styled.items}>
-          <a className={styled.link} onClick={handleBackup}>
+        <div className="grid cursor-pointer gap-4">
+          <a className="block rounded border p-4" onClick={handleBackup}>
             バックアップ
           </a>
-          <a className={styled.link} onClick={handleRestore}>
+          <a className="block rounded border p-4" onClick={handleRestore}>
             リストア
           </a>
         </div>

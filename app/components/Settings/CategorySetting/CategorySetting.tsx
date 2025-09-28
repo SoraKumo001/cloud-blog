@@ -1,7 +1,6 @@
 import { type FC, Fragment, useEffect } from "react";
 import { Button } from "react-daisyui";
 import { type SubmitHandler, useFieldArray, useForm } from "react-hook-form";
-import styled from "./CategorySetting.module.css";
 import { TextField } from "~/components/Commons/TextField";
 import {
   useCategoriesQuery,
@@ -86,7 +85,7 @@ export const CategorySetting: FC<Props> = ({}) => {
   if (!data) return null;
 
   return (
-    <div className={styled.root}>
+    <div className="h-full overflow-y-auto">
       <div className="m-auto max-w-2xl pt-8">
         <div className="grid gap-4">
           <h1>カテゴリ</h1>

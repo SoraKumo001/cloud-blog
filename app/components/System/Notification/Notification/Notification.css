@@ -1,0 +1,18 @@
+@keyframes slideIn {
+  0% {
+    transform: translateY(64px);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  30% {
+    transform: translateY(0);
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}

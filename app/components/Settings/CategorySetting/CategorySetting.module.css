@@ -1,7 +1,0 @@
-@reference "tailwindcss";
-.root {
-  @apply h-full overflow-y-auto;
-}
-.root h1 {
-  @apply mb-4 border-b text-xl;
-}
