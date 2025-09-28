@@ -1,3 +1,4 @@
+@reference "tailwindcss";
 .root {
   @apply flex h-full flex-col;
   .body {
@@ -5,5 +6,8 @@
   }
   .body > * {
     @apply flex-1;
+  }
+  :global(.active-line-number) {
+    @apply bg-blue-200;
   }
 }

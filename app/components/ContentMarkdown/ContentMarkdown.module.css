@@ -1,95 +1,108 @@
 @reference "tailwindcss";
-.root {
+.markdown {
+  @apply px-2;
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-bold border-b-1 mb-2;
+  }
+  [data-depth="2"] {
+    @apply ml-4;
+  }
+  [data-depth="3"] {
+    @apply ml-8;
+  }
+  [data-depth="4"] {
+    @apply ml-4;
+  }
+  [data-depth="5"] {
+    @apply ml-8;
+  }
+  [data-depth="6"] {
+    @apply ml-8;
+  }
+  h1 {
+    @apply text-4xl;
+  }
   h2 {
-    margin-left: 0px;
+    @apply text-3xl ml-4;
   }
   h3 {
-    margin-left: 12px;
+    @apply text-2xl ml-8;
   }
   h4 {
-    margin-left: 24px;
+    @apply text-xl ml-12;
   }
   h5 {
-    margin-left: 36px;
+    @apply text-lg ml-16;
   }
   h6 {
-    margin-left: 48px;
+    @apply text-base ml-20;
   }
-  h7 {
-    margin-left: 60px;
+  p {
+    @apply leading-relaxed p-0.5;
   }
-  h1 ~ ul,
-  h1 ~ p,
-  h1 ~ table,
-  h1 ~ pre,
-  h1 ~ div {
-    margin-left: 0px;
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  p,
+  li,
+  tr,
+  :global(.token-line) {
+    @apply relative;
   }
-  h2 ~ ul,
-  h2 ~ p,
-  h2 ~ table,
-  h2 ~ pre,
-  h2 ~ div {
-    margin-left: 12px;
+  em {
+    @apply italic;
   }
-  h3 ~ ul,
-  h3 ~ p,
-  h3 ~ table,
-  h3 ~ pre,
-  h3 ~ div {
-    margin-left: 24px;
+  b {
+    @apply font-bold;
   }
-  h4 ~ ul,
-  h4 ~ p,
-  h4 ~ table,
-  h4 ~ pre,
-  h4 ~ div {
-    margin-left: 36px;
+  strong {
+    @apply font-bold;
   }
-  h5 ~ ul,
-  h5 ~ p,
-  h5 ~ table,
-  h5 ~ pre,
-  h5 ~ div {
-    margin-left: 48px;
+  [data-inline-code] {
+    @apply inline-block bg-black/5 px-1 rounded;
   }
-  h6 ~ ul,
-  h6 ~ p,
-  h6 ~ table,
-  h6 ~ pre,
-  h6 ~ div {
-    margin-left: 60px;
+  a {
+    @apply underline text-blue-700;
   }
-  h7 ~ ul,
-  h7 ~ p,
-  h7 ~ table,
-  h7 ~ pre,
-  h7 ~ div {
-    margin-left: 72px;
+  :global(.inner-link) {
+    @apply no-underline text-base;
   }
-  h1.title {
-    text-align: center;
-    border-bottom: #dddddd 1px solid;
-    padding-bottom: 16px;
-    margin-bottom: 32px;
+  table {
+    @apply rounded border;
   }
-  h2:nth-of-type(n + 2) {
-    @apply mt-8;
+  td,
+  th {
+    @apply px-2;
   }
-  h2 {
-    @apply border-b-2 pb-1 text-2xl;
+  th {
+    @apply border-b;
   }
-  h3 {
-    @apply text-xl;
+  td {
+    @apply border border-black/20;
   }
-  h4 {
-    @apply text-base;
+  li {
+    @apply ml-[1em] list-disc py-0.5;
   }
   img,
   canvas {
-    margin: 4px 0;
+    margin: 0 auto;
     max-width: 80%;
     height: auto;
+  }
+  [data-line] {
+    @apply relative;
+  }
+  [data-line]::after {
+    @apply absolute -inset-0.5 w-full rounded pointer-events-none z-10 bg-blue-300/10 invisible border-b-blue-300 border-b-2 border-dotted;
+    content: "";
   }
   iframe {
     width: 100%;
@@ -104,21 +117,5 @@
     border-radius: 2px;
     padding: 0 4px;
     margin: 0 1px;
-  }
-  p {
-    @apply min-h-[1em];
-  }
-  em {
-    @apply italic;
-  }
-  li {
-    @apply ml-[1em] list-disc;
-  }
-  a {
-    @apply text-blue-700 underline;
-  }
-  td,
-  th {
-    @apply border px-2;
   }
 }

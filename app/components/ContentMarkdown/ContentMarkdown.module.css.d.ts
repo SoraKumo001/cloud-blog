@@ -1,7 +1,6 @@
 declare const styles: {
+  readonly "markdown": string;
   readonly "plain": string;
-  readonly "root": string;
-  readonly "title": string;
 };
 export = styles;
 

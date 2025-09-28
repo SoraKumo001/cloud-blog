@@ -92,12 +92,13 @@ export const Image = ({
   alt,
   className,
   isOptimize,
+  ...props
 }: Props) => {
   const env = useEnv();
   const optimizer = isOptimize ? env.NEXT_PUBLIC_IMAGE_URL : undefined;
   const url = new URL(optimizer ?? src);
   if (optimizer) {
-    url.searchParams.set("url", encodeURI(src));
+    url.searchParams.set("url", src);
     if (width) url.searchParams.set("w", String(Math.min(width, 800)));
     url.searchParams.set("q", "90");
   }
@@ -108,6 +109,7 @@ export const Image = ({
   });
   return (
     <img
+      {...props}
       className={classNames(className, "text-white/75")}
       src={url.toString()}
       style={

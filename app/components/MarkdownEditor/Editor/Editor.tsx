@@ -1,7 +1,6 @@
 import { Editor as MonacoEditor, useMonaco } from "@monaco-editor/react";
-import { useEffect, useRef, useState, useTransition } from "react";
+import { useRef, useState, useTransition } from "react";
 import { useForm } from "react-hook-form";
-import { MdModeStandby as ModeStandbyIcon } from "react-icons/md";
 import styled from "./Editor.module.css";
 import { Separator } from "../../Commons/Separator";
 import { ContentMarkdown } from "../../ContentMarkdown";
@@ -17,9 +16,9 @@ import {
   useUploadPostImageMutation,
 } from "~/generated/graphql";
 import { useLoading } from "~/hooks/useLoading";
-import { useMarkdown } from "~/hooks/useMarkdown";
 import { useNotification } from "~/hooks/useNotification";
 import { getImageSize, useConvertImage } from "~/libs/client/convertImage";
+import { useMarkdown } from "~/libs/client/markdownConverter";
 
 export type FormInput = {
   categories: string[];
@@ -39,7 +38,6 @@ interface Props {
  * @param {Props} { }
  */
 export const Editor: FC<Props> = ({ id }) => {
-  const [currentTop, setCurrentTop] = useState(0);
   const [{ fetching: uploadFeting }, uploadFile] = useUploadPostImageMutation();
   const [{ fetching: uploadCardFeting }, uploadPostIcon] =
     useUploadPostIconMutation();
@@ -50,29 +48,32 @@ export const Editor: FC<Props> = ({ id }) => {
   const [card, setCard] = useState<Blob | null | undefined>();
   const { control, handleSubmit } = useForm<FormInput>();
   const [isConverting, convertImage] = useConvertImage();
+  const [, startTransition] = useTransition();
 
   const handleEditorDidMount: OnMount = (editor) => {
     refEditor.current = editor;
     editor.onDidChangeCursorPosition((event) => {
       const currentLine = event.position.lineNumber;
-      setCurrentLine(currentLine);
-      const top = editor.getScrollTop();
-      const linePos = editor.getTopForLineNumber(currentLine);
-      const node = refMarkdown.current;
-      if (currentLine && node) {
-        const nodes = node.querySelectorAll<HTMLElement>("[data-sourcepos]");
-        const target = Array.from(nodes).find((node) => {
-          const nodeLine = node.dataset.sourcepos?.match(/(\d+)/)?.[1];
-          if (!nodeLine) return false;
-          return currentLine === Number(nodeLine);
-        });
-        if (target) {
-          const { top: targetTop } = target.getBoundingClientRect();
-          const { top: nodeTop } = node.getBoundingClientRect();
-          node.scrollTop =
-            targetTop - nodeTop + node.scrollTop - (linePos - top);
+      startTransition(() => {
+        setCurrentLine(currentLine);
+        const top = editor.getScrollTop();
+        const linePos = editor.getTopForLineNumber(currentLine);
+        const node = refMarkdown.current;
+        if (node && event.source !== "api") {
+          const nodes = node.querySelectorAll<HTMLElement>("[data-line]");
+          const target = Array.from(nodes).find((node) => {
+            const nodeLine = node.dataset.line?.match(/(\d+)/)?.[1];
+            if (!currentLine) return false;
+            return currentLine === Number(nodeLine);
+          });
+          if (target) {
+            const { top: targetTop } = target.getBoundingClientRect();
+            const { top: nodeTop } = node.getBoundingClientRect();
+            node.scrollTop =
+              targetTop - nodeTop + node.scrollTop - (linePos - top);
+          }
         }
-      }
+      });
     });
   };
   const handleUpload = (file: File) => {
@@ -140,25 +141,6 @@ export const Editor: FC<Props> = ({ id }) => {
     event.preventDefault();
   };
   const sendNotification = useNotification();
-  useEffect(() => {
-    setTimeout(() => {
-      const node = refMarkdown.current;
-      if (currentLine && node) {
-        const nodes = node.querySelectorAll<HTMLElement>("[data-sourcepos]");
-        const target = Array.from(nodes).find((node) => {
-          const v = node.dataset.sourcepos?.match(/(\d+)/);
-          const nodeLine = v?.[1];
-          if (!nodeLine) return false;
-          return currentLine === Number(nodeLine);
-        });
-        if (target) {
-          const targetRect = target.getBoundingClientRect();
-          const nodeRect = node.getBoundingClientRect();
-          setCurrentTop(targetRect.top - nodeRect.top + node.scrollTop);
-        }
-      }
-    }, 1);
-  }, [currentLine]);
 
   const onSubmit: SubmitHandler<FormInput> = ({
     title,
@@ -195,7 +177,9 @@ export const Editor: FC<Props> = ({ id }) => {
     uploadFeting,
     isConverting,
   ]);
-  const [children] = useMarkdown(content ?? data?.findUniquePost.content, true);
+  const [children] = useMarkdown({
+    markdown: content ?? data?.findUniquePost.content,
+  });
   if (fetching || !post) return null;
   return (
     <form className={styled.root} onSubmit={handleSubmit(onSubmit)}>
@@ -238,11 +222,12 @@ export const Editor: FC<Props> = ({ id }) => {
                 dragAndDrop: true,
                 dropIntoEditor: { enabled: true },
                 contextmenu: false,
-                occurrencesHighlight: false as never,
+                occurrencesHighlight: "off",
                 renderLineHighlight: "none",
                 quickSuggestions: false,
                 wordBasedSuggestions: "off",
                 language: "markdown",
+                selectOnLineNumbers: true,
               }}
             />
           </div>
@@ -250,12 +235,6 @@ export const Editor: FC<Props> = ({ id }) => {
             ref={refMarkdown}
             className="relative h-full overflow-y-auto px-4"
           >
-            {currentLine && (
-              <ModeStandbyIcon
-                className="absolute text-red-400"
-                style={{ top: `${currentTop}px` }}
-              />
-            )}
             <ContentMarkdown
               onClick={(line, offset) => {
                 const editor = refEditor.current;
@@ -266,6 +245,7 @@ export const Editor: FC<Props> = ({ id }) => {
                   editor.setPosition({ lineNumber: line, column: 1 });
                 }
               }}
+              line={currentLine}
             >
               {children}
             </ContentMarkdown>

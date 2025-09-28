@@ -7,6 +7,7 @@ interface Props {
   className?: string;
   onClick?: (line: number, offset: number) => void;
   children?: ReactNode;
+  line?: number;
 }
 
 /**
@@ -18,20 +19,28 @@ export const ContentMarkdown: FC<Props> = ({
   className,
   onClick,
   children,
+  line,
 }) => {
   return (
     <div
-      className={classNames(styled.root, className)}
+      className={classNames(styled.markdown, className)}
       onClick={(e) => {
+        const framePos = e.currentTarget.getBoundingClientRect();
         let node = e.target as HTMLElement | null;
-        while (node && !node.dataset.sourcepos) {
+        while (node && !node.dataset.line) {
           node = node.parentElement;
         }
         if (node) {
-          onClick?.(Number(node.dataset.sourcepos), node.offsetTop);
+          const p = node.getBoundingClientRect();
+          onClick?.(Number(node.dataset.line), p.top - framePos.top);
         }
       }}
     >
+      {line && (
+        <style>{`[data-line="${line}"]:not(:has([data-line="${line}"]))::after {
+          visibility: visible;
+    }`}</style>
+      )}
       {children}
     </div>
   );

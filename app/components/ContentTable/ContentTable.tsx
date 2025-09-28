@@ -1,18 +1,17 @@
 import { useMemo } from "react";
 import { Link } from "react-router";
-
+import { visit } from "unist-util-visit";
 import styled from "./ContentTable.module.css";
-import type { Heading } from "mdast";
+import type { Root } from "mdast";
 import type { FC } from "react";
-import type { VNode } from "~/libs/client/MarkdownCompiler";
 import { classNames } from "~/libs/client/classNames";
 
 export type MarkdownTitles = { text: string; depth: number }[];
 
 interface Props {
   className?: string;
-  title: string;
-  vnode?: VNode;
+  tree: Root;
+  title?: string;
 }
 
 /**
@@ -20,14 +19,19 @@ interface Props {
  *
  * @param {Props} { }
  */
-export const ContentTable: FC<Props> = ({ className, title, vnode }) => {
-  const titles = useMemo(() => {
-    return vnode?.children?.flatMap((node) =>
-      node.type !== "heading"
-        ? []
-        : ([[(node as Heading).depth, convertText(node as VNode)]] as const)
-    );
-  }, [vnode]);
+export const ContentTable: FC<Props> = ({ className, tree, title }) => {
+  const headers = useMemo(() => {
+    const titles: { id: number; text?: string; depth: number }[] = [];
+    const property = { count: 0 };
+    visit(tree, "heading", (node) => {
+      titles.push({
+        id: property.count,
+        text: node.data?.hProperties?.id as string | undefined,
+        depth: node.depth,
+      });
+    });
+    return titles;
+  }, [tree]);
   return (
     <nav className={classNames(styled.root, className)}>
       <div className="border-b text-center font-bold">Index</div>
@@ -36,22 +40,13 @@ export const ContentTable: FC<Props> = ({ className, title, vnode }) => {
           {title}
         </Link>
         <ul className="mt-2 flex flex-col gap-1">
-          {titles?.map((node, index) => (
-            <li
-              key={index}
-              className="list-disc break-all"
-              style={{ marginLeft: `${(node[0] + 1) * 12}px` }}
-            >
-              <Link to={`#header-${index}`}>{node[1]}</Link>
+          {headers.map(({ id, text, depth }) => (
+            <li key={id} style={{ marginLeft: `${depth * 16}px` }}>
+              <Link to={`#${text}`}>{text}</Link>
             </li>
           ))}
         </ul>
       </div>
     </nav>
   );
-};
-
-const convertText = (node: VNode): string => {
-  if (node.type === "text") return node.value;
-  return node.children?.map((n) => convertText(n as VNode)).join("") ?? "";
 };
