@@ -246,6 +246,7 @@ export const Editor: FC<Props> = ({ id }) => {
                 }
               }}
               line={currentLine}
+              edit
             >
               {children}
             </MarkdownContent>

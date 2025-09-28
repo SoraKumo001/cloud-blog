@@ -3,6 +3,7 @@ import { useMemo, type ComponentProps } from "react";
 import prod from "react/jsx-runtime";
 import { Link } from "react-router";
 import { classNames } from "../../classNames";
+import { useMarkdownContext } from "../markdownContext";
 import type { Options as RehypeReactOptions } from "rehype-react";
 import { Image } from "~/components/Commons/Image";
 import { useFirebaseUrl } from "~/hooks/useFirebaseUrl";
@@ -13,14 +14,14 @@ const FirebaseImage = ({
   edit,
   ...props
 }: {
-  src: string;
+  src?: string;
   alt?: string;
   edit?: boolean;
 } & React.HTMLAttributes<HTMLElement> &
   React.Attributes) => {
   const getFirebaseUrl = useFirebaseUrl();
-  const isOptimize = !src.match(/https?:/);
-  const url = isOptimize ? getFirebaseUrl(src) : src;
+  const isOptimize = !src?.match(/https?:/);
+  const url = isOptimize && src ? getFirebaseUrl(src) : src;
   try {
     const styleString = alt?.match(/^{.*}$/);
     const style = styleString ? JSON.parse(alt ?? "") : {};
@@ -35,7 +36,7 @@ const FirebaseImage = ({
     ) : (
       <Image
         {...props}
-        src={url}
+        src={url ?? ""}
         width={style.width && parseInt(style.width)}
         height={style.height && parseInt(style.height)}
         alt={alt}
@@ -112,6 +113,12 @@ const Code = ({
   }, [dataInlineCode, children, dataLanguage, dataLine]);
   return component;
 };
+
+const Img = (props: ComponentProps<"img">) => {
+  const { edit } = useMarkdownContext();
+  return <FirebaseImage {...props} edit={edit} />;
+};
+
 export const rehypeReactOptions: RehypeReactOptions = {
   ...prod,
   components: {
@@ -122,7 +129,6 @@ export const rehypeReactOptions: RehypeReactOptions = {
           <iframe
             loading="lazy"
             allowFullScreen={true}
-            // allowTransparency={true}
             src={href.replace("/pen/", "/embed/")}
           />
         );
@@ -135,13 +141,6 @@ export const rehypeReactOptions: RehypeReactOptions = {
         />
       );
     },
-    img(props) {
-      return (
-        <FirebaseImage
-          {...props}
-          // edit={edit}
-        />
-      );
-    },
+    img: Img,
   },
 };

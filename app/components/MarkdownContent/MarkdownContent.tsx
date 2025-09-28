@@ -1,13 +1,15 @@
+import { createContext, useMemo, type FC, type ReactNode } from "react";
 import styled from "./MarkdownContent.module.css";
-import type { FC, ReactNode } from "react";
 
 import { classNames } from "~/libs/client/classNames";
+import { MarkdownProvider } from "~/libs/client/markdownConverter";
 
 interface Props {
   className?: string;
   onClick?: (line: number, offset: number) => void;
   children?: ReactNode;
   line?: number;
+  edit?: boolean;
 }
 
 /**
@@ -20,28 +22,31 @@ export const MarkdownContent: FC<Props> = ({
   onClick,
   children,
   line,
+  edit,
 }) => {
   return (
-    <div
-      className={classNames(styled.markdown, className)}
-      onClick={(e) => {
-        const framePos = e.currentTarget.getBoundingClientRect();
-        let node = e.target as HTMLElement | null;
-        while (node && !node.dataset.line) {
-          node = node.parentElement;
-        }
-        if (node) {
-          const p = node.getBoundingClientRect();
-          onClick?.(Number(node.dataset.line), p.top - framePos.top);
-        }
-      }}
-    >
-      {line && (
-        <style>{`[data-line="${line}"]:not(:has([data-line="${line}"]))::after {
+    <MarkdownProvider edit={edit}>
+      <div
+        className={classNames(styled.markdown, className)}
+        onClick={(e) => {
+          const framePos = e.currentTarget.getBoundingClientRect();
+          let node = e.target as HTMLElement | null;
+          while (node && !node.dataset.line) {
+            node = node.parentElement;
+          }
+          if (node) {
+            const p = node.getBoundingClientRect();
+            onClick?.(Number(node.dataset.line), p.top - framePos.top);
+          }
+        }}
+      >
+        {line && (
+          <style>{`[data-line="${line}"]:not(:has([data-line="${line}"]))::after {
           visibility: visible;
     }`}</style>
-      )}
-      {children}
-    </div>
+        )}
+        {children}
+      </div>
+    </MarkdownProvider>
   );
 };
