@@ -54,7 +54,7 @@
   p,
   li,
   tr,
-  :global(.token-line) {
+  .token-line {
     @apply relative;
   }
   em {

@@ -39,8 +39,8 @@ importers:
         specifier: ^6.16.2
         version: 6.16.2(prisma@6.16.2(typescript@5.9.2))(typescript@5.9.2)
       '@react-libraries/next-exchange-ssr':
-        specifier: ^1.0.9
-        version: 1.0.9
+        specifier: ^1.0.10
+        version: 1.0.10
       '@react-router/dev':
         specifier: ^7.9.3
         version: 7.9.3(@types/node@24.3.0)(@vitejs/plugin-rsc@0.4.11(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(rolldown-vite@7.1.5(@types/node@24.3.0)(esbuild@0.24.2)(jiti@2.5.1)(tsx@4.20.6)(yaml@2.8.1)))(jiti@2.5.1)(lightningcss@1.30.1)(react-router@7.9.3(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(rolldown-vite@7.1.5(@types/node@24.3.0)(esbuild@0.24.2)(jiti@2.5.1)(tsx@4.20.6)(yaml@2.8.1))(tsx@4.20.6)(typescript@5.9.2)(wrangler@4.40.2(@cloudflare/workers-types@4.20250927.0))(yaml@2.8.1)
@@ -119,6 +119,9 @@ importers:
       remark-breaks:
         specifier: 4.0.0
         version: 4.0.0
+      remark-gfm:
+        specifier: 4.0.1
+        version: 4.0.1
       remark-parse:
         specifier: 11.0.0
         version: 11.0.0
@@ -237,9 +240,6 @@ importers:
       prisma:
         specifier: ^6.16.2
         version: 6.16.2(typescript@5.9.2)
-      remark-gfm:
-        specifier: ^4.0.1
-        version: 4.0.1
       rimraf:
         specifier: 6.0.1
         version: 6.0.1
@@ -2002,8 +2002,8 @@ packages:
   '@prisma/get-platform@6.16.2':
     resolution: {integrity: sha512-U/P36Uke5wS7r1+omtAgJpEB94tlT4SdlgaeTc6HVTTT93pXj7zZ+B/cZnmnvjcNPfWddgoDx8RLjmQwqGDYyA==}
 
-  '@react-libraries/next-exchange-ssr@1.0.9':
-    resolution: {integrity: sha512-p9Vi6mBdr49WAodFeOcL99e0VfF2xRY+8ViWcNrIzxPD6bIjZv9hf1tdexUvZxzNFay3bIdB6dK7FAUs0cM4MQ==}
+  '@react-libraries/next-exchange-ssr@1.0.10':
+    resolution: {integrity: sha512-kQJeds1BEmVhALQvyTz/zPzLLKACT7fZaYzf533nQn3L1KZGpKAII8ge9JVrYKnONnx/vpKvuYoOFQFJmWbReg==}
 
   '@react-router/dev@7.9.3':
     resolution: {integrity: sha512-oPaO+OpvCo/rNTJrRipHSp31/K4It19PE5A24x21FlYlemPTe3fbGX/kyC2+8au/abXbvzNHfRbuIBD/rfojmA==}
@@ -7576,7 +7576,9 @@ snapshots:
     dependencies:
       '@prisma/debug': 6.16.2
 
-  '@react-libraries/next-exchange-ssr@1.0.9': {}
+  '@react-libraries/next-exchange-ssr@1.0.10':
+    dependencies:
+      wonka: 6.3.5
 
   '@react-router/dev@7.9.3(@types/node@24.3.0)(@vitejs/plugin-rsc@0.4.11(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(rolldown-vite@7.1.5(@types/node@24.3.0)(esbuild@0.24.2)(jiti@2.5.1)(tsx@4.20.6)(yaml@2.8.1)))(jiti@2.5.1)(lightningcss@1.30.1)(react-router@7.9.3(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(rolldown-vite@7.1.5(@types/node@24.3.0)(esbuild@0.24.2)(jiti@2.5.1)(tsx@4.20.6)(yaml@2.8.1))(tsx@4.20.6)(typescript@5.9.2)(wrangler@4.40.2(@cloudflare/workers-types@4.20250927.0))(yaml@2.8.1)':
     dependencies:
