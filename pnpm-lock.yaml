@@ -62,6 +62,9 @@ importers:
       cookie:
         specifier: ^1.0.2
         version: 1.0.2
+      fast-blurhash:
+        specifier: 1.1.4
+        version: 1.1.4
       firebase-storage:
         specifier: ^1.1.4
         version: 1.1.4
@@ -3393,6 +3396,9 @@ packages:
 
   extend@3.0.2:
     resolution: {integrity: sha512-fjquC59cD7CyW6urNXK0FBufkZcoiGG80wTuPujX590cB5Ttln20E2UB4S/WARVqhXffZl2LNgS+gQdPIIim/g==}
+
+  fast-blurhash@1.1.4:
+    resolution: {integrity: sha512-xeH121M027hgWHHhHWYYjUmMKl8vCH3PPkXk439ixsP8Bvb/r3UFqg12oMSToD/aSAw8EE6XiTdfZ6M5jaLfzg==}
 
   fast-check@3.23.2:
     resolution: {integrity: sha512-h5+1OzzfCC3Ef7VbtKdcv7zsstUQwUDlYpUTvjeUsJAssPgLn7QzbboPtL5ro04Mq0rPOsMzl7q5hIbRs2wD1A==}
@@ -9149,6 +9155,8 @@ snapshots:
   exsolve@1.0.7: {}
 
   extend@3.0.2: {}
+
+  fast-blurhash@1.1.4: {}
 
   fast-check@3.23.2:
     dependencies:

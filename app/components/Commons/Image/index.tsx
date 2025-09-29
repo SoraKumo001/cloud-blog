@@ -1,4 +1,4 @@
-import { decode } from "blurhash";
+import { decodeBlurHash } from "fast-blurhash";
 import { useMemo } from "react";
 import { useEnv } from "~/components/Provider/EnvProvider";
 import { fileNameToBase83 } from "~/libs/client/blurhash";
@@ -19,7 +19,7 @@ export function blurHashToDataURL(
 ): string | undefined {
   if (!hash) return undefined;
 
-  const pixels = decode(hash, width, height);
+  const pixels = decodeBlurHash(hash, width, height);
   return parsePixels(pixels, width, height);
 }
 
