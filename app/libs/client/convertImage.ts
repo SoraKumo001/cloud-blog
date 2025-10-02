@@ -1,7 +1,7 @@
-import { encode as encodeHash } from "blurhash";
 import { useCallback, useState } from "react";
+import { rgbaToThumbHash } from "thumbhash";
 import { optimizeImage } from "wasm-image-optimization/web-worker";
-import { base83toFileName } from "./blurhash";
+import { hashToFileName } from "./thumbhash";
 import { arrayBufferToBase64 } from "~/libs/server/buffer";
 
 const type = "avif";
@@ -25,19 +25,19 @@ const getBlurHash = (ctx: CanvasRenderingContext2D) => {
   const height = ctx.canvas.height;
   let outWidth = width;
   let outHeight = height;
-  if (width > 128 || height > 128) {
+  if (width > 100 || height > 100) {
     const aspect = width / height;
     if (aspect > 1) {
-      outWidth = 128;
-      outHeight = Math.floor(128 / aspect);
+      outWidth = 100;
+      outHeight = Math.floor(100 / aspect);
     } else {
-      outHeight = 128;
-      outWidth = Math.floor(128 * aspect);
+      outHeight = 100;
+      outWidth = Math.floor(100 * aspect);
     }
     ctx.drawImage(ctx.canvas, 0, 0, width, height, 0, 0, outWidth, outHeight);
   }
   const data = ctx.getImageData(0, 0, outWidth, outHeight);
-  return encodeHash(data.data, outWidth, outHeight, 4, 4);
+  return rgbaToThumbHash(outWidth, outHeight, data.data);
 };
 
 export const convertImage = async (
@@ -87,7 +87,7 @@ export const convertImage = async (
   if (!value) return null;
 
   const hash = getBlurHash(ctx);
-  const filename = base83toFileName(hash);
+  const filename = hashToFileName(hash);
   return new File([value], filename, {
     type: blob.type === "image/gif" ? "image/gif" : `image/${type}`,
   });

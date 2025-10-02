@@ -59,12 +59,5 @@ export default defineConfig(() => ({
       externalConditions: ["worker"],
     },
   },
-  environments: {
-    ssr: {
-      resolve: {
-        conditions: ["worker"],
-      },
-    },
-  },
   experimental: { enableNativePlugin: true },
 }));

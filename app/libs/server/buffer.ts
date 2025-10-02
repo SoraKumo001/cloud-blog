@@ -1,4 +1,6 @@
-export const arrayBufferToBase64 = (buffer: ArrayBuffer): string => {
+export const arrayBufferToBase64 = (
+  buffer: ArrayBuffer | Uint8Array<ArrayBufferLike>
+): string => {
   let binary = "";
   const bytes = new Uint8Array(buffer);
   const length = bytes.byteLength;
