@@ -1,25 +1,11 @@
-// import { cloudflare } from "@cloudflare/vite-plugin";
-import serverAdapter, { defaultOptions } from "@hono/vite-dev-server";
+import { cloudflare } from "@cloudflare/vite-plugin";
 import { reactRouter } from "@react-router/dev/vite";
 import tailwindcss from "@tailwindcss/vite";
 import { defineConfig } from "vite";
 import tsconfigPaths from "vite-tsconfig-paths";
 import wasmImageOptimizationPlugin from "wasm-image-optimization/vite-plugin";
-import { getPlatformProxy } from "wrangler";
-import type { cloudflareAdapter } from "@hono/vite-dev-server/cloudflare";
 
-const entry = "./workers/app.ts";
-
-const adapter: typeof cloudflareAdapter = async (options) => {
-  const proxy = await getPlatformProxy(options?.proxy);
-  return {
-    env: proxy.env,
-    executionContext: proxy.ctx,
-    onServerClose: () => proxy.dispose(),
-  };
-};
-
-export default defineConfig(() => ({
+export default defineConfig(({ mode }) => ({
   resolve: {
     alias: [
       {
@@ -29,35 +15,13 @@ export default defineConfig(() => ({
     ],
   },
   plugins: [
-    serverAdapter({
-      adapter,
-      entry,
-      exclude: [
-        ...defaultOptions.exclude,
-        "/app/**",
-        /\.(css|webp|png|svg)(\?.*)?$/,
-      ],
-      // HMR adjustment
-      handleHotUpdate: ({ server, modules }) => {
-        const isServer = modules.some((mod) => {
-          return mod._ssrModule?.id && !mod._clientModule;
-        });
-        if (isServer) {
-          server.hot.send({ type: "full-reload" });
-          return [];
-        }
-      },
-    }),
-    // cloudflare({ viteEnvironment: { name: "ssr" } }),
+    mode === "production"
+      ? undefined
+      : cloudflare({ viteEnvironment: { name: "ssr" } }),
     tailwindcss(),
     reactRouter(),
     tsconfigPaths(),
     wasmImageOptimizationPlugin("./build/client/assets/"),
   ],
-  ssr: {
-    resolve: {
-      externalConditions: ["worker"],
-    },
-  },
   experimental: { enableNativePlugin: true },
 }));
