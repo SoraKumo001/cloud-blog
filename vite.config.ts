@@ -21,7 +21,7 @@ export default defineConfig(({ mode }) => ({
     tailwindcss(),
     reactRouter(),
     tsconfigPaths(),
-    wasmImageOptimizationPlugin("./build/client/assets/"),
+    wasmImageOptimizationPlugin(),
   ],
   experimental: { enableNativePlugin: true },
 }));
