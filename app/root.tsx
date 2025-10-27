@@ -25,59 +25,48 @@ export function Layout({ children }: { children: React.ReactNode }) {
   const value = useRootContext();
   const { host, session, cookie, env, next } = value;
   const { pathname } = useLocation();
-  try {
-    return (
-      <html lang="ja">
-        <EnvProvider value={env}>
-          <StoreProvider initState={() => ({ host, user: session })}>
-            <UrqlProvider host={host} cookie={cookie} next={next}>
-              <HeadProvider>
-                <head>
-                  <style type="text/css">{css}</style>
-                  <Meta />
-                  <Links />
-                  <GoogleAnalytics />
-                  <RootValue value={{ session, env }} />
-                  <NextSSRWait>
-                    <HeadRoot />
-                  </NextSSRWait>
-                  <CloudflareFonts href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100..900&display=swap" />
-                </head>
-                <body>
-                  <div className={"flex h-screen flex-col"}>
-                    <Header />
-                    <main
-                      className={`
-                        relative flex-1 overflow-hidden opacity-100
-                        transition-opacity duration-200 ease-in-out
-                        starting:opacity-50
-                      `}
-                      key={pathname}
-                    >
-                      {children}
-                    </main>
-                    <LoadingContainer />
-                    <NotificationContainer />
-                  </div>
-                  <ScrollRestoration />
-                  <Scripts />
-                </body>
-              </HeadProvider>
-            </UrqlProvider>
-          </StoreProvider>
-        </EnvProvider>
-      </html>
-    );
-  } catch (e) {
-    if (
-      import.meta.env.MODE === "development" &&
-      String(e).startsWith("TypeError: Cannot read properties of null")
-    ) {
-      location.href = ".";
-      return null;
-    }
-    throw e;
-  }
+  return (
+    <html lang="ja">
+      <EnvProvider value={env}>
+        <StoreProvider initState={() => ({ host, user: session })}>
+          <UrqlProvider host={host} cookie={cookie} next={next}>
+            <HeadProvider>
+              <head>
+                <style type="text/css">{css}</style>
+                <Meta />
+                <Links />
+                <GoogleAnalytics />
+                <RootValue value={{ session, env }} />
+                <NextSSRWait>
+                  <HeadRoot />
+                </NextSSRWait>
+                <CloudflareFonts href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100..900&display=swap" />
+              </head>
+              <body>
+                <div className={"flex h-screen flex-col"}>
+                  <Header />
+                  <main
+                    className={`
+                      relative flex-1 overflow-hidden opacity-100
+                      transition-opacity duration-200 ease-in-out
+                      starting:opacity-50
+                    `}
+                    key={pathname}
+                  >
+                    {children}
+                  </main>
+                  <LoadingContainer />
+                  <NotificationContainer />
+                </div>
+                <ScrollRestoration />
+                <Scripts />
+              </body>
+            </HeadProvider>
+          </UrqlProvider>
+        </StoreProvider>
+      </EnvProvider>
+    </html>
+  );
 }
 export default function App() {
   return <Outlet />;
