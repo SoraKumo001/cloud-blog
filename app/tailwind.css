@@ -4,7 +4,7 @@
 }
 @source "../node_modules/react-daisyui/dist";
 
-@layer utilities {
+@layer components {
   input,
   textarea,
   select,
