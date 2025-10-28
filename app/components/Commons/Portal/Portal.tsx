@@ -18,10 +18,10 @@ interface Props {
  * @param {Props} { }
  */
 export const Portal: FC<Props> = ({ children, effect }) => {
-  const [target, setTarget] = useState<HTMLElement | null>(null);
-  useEffect(() => {
-    setTarget(document.body);
-  }, []);
+  const [target] = useState<HTMLElement | null>(() =>
+    typeof document !== "undefined" ? document.body : null
+  );
+
   return (
     target &&
     createPortal(

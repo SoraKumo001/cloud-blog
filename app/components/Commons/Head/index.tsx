@@ -6,9 +6,7 @@ import {
   useRef,
   useSyncExternalStore,
 } from "react";
-import type {
-  FC,
-  ReactNode} from "react";
+import type { FC, ReactNode } from "react";
 
 const DATA_NAME = "__HEAD_VALUE__";
 

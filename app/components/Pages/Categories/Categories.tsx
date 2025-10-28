@@ -32,7 +32,7 @@ export const Categories: FC<Props> = ({ id }) => {
         (a, b) =>
           new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime()
       );
-  }, [id, data?.findManyPost]);
+  }, [id, data]);
   useLoading([fetching, fetchingCategory]);
   if (!posts) return null;
   return (

@@ -50,6 +50,7 @@ export default [
     rules: {
       ...eslintPluginBetterTailwindcss.configs["recommended-warn"].rules,
       ...eslintPluginBetterTailwindcss.configs["recommended-error"].rules,
+      "react-hooks/refs": 0,
       "better-tailwindcss/enforce-consistent-line-wrapping": 0,
       "@typescript-eslint/ban-ts-comment": 0,
       "better-tailwindcss/multiline": [0, { printWidth: 300 }],

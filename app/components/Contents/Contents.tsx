@@ -91,20 +91,20 @@ export const Contents: FC<Props> = ({ id }) => {
           )}
           <div className="flex-1">{data.findUniquePost.title}</div>
         </h1>
-        <div className="m-auto flex flex-wrap max-w-[1440px] flex-row-reverse items-start justify-center gap-2 px-2">
+        <div className="m-auto flex max-w-[1440px] flex-row-reverse flex-wrap items-start justify-center gap-2 px-2">
           <ContentTable
             className="sticky top-0 mx-auto max-w-xs px-4"
             title={data.findUniquePost.title}
             tree={tree}
           />
-          <div className={"w-full overflow-hidden max-w-[1024px]"}>
+          <div className={"w-full max-w-[1024px] overflow-hidden"}>
             <div className={"px-8 text-end font-mono text-gray-500"}>
               <span className="inline-block w-32">publication: </span>
               <span className="inline-block w-24">
                 {DateString(data.findUniquePost.publishedAt)}
               </span>
             </div>
-            <div className={"px-8 text-end font-mono text-gray-500 "}>
+            <div className={"px-8 text-end font-mono text-gray-500"}>
               <span className="inline-block w-32">update:</span>
               <span className="inline-block w-24">
                 {DateString(data.findUniquePost.updatedAt)}
@@ -125,7 +125,7 @@ export const Contents: FC<Props> = ({ id }) => {
                 ))}
               </div>
             )}
-            <MarkdownContent className="relative z-10 flex-1 overflow-x-hidden rounded border bg-slate-100 p-4 shadow ">
+            <MarkdownContent className="relative z-10 flex-1 overflow-x-hidden rounded border bg-slate-100 p-4 shadow">
               {children}
             </MarkdownContent>
           </div>

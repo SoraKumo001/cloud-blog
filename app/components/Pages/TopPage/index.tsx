@@ -24,7 +24,7 @@ export const TopPage: FC<Props> = ({}) => {
       (a, b) =>
         new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime()
     );
-  }, [data?.findManyPost]);
+  }, [data]);
   const categories = useMemo(() => {
     if (!data?.findManyPost) return undefined;
     const categoryPosts: {
@@ -41,7 +41,7 @@ export const TopPage: FC<Props> = ({}) => {
     return Object.entries(categoryPosts).sort(([, a], [, b]) =>
       a.name < b.name ? -1 : 1
     );
-  }, [data?.findManyPost]);
+  }, [data]);
   const system = dataSystem?.findUniqueSystem;
   useLoading(fetching);
 

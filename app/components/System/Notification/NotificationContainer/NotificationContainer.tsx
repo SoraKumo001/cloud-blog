@@ -43,7 +43,9 @@ export const NotificationContainer: FC<Props> = ({}) => {
         }
       }
     }, 10);
-    return () => handle && clearInterval(handle);
+    return () => {
+      if (handle) clearInterval(handle);
+    };
   }, [notifications, onAnimationEnd]);
 
   if (!notifications || !notifications.length) return null;

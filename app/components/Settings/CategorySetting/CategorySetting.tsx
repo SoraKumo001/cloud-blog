@@ -67,11 +67,6 @@ export const CategorySetting: FC<Props> = ({}) => {
     mutationDeleteFetching,
   ]);
 
-  watch(({ categories }) => {
-    if (categories?.[categories.length - 1]?.name) {
-      append({ id: "", name: "" });
-    }
-  });
   useEffect(() => {
     if (data) {
       remove();
@@ -81,6 +76,16 @@ export const CategorySetting: FC<Props> = ({}) => {
       append({ id: "", name: "" });
     }
   }, [data, append, remove]);
+
+  useEffect(() => {
+    // eslint-disable-next-line react-hooks/incompatible-library
+    const subscription = watch(({ categories }) => {
+      if (categories?.[categories.length - 1]?.name) {
+        append({ id: "", name: "" });
+      }
+    });
+    return () => subscription.unsubscribe();
+  }, [watch, append]);
 
   if (!data) return null;
 
