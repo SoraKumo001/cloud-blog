@@ -1,17 +1,16 @@
 import SchemaBuilder from "@pothos/core";
-import PrismaPlugin from "@pothos/plugin-prisma";
-import PrismaUtils from "@pothos/plugin-prisma-utils";
-import PothosPrismaGeneratorPlugin from "pothos-prisma-generator";
-import { type Context, prisma } from "./context";
-import type PrismaTypes from "~/generated/pothos-types";
-import { getDatamodel } from "~/generated/pothos-types";
+import DrizzlePlugin from "@pothos/plugin-drizzle";
+import { getTableConfig } from "drizzle-orm/pg-core";
+import PothosDrizzleGeneratorPlugin from "pothos-drizzle-generator";
+import type { Context } from "./context";
+import { relations } from "~/db/relations";
 
 /**
  * Create a new schema builder instance
  */
 
 export type BuilderType = {
-  PrismaTypes: PrismaTypes;
+  DrizzleRelations: typeof relations;
   Scalars: {
     Upload: {
       Input: File;
@@ -23,15 +22,13 @@ export type BuilderType = {
 
 export const createBuilder = () => {
   const builder = new SchemaBuilder<BuilderType>({
-    plugins: [PrismaPlugin, PrismaUtils, PothosPrismaGeneratorPlugin],
-    prisma: {
-      client: prisma,
-      dmmf: getDatamodel(),
+    plugins: [DrizzlePlugin, PothosDrizzleGeneratorPlugin],
+    drizzle: {
+      client: (ctx) => ctx.db,
+      relations,
+      getTableConfig,
     },
-    pothosPrismaGenerator: {
-      authority: ({ context }) => (context.user ? ["USER"] : []),
-      replace: { "%%USER%%": ({ context }) => context.user?.id },
-    },
+    pothosDrizzleGenerator: {},
   });
   return builder;
 };

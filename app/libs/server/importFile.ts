@@ -1,13 +1,13 @@
-import { prisma } from "./context";
+import { db } from "./context";
 import { getImages } from "./getImages";
-import type { Category, FireStore, Post, System, User } from "@prisma/client";
+import * as schema from "~/db/schema";
 
 type DataType = {
-  users: User[];
-  categories: Category[];
-  system: System[];
-  posts: (Post & { categories: { id: string }[] })[];
-  files: (FireStore & { binary: string })[];
+  users: (typeof schema.user.$inferSelect)[];
+  categories: (typeof schema.category.$inferSelect)[];
+  system: (typeof schema.system.$inferSelect)[];
+  posts: (typeof schema.post.$inferSelect & { categories: { id: string }[] })[];
+  files: (typeof schema.fireStore.$inferSelect & { binary: string })[];
 };
 
 export const importFile = async ({ file }: { file: string }) => {

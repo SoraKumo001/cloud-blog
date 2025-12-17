@@ -1,15 +1,14 @@
 import process from "node:process";
-import { PrismaPg } from "@prisma/adapter-pg";
-import { PrismaClient } from "@prisma/client";
+import { drizzle, type NodePgDatabase } from "drizzle-orm/node-postgres";
 import { getContext } from "hono/context-storage";
 import type { Hyperdrive } from "@cloudflare/workers-types/experimental";
-import type { User } from "@prisma/client";
 import type { serialize } from "cookie";
-
+import type { user } from "~/db/schema";
+import { relations } from "~/db/relations";
 export type Context = {
   req: Request;
-  prisma: PrismaClient;
-  user?: User;
+  db: NodePgDatabase<typeof relations, typeof relations>;
+  user?: typeof user;
   cookies: { [key: string]: string };
   setCookie: typeof serialize;
   env: { [key: string]: string };
@@ -17,36 +16,32 @@ export type Context = {
 
 type Env = {
   Variables: {
-    prisma: PrismaClient;
+    db: NodePgDatabase;
   };
   Bindings: {
     database: Hyperdrive;
   };
 };
 
-const getAdapter = (datasourceUrl: string) => {
-  const url = new URL(datasourceUrl);
-  const schema = url.searchParams.get("schema") ?? undefined;
-  return new PrismaPg({ connectionString: datasourceUrl }, { schema });
-};
-
 // Create a proxy that returns a PrismaClient instance on SessionContext with the variable name prisma
-export const prisma: PrismaClient = new Proxy<PrismaClient>({} as never, {
-  get(_target: unknown, props: keyof PrismaClient) {
+export const db: NodePgDatabase<typeof relations, typeof relations> = new Proxy<
+  NodePgDatabase<typeof relations, typeof relations>
+>({} as never, {
+  get(_target: unknown, props: keyof NodePgDatabase) {
     const context = getContext<Env>();
-    if (!context.get("prisma")) {
+    if (!context.get("db")) {
       const datasourceUrl =
         process.env.DATABASE_URL ??
         (process.env.database as { connectionString: string } | undefined)
           ?.connectionString;
       if (!datasourceUrl) throw new Error("DATABASE_URL is not set");
-      const adapter = getAdapter(datasourceUrl);
-      const prisma = new PrismaClient({
-        adapter,
-        log: ["error"],
+      const db = drizzle({
+        connection: process.env.DATABASE_URL!,
+        relations,
+        logger: true,
       });
-      context.set("prisma", prisma as never);
+      context.set("db", db);
     }
-    return context.get("prisma")[props];
+    return context.get("db")[props];
   },
 });

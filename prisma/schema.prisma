@@ -8,6 +8,11 @@ datasource db {
   provider  = "postgresql"
 }
 
+generator drizzle {
+  provider = "drizzle-prisma-generator"
+  output = "../app/db/schema.ts"
+}
+
 generator pothos {
   clientOutput      = "@prisma/client"
   provider          = "prisma-pothos-types"

@@ -1,6 +1,6 @@
-import { parse, serialize } from "cookie";
+import { parse, serialize, type SerializeOptions } from "cookie";
 import { createYoga } from "graphql-yoga";
-import { type Context, prisma } from "../libs/server/context";
+import { type Context, db } from "../libs/server/context";
 import { schema } from "../libs/server/schema";
 import type { ActionFunctionArgs, LoaderFunctionArgs } from "react-router";
 import { getUserFromToken } from "~/libs/client/getUserFromToken";
@@ -19,7 +19,11 @@ const yoga = createYoga<
     const cookies = parse(req.headers.get("Cookie") || "");
     const token = cookies["auth-token"];
     const user = await getUserFromToken({ token, secret: env.SECRET_KEY });
-    const setCookie: typeof serialize = (name, value, options) => {
+    const setCookie = (
+      name: string,
+      value: string,
+      options?: SerializeOptions
+    ) => {
       const result = serialize(name, value, options);
       responseCookies.push(result);
       return result;
@@ -27,7 +31,7 @@ const yoga = createYoga<
     return {
       req,
       env,
-      prisma,
+      db,
       user,
       cookies,
       setCookie,
