@@ -1,7 +1,8 @@
-import { eq, sql } from "drizzle-orm";
 import { db } from "./context";
 import { storage } from "./getStorage";
-import { fireStore } from "~/db/schema";
+import * as schema from "~/db/schema";
+import { eq, and, or, isNull } from "drizzle-orm";
+import { relations } from "~/db/relations";
 
 export const uploadFile = async ({
   binary,
@@ -22,11 +23,9 @@ export const uploadFile = async ({
     published: true,
     metadata: { cacheControl: "public, max-age=31536000, immutable" },
   });
-  return db.insert(fireStore).values({
-    id,
-    name: binary.name,
-    mimeType: binary.type ?? "",
-  });
+  return db
+    .insert(schema.fireStore)
+    .values({ id, name: binary.name, mimeType: binary.type ?? "" });
 };
 
 export const isolatedFiles = async ({
@@ -38,18 +37,31 @@ export const isolatedFiles = async ({
   clientEmail: string;
   privateKey: string;
 }) => {
-  const files = await db.query.fireStore.findMany({
-    with: {
-      posts: { columns: {}, extras: { count: sql`count(*)` } },
-      postCards: { columns: {}, extras: { count: sql`count(*)` } },
-      systemCards: { columns: {}, extras: { count: sql`count(*)` } },
-      systemIcons: { columns: {}, extras: { count: sql`count(*)` } },
-    },
-    where:{
-      posts: { },
-      postCards: { count: 0 },
-    }
-  });
+  const files = await db
+    .selectDistinctOn([schema.fireStore.id], { id: schema.fireStore.id })
+    .from(schema.fireStore)
+    .leftJoin(schema.post, eq(schema.post.cardId, schema.fireStore.id))
+    .leftJoin(
+      schema.system,
+      or(
+        eq(schema.system.iconId, schema.fireStore.id),
+        eq(schema.system.cardId, schema.fireStore.id)
+      )
+    )
+    .leftJoin(
+      schema.fireStoreToPost,
+      eq(schema.fireStoreToPost.fireStoreId, schema.fireStore.id)
+    )
+    .where(
+      and(
+        isNull(schema.post.cardId),
+        isNull(schema.system.iconId),
+        isNull(schema.system.cardId),
+        isNull(schema.fireStoreToPost.fireStoreId)
+      )
+    )
+    .execute();
+
   const s = storage({
     projectId,
     clientEmail,
@@ -60,7 +72,7 @@ export const isolatedFiles = async ({
       .del({ name: id })
       .catch(undefined)
       .catch(() => undefined);
-    await db.delete(fireStore).where(eq(fireStore.id, id));
+    await db.delete(schema.fireStore).where(eq(schema.fireStore.id, id));
   }
 };
 
@@ -78,7 +90,7 @@ export const isolatedFirebase = async ({
     clientEmail,
     privateKey,
   });
-  const files = await db.query.fireStore.findMany({});
+  const files = await db.select().from(schema.fireStore).execute();
   const firebaseFiles = await s.list({});
   const setFiles = new Set(files.map((v) => v.id));
   for (const { name } of firebaseFiles) {

@@ -9,7 +9,7 @@ mutation SignIn($token: String) {
 }
 
 query Post($postId: String!) {
-  findUniquePost(filter: { id: $postId }) {
+  findFirstPost(where: { id: {eq:$postId} }) {
     id
     published
     title
@@ -48,7 +48,7 @@ query Posts {
 }
 
 mutation CreateOnePost {
-  createOnePost(input: {}) {
+  createOnePost(input:{authorId: "",content: "",published: false}) {
     id
     published
     title
@@ -66,8 +66,8 @@ mutation CreateOnePost {
   }
 }
 
-mutation DeleteOnePost($id: String!) {
-  deleteOnePost(where: { id: $id }) {
+mutation DeletePost($id: String!) {
+  deletePost(where: { id:{eq: $id }}) {
     id
     published
     title
@@ -76,20 +76,15 @@ mutation DeleteOnePost($id: String!) {
     createdAt
     updatedAt
     publishedAt
-    categories {
-      id
-      name
-      createdAt
-      updatedAt
-    }
   }
 }
 
-mutation UpdateOnePost(
-  $categories: [CategoryUniqueFilter!]
-  $where: PostUniqueFilter!
+mutation UpdatePost(
+  $categories: [CategoryCreate!]
+  $where: PostWhere!
 ) {
-  updateOnePost(data: { categories: { set: $categories } }, where: $where) {
+  updatePost(input: { 
+    categories: { set: $categories } }, where: $where) {
     id
   }
 }
@@ -224,7 +219,7 @@ mutation CreateCategory($name: String!) {
   }
 }
 mutation UpdateCategory($id: String!, $name: String!) {
-  updateOneCategory(where: { id: $id }, data: { name: $name }) {
+  updateCategory(where: { id:{eq: $id} }, input: { name: $name }) {
     id
     name
     createdAt
@@ -232,8 +227,8 @@ mutation UpdateCategory($id: String!, $name: String!) {
   }
 }
 
-mutation DeleteOneCategory($id: String!) {
-  deleteOneCategory(where: { id: $id }) {
+mutation DeleteCategory($id: String!) {
+  deleteCategory(where: { id: {eq:$id} }) {
     id
     name
     createdAt

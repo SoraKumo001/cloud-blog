@@ -2,13 +2,13 @@ import { defineRelations } from "drizzle-orm";
 import * as schema from "./schema";
 
 export const relations = defineRelations(schema, (r) => ({
-  User: {
+  user: {
     post: r.many.post({
       from: r.user.id,
       to: r.post.authorId,
     }),
   },
-  Post: {
+  post: {
     author: r.one.user({
       from: r.post.authorId,
       to: r.user.id,

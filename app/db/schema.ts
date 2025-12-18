@@ -1,40 +1,34 @@
-import { sql } from "drizzle-orm";
 import {
   boolean,
   pgTable,
   primaryKey,
   text,
   timestamp,
+  uuid,
 } from "drizzle-orm/pg-core";
 
 export const user = pgTable("User", {
-  id: text("id")
-    .notNull()
-    .primaryKey()
-    .default(sql`uuid(4)`),
-  email: text("email").notNull().unique(),
-  name: text("name").notNull().default("User"),
-  createdAt: timestamp("createdAt", { precision: 3 }).notNull().defaultNow(),
-  updatedAt: timestamp("updatedAt", { precision: 3 }).notNull().defaultNow(),
+  id: uuid().notNull().primaryKey().defaultRandom(),
+  email: text().notNull().unique(),
+  name: text().notNull().default("User"),
+  createdAt: timestamp({ precision: 3 }).notNull().defaultNow(),
+  updatedAt: timestamp({ precision: 3 }).notNull().defaultNow(),
 });
 
 export const post = pgTable("Post", {
-  id: text("id")
-    .notNull()
-    .primaryKey()
-    .default(sql`uuid(4)`),
-  published: boolean("published").notNull(),
-  title: text("title").notNull().default("New Post"),
-  content: text("content").notNull(),
-  authorId: text("authorId")
+  id: uuid().notNull().primaryKey().defaultRandom(),
+  published: boolean().notNull(),
+  title: text().notNull().default("New Post"),
+  content: text().notNull(),
+  authorId: uuid()
     .notNull()
     .references(() => user.id, { onDelete: "cascade", onUpdate: "cascade" }),
-  cardId: text("cardId").references(() => fireStore.id, {
+  cardId: text().references(() => fireStore.id, {
     onDelete: "cascade",
     onUpdate: "cascade",
   }),
-  createdAt: timestamp("createdAt", { precision: 3 }).notNull().defaultNow(),
-  updatedAt: timestamp("updatedAt", { precision: 3 })
+  createdAt: timestamp({ precision: 3 }).notNull().defaultNow(),
+  updatedAt: timestamp({ precision: 3 })
     .notNull()
     .defaultNow()
     .$onUpdateFn(() => new Date()),
@@ -44,11 +38,8 @@ export const post = pgTable("Post", {
 });
 
 export const category = pgTable("Category", {
-  id: text("id")
-    .notNull()
-    .primaryKey()
-    .default(sql`uuid(4)`),
-  name: text("name").notNull(),
+  id: uuid().notNull().primaryKey().defaultRandom(),
+  name: text().notNull(),
   createdAt: timestamp("createdAt", { precision: 3 }).notNull().defaultNow(),
   updatedAt: timestamp("updatedAt", { precision: 3 })
     .notNull()
@@ -57,30 +48,30 @@ export const category = pgTable("Category", {
 });
 
 export const system = pgTable("System", {
-  id: text("id").notNull().primaryKey(),
-  title: text("title").notNull(),
-  description: text("description").notNull(),
-  iconId: text("iconId").references(() => fireStore.id, {
+  id: text().notNull().primaryKey(),
+  title: text().notNull(),
+  description: text().notNull(),
+  iconId: text().references(() => fireStore.id, {
     onDelete: "cascade",
     onUpdate: "cascade",
   }),
-  cardId: text("cardId").references(() => fireStore.id, {
+  cardId: text().references(() => fireStore.id, {
     onDelete: "cascade",
     onUpdate: "cascade",
   }),
-  createdAt: timestamp("createdAt", { precision: 3 }).notNull().defaultNow(),
-  updatedAt: timestamp("updatedAt", { precision: 3 })
+  createdAt: timestamp({ precision: 3 }).notNull().defaultNow(),
+  updatedAt: timestamp({ precision: 3 })
     .notNull()
     .defaultNow()
     .$onUpdateFn(() => new Date()),
 });
 
 export const fireStore = pgTable("FireStore", {
-  id: text("id").notNull().primaryKey(),
-  name: text("name").notNull(),
-  mimeType: text("mimeType").notNull(),
-  createdAt: timestamp("createdAt", { precision: 3 }).notNull().defaultNow(),
-  updatedAt: timestamp("updatedAt", { precision: 3 })
+  id: text().notNull().primaryKey(),
+  name: text().notNull(),
+  mimeType: text().notNull(),
+  createdAt: timestamp({ precision: 3 }).notNull().defaultNow(),
+  updatedAt: timestamp({ precision: 3 })
     .notNull()
     .defaultNow()
     .$onUpdateFn(() => new Date()),
@@ -89,10 +80,10 @@ export const fireStore = pgTable("FireStore", {
 export const categoryToPost = pgTable(
   "_CategoryToPost",
   {
-    postId: text("A")
+    postId: uuid("A")
       .notNull()
       .references(() => post.id, { onDelete: "cascade", onUpdate: "cascade" }),
-    categoryId: text("B")
+    categoryId: uuid("B")
       .notNull()
       .references(() => category.id, {
         onDelete: "cascade",
@@ -103,7 +94,7 @@ export const categoryToPost = pgTable(
 );
 
 export const fireStoreToPost = pgTable("_FireStoreToPost", {
-  postId: text("A")
+  postId: uuid("A")
     .notNull()
     .references(() => post.id, { onDelete: "cascade", onUpdate: "cascade" }),
   fireStoreId: text("B")

@@ -13,9 +13,9 @@ export const normalizationPostFiles = (
       postId: t.arg({ type: "String", required: true }),
       removeAll: t.arg({ type: "Boolean" }),
     },
-    resolve: async (_root, { postId, removeAll }, { prisma, user, env }) => {
+    resolve: async (_root, { postId, removeAll }, { db, user, env }) => {
       if (!user) throw new Error("Unauthorized");
-      await _normalizationPostFiles(prisma, postId, removeAll === true, {
+      await _normalizationPostFiles(db, postId, removeAll === true, {
         projectId: env.GOOGLE_PROJECT_ID ?? "",
         clientEmail: env.GOOGLE_CLIENT_EMAIL ?? "",
         privateKey: env.GOOGLE_PRIVATE_KEY ?? "",

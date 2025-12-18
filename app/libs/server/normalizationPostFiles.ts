@@ -1,9 +1,12 @@
+import { and, eq } from "drizzle-orm";
 import { getImages } from "./getImages";
 import { storage } from "./getStorage";
-import type { PrismaClient } from "@prisma/client";
+import type { NodePgDatabase } from "drizzle-orm/node-postgres";
+import type { relations } from "~/db/relations";
+import { fireStoreToPost } from "~/db/schema";
 
 export const normalizationPostFiles = async (
-  prisma: PrismaClient,
+  db: NodePgDatabase<typeof relations, typeof relations>,
   postId: string,
   allRemove: boolean,
   {
@@ -16,14 +19,20 @@ export const normalizationPostFiles = async (
     privateKey: string;
   }
 ) => {
-  const { content } = await prisma.post.findUniqueOrThrow({
-    select: { content: true },
-    where: { id: postId },
-  });
+  const { content } = await db.query.post
+    .findFirst({
+      columns: { content: true },
+      where: { id: postId },
+    })
+    .then((v) => {
+      if (!v) throw new Error("Post not found");
+      return v;
+    });
   const images = allRemove ? [] : await getImages(content);
-  const files = await prisma.fireStore.findMany({
-    select: { id: true, posts: { select: { id: true } } },
-    where: { posts: { some: { id: postId } } },
+  const files = await db.query.fireStore.findMany({
+    with: { posts: { columns: { id: true } } },
+    columns: { id: true },
+    where: { posts: { id: postId } },
   });
   const adds = images.filter((image) => !files.some(({ id }) => id === image));
   const deletes = files.filter((file) => !images.includes(file.id));
@@ -34,16 +43,17 @@ export const normalizationPostFiles = async (
   });
   return Promise.all([
     ...deletes.map(({ id }) =>
-      prisma.fireStore.update({
-        data: { posts: { disconnect: { id: postId } } },
-        where: { id },
-      })
+      db
+        .delete(fireStoreToPost)
+        .where(
+          and(
+            eq(fireStoreToPost.postId, postId),
+            eq(fireStoreToPost.fireStoreId, id)
+          )
+        )
     ),
     ...adds.map((image) =>
-      prisma.fireStore.update({
-        data: { posts: { connect: { id: postId } } },
-        where: { id: image },
-      })
+      db.insert(fireStoreToPost).values({ postId, fireStoreId: image })
     ),
     ...deletes.map(
       ({ id, posts }) =>

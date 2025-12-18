@@ -1,18 +1,21 @@
-import type { PrismaClient } from "@prisma/client";
+import type { NodePgDatabase } from "drizzle-orm/node-postgres";
+import type { relations } from "~/db/relations";
+import { user } from "~/db/schema";
 
 export const getUser = async (
-  prisma: PrismaClient,
+  db: NodePgDatabase<typeof relations, typeof relations>,
   name: string,
   email: string
 ) => {
-  const user = await prisma.user.findUnique({ where: { email } });
-  if (user) return user;
+  const u = await db.query.user.findFirst({ where: { email } });
+  if (u) return u;
 
-  if (await prisma.user.count()) {
+  if (await db.$count(user)) {
     return null;
   }
-  const newUser = await prisma.user.create({
-    data: { name: name, email: email },
+  const newUser = await db.insert(user).values({
+    name,
+    email,
   });
   return newUser;
 };

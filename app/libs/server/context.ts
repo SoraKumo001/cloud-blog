@@ -23,20 +23,24 @@ type Env = {
   };
 };
 
-// Create a proxy that returns a PrismaClient instance on SessionContext with the variable name prisma
+// Create a proxy that returns a Drizzle instance on SessionContext with the variable name db
 export const db: NodePgDatabase<typeof relations, typeof relations> = new Proxy<
   NodePgDatabase<typeof relations, typeof relations>
 >({} as never, {
   get(_target: unknown, props: keyof NodePgDatabase) {
     const context = getContext<Env>();
     if (!context.get("db")) {
-      const datasourceUrl =
-        process.env.DATABASE_URL ??
-        (process.env.database as { connectionString: string } | undefined)
-          ?.connectionString;
-      if (!datasourceUrl) throw new Error("DATABASE_URL is not set");
+      const connectionString = process.env.DATABASE_URL;
+      if (!connectionString) {
+        throw new Error("DATABASE_URL is not set");
+      }
+      const url = new URL(connectionString);
+      const searchPath = url.searchParams.get("schema") ?? "public";
       const db = drizzle({
-        connection: process.env.DATABASE_URL!,
+        connection: {
+          connectionString,
+          options: `--search_path=${searchPath}`,
+        },
         relations,
         logger: true,
       });

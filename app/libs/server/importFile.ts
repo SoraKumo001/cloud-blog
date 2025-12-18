@@ -13,42 +13,42 @@ type DataType = {
 export const importFile = async ({ file }: { file: string }) => {
   const data: DataType = JSON.parse(file);
   if (data) {
-    await prisma.system.upsert({
-      create: data.system[0],
-      update: data.system[0],
-      where: { id: "system" },
-    });
-    await prisma.$transaction(
-      data.users.map((value) =>
-        prisma.user.upsert({
-          create: value,
-          update: value,
-          where: { id: value.id },
-        })
-      )
-    );
+    await db
+      .insert(schema.system)
+      .values(data.system[0])
+      .onConflictDoUpdate({ target: schema.system.id, set: data.system[0] });
 
-    await prisma.$transaction(
-      data.categories.map((value) =>
-        prisma.category.upsert({
-          create: value,
-          update: value,
-          where: { id: value.id },
-        })
-      )
-    );
-    await prisma.$transaction(
-      data.files.map((value) =>
-        prisma.fireStore.upsert({
-          create: value,
-          update: value,
-          where: { id: value.id },
-        })
-      )
-    );
+    await db.transaction(async (tx) => {
+      for (const value of data.users) {
+        await tx
+          .insert(schema.user)
+          .values(value)
+          .onConflictDoUpdate({ target: schema.user.id, set: value });
+      }
+    });
+
+    await db.transaction(async (tx) => {
+      for (const value of data.categories) {
+        await tx
+          .insert(schema.category)
+          .values(value)
+          .onConflictDoUpdate({ target: schema.category.id, set: value });
+      }
+    });
+
+    await db.transaction(async (tx) => {
+      for (const value of data.files) {
+        await tx
+          .insert(schema.fireStore)
+          .values(value)
+          .onConflictDoUpdate({ target: schema.fireStore.id, set: value });
+      }
+    });
 
     const ids = new Set(
-      (await prisma.fireStore.findMany()).map(({ id }) => id)
+      (await db.select({ id: schema.fireStore.id }).from(schema.fireStore)).map(
+        ({ id }) => id
+      )
     );
 
     const imageList = Object.fromEntries(
@@ -59,27 +59,36 @@ export const importFile = async ({ file }: { file: string }) => {
         })
       )
     );
-    const transaction = data.posts.flatMap((value) => {
-      const images = imageList[value.id];
-      const { categories, ...post } = value;
-      const result = prisma.post.upsert({
-        create: post,
-        update: post,
-        where: { id: value.id },
-      });
-      const connectImages = images.filter((v) => ids.has(v));
-      if (!connectImages.length) return [result];
 
-      const result2 = prisma.post.update({
-        data: {
-          postFiles: { connect: connectImages.map((id) => ({ id })) },
-          categories: { connect: categories.map((id) => id) },
-        },
-        where: { id: value.id },
-      });
-      return [result, result2];
+    await db.transaction(async (tx) => {
+      for (const value of data.posts) {
+        const images = imageList[value.id];
+        const { categories, ...post } = value;
+        await tx
+          .insert(schema.post)
+          .values(post)
+          .onConflictDoUpdate({ target: schema.post.id, set: post });
+
+        const connectImages = images.filter((v) => ids.has(v));
+        if (connectImages.length) {
+          await tx.insert(schema.fireStoreToPost).values(
+            connectImages.map((id) => ({
+              postId: value.id,
+              fireStoreId: id,
+            }))
+          );
+        }
+
+        const connectCategories = categories.map((id) => id.id);
+        if (connectCategories.length) {
+          await tx.insert(schema.categoryToPost).values(
+            connectCategories.map((id) => ({
+              postId: value.id,
+              categoryId: id,
+            }))
+          );
+        }
+      }
     });
-
-    prisma.$transaction(transaction);
   }
 };

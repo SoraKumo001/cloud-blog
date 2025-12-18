@@ -1,23 +1,15 @@
-import { ApolloExplorer } from "apollo-explorer";
-import { printSchema } from "graphql";
-import { useLoaderData } from "react-router";
-import type { LoaderFunctionArgs } from "react-router";
-import { schema } from "~/libs/server/schema";
+import { explorer } from "apollo-explorer/html";
 
-const Explorer = () => {
-  const schema = useLoaderData<string>();
-  return (
-    <ApolloExplorer
-      className="fixed inset-0 z-50"
-      explorer={{
-        schema: schema,
-        endpointUrl: "/api/graphql",
-      }}
-    />
+export const loader = async () => {
+  return new Response(
+    explorer({
+      initialState: {
+        // Set up sample GraphQL operations
+        // document: generate(schema, 1),
+      },
+      endpointUrl: "/api/graphql",
+      introspectionInterval: 10000,
+    }),
+    { headers: { "Content-Type": "text/html" } }
   );
-};
-export default Explorer;
-export const loader = async ({ context }: LoaderFunctionArgs) => {
-  const s = schema({ env: context.cloudflare.env as never });
-  return printSchema(s);
 };

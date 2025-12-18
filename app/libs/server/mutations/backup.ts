@@ -8,19 +8,20 @@ export const backup = (
 ) =>
   t.string({
     nullable: false,
-    resolve: async (_root, {}, { user, prisma }) => {
+    resolve: async (_root, {}, { user, db }) => {
       if (!user) throw new Error("Unauthorized");
 
-      const [users, categories, system, posts, files] =
-        await prisma.$transaction([
-          prisma.user.findMany(),
-          prisma.category.findMany(),
-          prisma.system.findMany(),
-          prisma.post.findMany({
-            include: { categories: { select: { id: true } } },
+      const [users, categories, system, posts, files] = await db.transaction(
+        async (tx) => [
+          tx.query.user.findMany(),
+          tx.query.category.findMany(),
+          tx.query.system.findMany(),
+          tx.query.post.findMany({
+            with: { categories: { columns: { id: true } } },
           }),
-          prisma.fireStore.findMany(),
-        ]);
+          tx.query.fireStore.findMany(),
+        ]
+      );
 
       return JSON.stringify({
         system,

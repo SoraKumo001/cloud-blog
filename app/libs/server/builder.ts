@@ -2,7 +2,7 @@ import SchemaBuilder from "@pothos/core";
 import DrizzlePlugin from "@pothos/plugin-drizzle";
 import { getTableConfig } from "drizzle-orm/pg-core";
 import PothosDrizzleGeneratorPlugin from "pothos-drizzle-generator";
-import type { Context } from "./context";
+import { db, type Context } from "./context";
 import { relations } from "~/db/relations";
 
 /**
@@ -24,7 +24,7 @@ export const createBuilder = () => {
   const builder = new SchemaBuilder<BuilderType>({
     plugins: [DrizzlePlugin, PothosDrizzleGeneratorPlugin],
     drizzle: {
-      client: (ctx) => ctx.db,
+      client: () => db,
       relations,
       getTableConfig,
     },

@@ -9,11 +9,11 @@ export const signIn = (
     unknown
   >
 ) =>
-  t.prismaField({
+  t.drizzleField({
     args: { token: t.arg({ type: "String" }) },
-    type: "User",
+    type: "user",
     nullable: true,
-    resolve: async (_query, _root, { token }, { setCookie, env, prisma }) => {
+    resolve: async (_query, _root, { token }, { setCookie, env, db }) => {
       const userInfo =
         typeof token === "string"
           ? await getUserInfo(env.NEXT_PUBLIC_projectId, token)
@@ -29,7 +29,7 @@ export const signIn = (
         });
         return null;
       }
-      const user = await getUser(prisma, userInfo.name, userInfo.email);
+      const user = await getUser(db, userInfo.name, userInfo.email);
       if (user) {
         const secret = env.SECRET_KEY;
         if (!secret) throw new Error("SECRET_KEY is not defined");

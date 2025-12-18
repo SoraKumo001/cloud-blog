@@ -1,6 +1,7 @@
 import { semaphore } from "@node-libraries/semaphore";
 import { storage } from "../getStorage";
 import type { BuilderType } from "../builder";
+import { fireStore } from "~/db/schema";
 
 export const restoreFiles = (
   t: PothosSchemaTypes.MutationFieldBuilder<
@@ -8,12 +9,12 @@ export const restoreFiles = (
     unknown
   >
 ) =>
-  t.prismaField({
-    type: ["FireStore"],
+  t.drizzleField({
+    type: ["fireStore"],
     args: {
       files: t.arg({ type: ["Upload"], required: true }),
     },
-    resolve: async (_query, _root, { files }, { user, env, prisma }) => {
+    resolve: async (_query, _root, { files }, { user, env, db }) => {
       if (!user) throw new Error("Unauthorized");
 
       const firebaseStorage = storage({
@@ -32,15 +33,19 @@ export const restoreFiles = (
             metadata: { cacheControl: "public, max-age=31536000, immutable" },
           });
           s.release();
-          return prisma.fireStore.upsert({
-            where: { id: file.name },
-            create: {
+          return db
+            .insert(fireStore)
+            .values({
               id: file.name,
               name: file.name,
               mimeType: file.type ?? "",
-            },
-            update: { name: file.name, mimeType: file.type ?? "" },
-          });
+            })
+            .onConflictDoUpdate({
+              target: fireStore.id,
+              set: { name: file.name, mimeType: file.type ?? "" },
+            })
+            .returning()
+            .then((v) => v[0]);
         })
       );
     },
