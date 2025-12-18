@@ -5,7 +5,7 @@ import { ImageDragField } from "~/components/Commons/ImageDragField";
 import { TextField } from "~/components/Commons/TextField";
 import {
   useCreateSystemMutation,
-  useSystemQuery,
+  useFindSystemQuery,
   useUpdateSystemMutation,
   useUploadSystemIconMutation,
 } from "~/generated/graphql";
@@ -26,7 +26,7 @@ interface Props {}
  */
 export const SiteSetting: FC<Props> = ({}) => {
   const { register, handleSubmit } = useForm<FormInput>();
-  const [{ data, fetching, error }] = useSystemQuery();
+  const [{ data, fetching, error }] = useFindSystemQuery();
   const [{ fetching: mutationFetching }, updateSystem] =
     useUpdateSystemMutation();
   const [, uploadSystemIcon] = useUploadSystemIconMutation();
@@ -45,7 +45,7 @@ export const SiteSetting: FC<Props> = ({}) => {
       updateSystem({
         title,
         description,
-        icon: icon === null ? { disconnect: true } : undefined,
+        icon: icon ? undefined : null,
       });
       if (icon) {
         uploadSystemIcon({ file: icon });
@@ -56,8 +56,8 @@ export const SiteSetting: FC<Props> = ({}) => {
   const getFirebaseUrl = useFirebaseUrl();
   if (!data && !error) return null;
   const url =
-    data?.findUniqueSystem.icon?.id &&
-    getFirebaseUrl(data?.findUniqueSystem.icon?.id);
+    data?.findFirstSystem?.icon?.id &&
+    getFirebaseUrl(data?.findFirstSystem?.icon?.id);
   return (
     <div className="h-full overflow-y-auto">
       <div className="m-auto max-w-2xl p-8">
@@ -65,12 +65,12 @@ export const SiteSetting: FC<Props> = ({}) => {
           <h1 className="mb-4 border-b text-xl">サイト情報</h1>
           <TextField
             label="タイトル"
-            defaultValue={data?.findUniqueSystem.title}
+            defaultValue={data?.findFirstSystem?.title}
             {...register("title")}
           />
           <TextField
             label="説明"
-            defaultValue={data?.findUniqueSystem.description}
+            defaultValue={data?.findFirstSystem?.description}
             {...register("description")}
           />
           <ImageDragField

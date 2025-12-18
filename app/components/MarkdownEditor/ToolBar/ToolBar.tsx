@@ -15,16 +15,16 @@ import { ImageDragField } from "~/components/Commons/ImageDragField";
 import { MultiSelect } from "~/components/Commons/MultiSelect";
 import { TextField } from "~/components/Commons/TextField";
 import {
-  type PostQuery,
-  useCategoriesQuery,
-  useDeleteOnePostMutation,
+  useDeletePostMutation,
+  useFindCategoriesQuery,
+  type FindPostQuery,
 } from "~/generated/graphql";
 import { useFirebaseUrl } from "~/hooks/useFirebaseUrl";
 import { useLoading } from "~/hooks/useLoading";
 import { classNames } from "~/libs/client/classNames";
 import { useConvertImage } from "~/libs/client/convertImage";
 interface Props {
-  post: PostQuery["findUniquePost"];
+  post: FindPostQuery["findFirstPost"];
   control: Control<FormInput>;
   onCard: (card: Blob | null | undefined) => void;
 }
@@ -36,9 +36,9 @@ interface Props {
  */
 export const ToolBar: FC<Props> = ({ post, control, onCard }) => {
   const navigate = useNavigate();
-  const [{ fetching: updateFetching }, deletePost] = useDeleteOnePostMutation();
+  const [{ fetching: updateFetching }, deletePost] = useDeletePostMutation();
   const [isDelete, setDelete] = useState(false);
-  const [{ data, fetching }] = useCategoriesQuery();
+  const [{ data, fetching }] = useFindCategoriesQuery();
   const categoryList = useMemo(() => {
     if (!data) return undefined;
     return [...(data?.findManyCategory ?? [])].sort((a, b) =>

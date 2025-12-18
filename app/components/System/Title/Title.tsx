@@ -2,7 +2,7 @@ import React, { useMemo } from "react";
 import type { FC, ReactNode } from "react";
 import { Head } from "~/components/Commons/Head";
 import { useEnv } from "~/components/Provider/EnvProvider";
-import { useSystemQuery } from "~/generated/graphql";
+import { useFindSystemQuery } from "~/generated/graphql";
 import { useSelector } from "~/libs/client/context";
 
 interface Props {
@@ -16,7 +16,7 @@ interface Props {
  * @param {Props} { }
  */
 export const Title: FC<Props> = ({ image, children }) => {
-  const [{ data }] = useSystemQuery();
+  const [{ data }] = useFindSystemQuery();
   const host = useSelector((state: { host?: string }) => state.host);
   const env = useEnv();
   const OGP_URL = env["NEXT_PUBLIC_OGP_URL"];
@@ -26,9 +26,9 @@ export const Title: FC<Props> = ({ image, children }) => {
       typeof c === "object" ? "" : c
     )?.join("");
   }, [children]);
-  if (!data) return null;
-  const systemTitle = data.findUniqueSystem.title;
-  const systemDescription = data.findUniqueSystem.description;
+  if (!data?.findFirstSystem) return null;
+  const systemTitle = data.findFirstSystem.title;
+  const systemDescription = data.findFirstSystem.description;
   const title = (subTitle || "") + ` | ${systemTitle}`;
   const ogpUrl = OGP_URL ?? `${host}/api/og`;
   const imageUrl = [

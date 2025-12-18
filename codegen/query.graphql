@@ -8,7 +8,7 @@ mutation SignIn($token: String) {
   }
 }
 
-query Post($postId: String!) {
+query FindPost($postId: String!) {
   findFirstPost(where: { id: {eq:$postId} }) {
     id
     published
@@ -28,7 +28,7 @@ query Post($postId: String!) {
   }
 }
 
-query Posts {
+query FindPosts {
   findManyPost(orderBy: { publishedAt: Desc }) {
     id
     published
@@ -80,32 +80,29 @@ mutation DeletePost($id: String!) {
 }
 
 mutation UpdatePost(
-  $categories: [CategoryCreate!]
-  $where: PostWhere!
-) {
-  updatePost(input: { 
-    categories: { set: $categories } }, where: $where) {
-    id
-  }
-}
-mutation UpdatePost(
   $postId: String!
   $title: String
   $content: String
   $published: Boolean
   $publishedAt: DateTime
-  $categories: [CategoryUniqueFilter!]
+  $categories: [_CategoryToPostCreate!]!
 ) {
-  updateOnePost(
-    data: {
-      id: $postId
+  delete_CategoryToPost(where:  {
+     postId:{eq:$postId}
+  }) {
+    categoryId
+  }
+  createMany_CategoryToPost(input: $categories) {
+    categoryId
+  }
+  updatePost(
+    input: {
       title: $title
       content: $content
       published: $published
       publishedAt: $publishedAt
-      categories: { set: $categories }
     }
-    where: { id: $postId }
+    where: { id: {eq:$postId} }
   ) {
     id
     published
@@ -136,8 +133,8 @@ mutation UploadPostImage($postId: String!, $file: Upload!) {
   }
 }
 
-query System {
-  findUniqueSystem(filter: { id: "system" }) {
+query FindSystem {
+  findFirstSystem(where: { id:{eq: "system"} }) {
     id
     title
     description
@@ -155,7 +152,7 @@ query System {
   }
 }
 
-mutation createSystem($input: SystemCreateInput!) {
+mutation CreateSystem($input: SystemCreate!) {
   createOneSystem(input: $input) {
     id
     title
@@ -170,11 +167,11 @@ mutation createSystem($input: SystemCreateInput!) {
 mutation UpdateSystem(
   $title: String
   $description: String
-  $icon: SystemUpdateIconRelationInput
+  $icon: String
 ) {
-  updateOneSystem(
-    data: { title: $title, description: $description, icon: $icon }
-    where: { id: "system" }
+  updateSystem(
+    input: { title: $title, description: $description, iconId: $icon }
+    where: { id: {eq:"system"} }
   ) {
     id
     title
@@ -193,15 +190,15 @@ mutation UpdateSystem(
   }
 }
 
-query Category($id: String!) {
-  findUniqueCategory(filter: { id: $id }) {
+query FindCategory($id: String!) {
+  findFirstCategory(where: { id: {eq:$id} }) {
     id
     name
     createdAt
     updatedAt
   }
 }
-query Categories {
+query FindCategories {
   findManyCategory {
     id
     name

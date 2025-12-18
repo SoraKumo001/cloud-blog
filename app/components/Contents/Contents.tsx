@@ -7,7 +7,7 @@ import { ContentTable } from "../ContentTable";
 import { MarkdownContent } from "../MarkdownContent";
 import { Title } from "../System/Title";
 import { Image } from "~/components/Commons/Image";
-import { usePostQuery } from "~/generated/graphql";
+import { useFindPostQuery } from "~/generated/graphql";
 import { useUser } from "~/hooks/useAuth";
 import { useFirebaseUrl } from "~/hooks/useFirebaseUrl";
 import { useLoading } from "~/hooks/useLoading";
@@ -27,7 +27,7 @@ interface Props {
  */
 export const Contents: FC<Props> = ({ id }) => {
   const navigate = useNavigate();
-  const [{ data, fetching, error }] = usePostQuery({
+  const [{ data, fetching, error }] = useFindPostQuery({
     variables: { postId: id },
     context,
   });
@@ -35,29 +35,29 @@ export const Contents: FC<Props> = ({ id }) => {
     if (error) console.error(error);
   }, [error]);
   const [children, tree] = useMarkdown({
-    markdown: data?.findUniquePost?.content,
+    markdown: data?.findFirstPost?.content,
   });
   const session = useUser();
   const categories = useMemo(() => {
-    return [...(data?.findUniquePost?.categories ?? [])].sort((a, b) =>
+    return [...(data?.findFirstPost?.categories ?? [])].sort((a, b) =>
       a.name < b.name ? -1 : 1
     );
   }, [data]);
   const getFirebaseUrl = useFirebaseUrl();
   useLoading(fetching);
+  if (!data?.findFirstPost) return null;
   const image =
-    data?.findUniquePost?.cardId && getFirebaseUrl(data.findUniquePost.cardId);
-  if (!data?.findUniquePost) return null;
+    data?.findFirstPost.cardId && getFirebaseUrl(data.findFirstPost.cardId);
 
   return (
     <>
       <Head>
         <meta
           name="date"
-          content={new Date(data.findUniquePost?.updatedAt).toISOString()}
+          content={new Date(data.findFirstPost.updatedAt).toISOString()}
         />
       </Head>
-      <Title image={image}>{data.findUniquePost?.title}</Title>
+      <Title image={image}>{data.findFirstPost.title}</Title>
       <div className="relative h-full w-full overflow-x-hidden overflow-y-scroll">
         {session && (
           <Button
@@ -89,25 +89,25 @@ export const Contents: FC<Props> = ({ id }) => {
               📖
             </div>
           )}
-          <div className="flex-1">{data.findUniquePost.title}</div>
+          <div className="flex-1">{data.findFirstPost.title}</div>
         </h1>
         <div className="m-auto flex max-w-[1440px] flex-row-reverse flex-wrap items-start justify-center gap-2 px-2">
           <ContentTable
             className="sticky top-0 mx-auto max-w-xs px-4"
-            title={data.findUniquePost.title}
+            title={data.findFirstPost.title}
             tree={tree}
           />
           <div className={"w-full max-w-[1024px] overflow-hidden"}>
             <div className={"px-8 text-end font-mono text-gray-500"}>
               <span className="inline-block w-32">publication: </span>
               <span className="inline-block w-24">
-                {DateString(data.findUniquePost.publishedAt)}
+                {DateString(data.findFirstPost.publishedAt)}
               </span>
             </div>
             <div className={"px-8 text-end font-mono text-gray-500"}>
               <span className="inline-block w-32">update:</span>
               <span className="inline-block w-24">
-                {DateString(data.findUniquePost.updatedAt)}
+                {DateString(data.findFirstPost.updatedAt)}
               </span>
             </div>
             {categories.length > 0 && (

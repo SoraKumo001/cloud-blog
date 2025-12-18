@@ -80,10 +80,10 @@ export const fireStore = pgTable("FireStore", {
 export const categoryToPost = pgTable(
   "_CategoryToPost",
   {
-    postId: uuid("A")
+    postId: uuid()
       .notNull()
       .references(() => post.id, { onDelete: "cascade", onUpdate: "cascade" }),
-    categoryId: uuid("B")
+    categoryId: uuid()
       .notNull()
       .references(() => category.id, {
         onDelete: "cascade",
@@ -94,10 +94,10 @@ export const categoryToPost = pgTable(
 );
 
 export const fireStoreToPost = pgTable("_FireStoreToPost", {
-  postId: uuid("A")
+  postId: uuid()
     .notNull()
     .references(() => post.id, { onDelete: "cascade", onUpdate: "cascade" }),
-  fireStoreId: text("B")
+  fireStoreId: text()
     .notNull()
     .references(() => fireStore.id, {
       onDelete: "cascade",

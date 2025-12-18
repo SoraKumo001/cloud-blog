@@ -9,7 +9,7 @@ import type { editor } from "monaco-editor";
 import type { DOMAttributes, FC } from "react";
 import type { SubmitHandler } from "react-hook-form";
 import {
-  usePostQuery,
+  useFindPostQuery,
   useUpdatePostMutation,
   useUploadPostIconMutation,
   useUploadPostImageMutation,
@@ -152,7 +152,7 @@ export const Editor: FC<Props> = ({ id }) => {
       title,
       content,
       published,
-      categories: categories.map((id) => ({ id })),
+      categories: categories.map((id) => ({ postId: id, categoryId: id })),
       publishedAt: new Date(publishedAt).toISOString(),
     })
       .then((result) => {
@@ -164,11 +164,11 @@ export const Editor: FC<Props> = ({ id }) => {
       });
   };
 
-  const [{ fetching, data }] = usePostQuery({ variables: { postId: id } });
+  const [{ fetching, data }] = useFindPostQuery({ variables: { postId: id } });
   const [{ fetching: updateFetching }, updatePost] = useUpdatePostMutation();
   const [content, setContent] = useState<string>();
   const [, update] = useTransition();
-  const post = data?.findUniquePost;
+  const post = data?.findFirstPost;
   useLoading([
     fetching,
     updateFetching,
@@ -177,7 +177,7 @@ export const Editor: FC<Props> = ({ id }) => {
     isConverting,
   ]);
   const [children] = useMarkdown({
-    markdown: content ?? data?.findUniquePost.content,
+    markdown: content ?? data?.findFirstPost?.content,
   });
   if (fetching || !post) return null;
   return (

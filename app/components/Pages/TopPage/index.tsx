@@ -2,9 +2,9 @@ import { type FC, useMemo } from "react";
 import { PostList } from "../../PostList";
 import { Title } from "../../System/Title";
 import {
-  type PostsQuery,
-  usePostsQuery,
-  useSystemQuery,
+  useFindPostsQuery,
+  useFindSystemQuery,
+  type FindPostsQuery,
 } from "~/generated/graphql";
 import { useLoading } from "~/hooks/useLoading";
 
@@ -16,8 +16,8 @@ interface Props {}
  * @param {Props} { }
  */
 export const TopPage: FC<Props> = ({}) => {
-  const [{ data: dataSystem }] = useSystemQuery();
-  const [{ fetching, data }] = usePostsQuery();
+  const [{ data: dataSystem }] = useFindSystemQuery();
+  const [{ fetching, data }] = useFindPostsQuery();
   const posts = useMemo(() => {
     if (!data?.findManyPost) return undefined;
     return [...data.findManyPost].sort(
@@ -28,7 +28,7 @@ export const TopPage: FC<Props> = ({}) => {
   const categories = useMemo(() => {
     if (!data?.findManyPost) return undefined;
     const categoryPosts: {
-      [key: string]: { name: string; posts: PostsQuery["findManyPost"] };
+      [key: string]: { name: string; posts: FindPostsQuery["findManyPost"] };
     } = {};
     data.findManyPost.forEach((post) => [
       post.categories.forEach((c) => {
@@ -42,7 +42,7 @@ export const TopPage: FC<Props> = ({}) => {
       a.name < b.name ? -1 : 1
     );
   }, [data]);
-  const system = dataSystem?.findUniqueSystem;
+  const system = dataSystem?.findFirstSystem;
   useLoading(fetching);
 
   if (!posts || !categories || !system) return null;

@@ -3,10 +3,10 @@ import { Button } from "react-daisyui";
 import { type SubmitHandler, useFieldArray, useForm } from "react-hook-form";
 import { TextField } from "~/components/Commons/TextField";
 import {
-  useCategoriesQuery,
   useUpdateCategoryMutation,
   useCreateCategoryMutation,
-  useDeleteOneCategoryMutation,
+  useDeleteCategoryMutation,
+  useFindCategoriesQuery,
 } from "~/generated/graphql";
 import { useLoading } from "~/hooks/useLoading";
 
@@ -24,7 +24,7 @@ interface Props {}
  * @param {Props} { }
  */
 export const CategorySetting: FC<Props> = ({}) => {
-  const [{ data, fetching }] = useCategoriesQuery({ context });
+  const [{ data, fetching }] = useFindCategoriesQuery({ context });
   const { register, handleSubmit, watch, control } = useForm<FormInput>({
     defaultValues: {
       categories: [
@@ -44,7 +44,7 @@ export const CategorySetting: FC<Props> = ({}) => {
   const [{ fetching: mutationCreateFetching }, createCategory] =
     useCreateCategoryMutation();
   const [{ fetching: mutationDeleteFetching }, deleteCategory] =
-    useDeleteOneCategoryMutation();
+    useDeleteCategoryMutation();
   const onSubmit: SubmitHandler<FormInput> = async ({ categories }) => {
     await Promise.all(
       categories.map(async ({ id, name }) => {

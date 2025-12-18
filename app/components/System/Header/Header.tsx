@@ -9,7 +9,7 @@ import {
 import { Link, useNavigate } from "react-router";
 import type { FC } from "react";
 import { Head } from "~/components/Commons/Head";
-import { useSystemQuery } from "~/generated/graphql";
+import { useFindSystemQuery } from "~/generated/graphql";
 import { useUser, useSignOut } from "~/hooks/useAuth";
 import { useFirebaseUrl } from "~/hooks/useFirebaseUrl";
 import { useLoading } from "~/hooks/useLoading";
@@ -24,14 +24,14 @@ interface Props {}
 export const Header: FC<Props> = () => {
   const navigate = useNavigate();
   const session = useUser();
-  const [{ data, fetching, error }] = useSystemQuery();
+  const [{ data, fetching, error }] = useFindSystemQuery();
   const signOut = useSignOut();
   useLoading(fetching);
   const getFirebaseUrl = useFirebaseUrl();
   if (!data && !error) return null;
   const favicon =
-    data?.findUniqueSystem.icon &&
-    getFirebaseUrl(data.findUniqueSystem.icon.id);
+    data?.findFirstSystem?.icon &&
+    getFirebaseUrl(data.findFirstSystem?.icon.id);
   return (
     <>
       <Head>
@@ -41,7 +41,7 @@ export const Header: FC<Props> = () => {
           name="viewport"
           content="width=device-width,minimum-scale=1,initial-scale=1"
         />
-        <meta name="description" content={data?.findUniqueSystem.description} />
+        <meta name="description" content={data?.findFirstSystem?.description} />
         <link
           rel="alternate"
           type="application/rss+xml"
@@ -59,7 +59,7 @@ export const Header: FC<Props> = () => {
           to="/"
         >
           <HomeIcon fontSize="large" size={24} />
-          {data?.findUniqueSystem.title}
+          {data?.findFirstSystem?.title}
         </Link>
         <div className="flex gap-1">
           {session && (

@@ -1,7 +1,7 @@
 {
   "version": "8",
   "dialect": "postgres",
-  "id": "cbb7b838-2518-414c-85dc-0c445c0a0e93",
+  "id": "0a56075d-6a2f-4b4c-899e-84d63a05ead0",
   "prevIds": [
     "00000000-0000-0000-0000-000000000000"
   ],
@@ -108,7 +108,7 @@
       "default": null,
       "generated": null,
       "identity": null,
-      "name": "A",
+      "name": "postId",
       "entityType": "columns",
       "schema": "public",
       "table": "_CategoryToPost"
@@ -121,7 +121,7 @@
       "default": null,
       "generated": null,
       "identity": null,
-      "name": "B",
+      "name": "categoryId",
       "entityType": "columns",
       "schema": "public",
       "table": "_CategoryToPost"
@@ -199,7 +199,7 @@
       "default": null,
       "generated": null,
       "identity": null,
-      "name": "A",
+      "name": "postId",
       "entityType": "columns",
       "schema": "public",
       "table": "_FireStoreToPost"
@@ -212,7 +212,7 @@
       "default": null,
       "generated": null,
       "identity": null,
-      "name": "B",
+      "name": "fireStoreId",
       "entityType": "columns",
       "schema": "public",
       "table": "_FireStoreToPost"
@@ -493,7 +493,7 @@
     {
       "nameExplicit": false,
       "columns": [
-        "A"
+        "postId"
       ],
       "schemaTo": "public",
       "tableTo": "Post",
@@ -502,7 +502,7 @@
       ],
       "onUpdate": "CASCADE",
       "onDelete": "CASCADE",
-      "name": "_CategoryToPost_A_Post_id_fkey",
+      "name": "_CategoryToPost_postId_Post_id_fkey",
       "entityType": "fks",
       "schema": "public",
       "table": "_CategoryToPost"
@@ -510,7 +510,7 @@
     {
       "nameExplicit": false,
       "columns": [
-        "B"
+        "categoryId"
       ],
       "schemaTo": "public",
       "tableTo": "Category",
@@ -519,7 +519,7 @@
       ],
       "onUpdate": "CASCADE",
       "onDelete": "CASCADE",
-      "name": "_CategoryToPost_B_Category_id_fkey",
+      "name": "_CategoryToPost_categoryId_Category_id_fkey",
       "entityType": "fks",
       "schema": "public",
       "table": "_CategoryToPost"
@@ -527,7 +527,7 @@
     {
       "nameExplicit": false,
       "columns": [
-        "A"
+        "postId"
       ],
       "schemaTo": "public",
       "tableTo": "Post",
@@ -536,7 +536,7 @@
       ],
       "onUpdate": "CASCADE",
       "onDelete": "CASCADE",
-      "name": "_FireStoreToPost_A_Post_id_fkey",
+      "name": "_FireStoreToPost_postId_Post_id_fkey",
       "entityType": "fks",
       "schema": "public",
       "table": "_FireStoreToPost"
@@ -544,7 +544,7 @@
     {
       "nameExplicit": false,
       "columns": [
-        "B"
+        "fireStoreId"
       ],
       "schemaTo": "public",
       "tableTo": "FireStore",
@@ -553,7 +553,7 @@
       ],
       "onUpdate": "CASCADE",
       "onDelete": "CASCADE",
-      "name": "_FireStoreToPost_B_FireStore_id_fkey",
+      "name": "_FireStoreToPost_fireStoreId_FireStore_id_fkey",
       "entityType": "fks",
       "schema": "public",
       "table": "_FireStoreToPost"
@@ -628,8 +628,8 @@
     },
     {
       "columns": [
-        "A",
-        "B"
+        "postId",
+        "categoryId"
       ],
       "nameExplicit": false,
       "name": "_CategoryToPost_pkey",
